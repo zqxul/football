@@ -1,0 +1,69 @@
+/*.matchBox {*/
+    /*margin-left: -15px;*/
+    /*margin-right: -15px;*/
+/*}*/
+
+.item-header .matchDetail, .item-header .vsDetail, .item-header .analyzeDetail {
+    font-size: 14px;
+}
+
+.item-body .matchDetail, .item-body .vsDetail, .item-body .analyzeDetail {
+    font-size: 10px;
+}
+
+.matchDetail, .vsDetail, .analyzeDetail {
+    text-align: center;
+    border: 1px solid #cfd5d4;
+    position: relative;
+    top: 25%;
+}
+
+.match-header {
+    background-color: #e0e0e0;
+}
+
+.item-header, .item-body {
+    margin-left: -23px;
+    margin-right: -23px;
+}
+
+.matchDetail .row div, .vsDetail .row div, .analyzeDetail .row div, .matchDetail, .vsDetail, .analyzeDetail {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.matchDetail .row, .vsDetail .row, .analyzeDetail .row, .odds .row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.vsDetail img{
+    max-height: 28px;
+    max-width: 28px;
+}
+.dropdown-menu{
+    min-width: 150px;
+    max-height: 200px;
+    overflow-y: scroll;
+}
+.teamName{
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.card-footer{
+    font-size: 14px;
+}
+/*.dropdown-menu {*/
+    /*min-width: 19px;*/
+    /*padding: 0px 0px;*/
+    /*margin-left: 0px;*/
+    /*margin-right: 0px;*/
+/*}*/
+/*#pop-analysis {*/
+    /*border: 1px solid #e0e0e0;*/
+    /*width: 200px;*/
+    /*height: 200px;*/
+/*}*/
+.popover{
+    max-width: 80%;
+}

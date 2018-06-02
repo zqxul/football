@@ -1,0 +1,342 @@
+.card .card-body .nav-tabs .nav-item .nav-link {
+    padding: .25rem .8rem;
+}
+
+.tab-content {
+    height: 326px;
+    overflow-y: scroll;
+}
+
+.information-content {
+    padding: .5rem;
+}
+
+.timelineEvents .card-header, .matchEvent .card-header, .ranking .card-header, .odds .card-header {
+    padding: .25rem;
+    text-align: center;
+    font-size: 12px;
+}
+
+.tab-content .card, .tab-content .card-header, .tab-content .card-body {
+    border-radius: 0px;
+}
+
+.timeline-event-footer .nav li {
+    font-size: 10px;
+    padding: 0rem 0rem;
+}
+
+.timeline-event-footer {
+    padding: .25rem;
+}
+
+.teamInfo img {
+    max-height: 45px;
+    max-width: 45px;
+}
+
+/*自定义高度百分比样式*/
+.h-10 {
+    height: 10%;
+!important;
+}
+
+.h-15 {
+    height: 15%;
+!important;
+}
+
+.h-20 {
+    height: 20%;
+!important;
+}
+
+.h-30 {
+    height: 30%;
+!important;
+}
+
+.h-35 {
+    height: 35%;
+!important;
+}
+
+.h-40 {
+    height: 40%;
+!important;
+}
+
+.h-45 {
+    height: 45%;
+!important;
+}
+
+/*比赛情报TAB页的样式*/
+.team-power {
+    border-bottom: 1px solid #fff;
+}
+
+.team-power .magic-title {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 15px;
+    background: -webkit-gradient(linear, 0 0, 100% 0, from(#904442), to(#3d4d74));
+    color: #fff;
+    font-weight: 500;
+    display: table-caption;
+}
+
+.team-power .home-team-magic {
+    width: 50%;
+    background: #904442;
+    display: table-cell;
+    position: relative;
+}
+
+.team-power .home-team-magic .team-title {
+    background: #793d3f;
+    height: 30px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding-left: 12px;
+}
+
+.team-power .home-team-magic .team-title h3 {
+
+    line-height: 30px;
+    font-size: 15px;
+    color: #fff;
+    font-weight: 600;
+    float: left;
+    margin: 0;
+}
+
+.team-power .home-team-magic .home-dec {
+    padding: 36px 18px 6px 18px;
+}
+
+.team-power .home-team-magic .home-dec p {
+    font-size: 12px;
+    color: #fff;
+    margin: 0;
+    line-height: 28px;
+    margin-bottom: 2px;
+}
+
+.team-power .away-team-magic {
+    width: 50%;
+    background: #3d4d74;
+    display: table-cell;
+    position: relative;
+}
+
+.team-power .away-team-magic .team-title {
+    background: #364467;
+    height: 30px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.team-power .away-team-magic .team-title h3 {
+    line-height: 30px;
+    font-size: 15px;
+    color: #fff;
+    font-weight: 600;
+    float: right;
+    padding-right: 12px;
+    margin: 0;
+}
+
+.team-power .away-team-magic .away-dec {
+    padding: 36px 18px 6px 18px;
+}
+
+.team-power .away-team-magic .away-dec p {
+    font-size: 12px;
+    color: #fff;
+    margin: 0;
+    line-height: 28px;
+    margin-bottom: 2px;
+}
+
+
+/*必发指数样式*/
+.data_table {
+    /*float: left;*/
+    display: inline;
+    width: 100%;
+    margin: 0;
+    position: relative;
+    box-shadow: 0px 0px 5px #000;
+    border-radius: 5px;
+}
+.dian_l {
+    left: 4px;
+}
+.dian_l, .dian_r {
+    display: block;
+    position: absolute;
+    top: 1px;
+    color: #262119;
+    font-size: 8px;
+}
+.dian_r {
+    right: 4px;
+}
+.dian_l, .dian_r {
+    display: block;
+    position: absolute;
+    top: 1px;
+    color: #262119;
+    font-size: 8px;
+}
+.data_table table {
+    width: 100%;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+thead {
+    font-size: 1.2vw;
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+tr {
+    font-size: 1vw;
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+.data_table thead td {
+    height: 29px;
+    background: #443219;
+    color: #b59365;
+    border: 1px solid #4f3e27;
+}
+.data_table td {
+    text-align: center;
+}
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+.data_table tbody td {
+    height: 29px;
+    background: #282a27;
+    color: #bbb;
+    border: 1px solid #30382c;
+}
+.probable {
+    cursor: pointer;
+    float: left;
+    display: inline;
+    width: 100%;
+    padding-top: 25px;
+    background: #333;
+    margin: 0;
+    border: 1px solid #fff;
+    position: relative;
+}
+.proba_total {
+    float: left;
+    display: inline;
+    width: 40%;
+    color: #bbb;
+    text-align: center;
+}
+.proba_ic_cjl {
+    background-position: 0px -175px;
+}
+.proba_ic {
+    display: inline-block;
+    width: 33px;
+    height: 38px;
+}
+.proba_total p {
+    line-height: 20px;
+}
+strong, b {
+    font-weight: bold;
+}
+.c_orange {
+    color: #d95f1c !important;
+}
+.proba_data {
+    float: left;
+    display: inline;
+    color: #bbb;
+    width: 60%;
+}
+.proba_data p {
+    padding: 5px;
+}
+.data_bj {
+    display: inline-flex;
+    width: 70px;
+    height: 10px;
+    text-align: left;
+    background: #ddd;
+    margin-right: 5px;
+}
+.data_jd_red {
+    display: inline-flex;
+    height: 10px;
+    background: #d95f1c;
+}
+.data_jd_green {
+    display: inline-block;
+    height: 10px;
+    background: #6ea967;
+}
+.data_jd_blue {
+    display: inline-block;
+    height: 10px;
+    background: #0f80d0;
+}
+.c_green {
+    color: #509700 !important;
+}
+.c_blue {
+    color: #0f80d0 !important;
+}
+.pro_ctrl {
+    display: none;
+    cursor: pointer;
+    width: 27px;
+    height: 116px;
+    background: #444;
+    border-left: 1px solid #555;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+.proctrl_ic {
+    display: block;
+    width: 13px;
+    height: 7px;
+    overflow: hidden;
+    background-position: -70px -185px;
+    position: absolute;
+    left: 7px;
+    top: 50%;
+    margin-top: -3px;
+}
+.bfindex p{
+    font-size: 1.4vw;
+}

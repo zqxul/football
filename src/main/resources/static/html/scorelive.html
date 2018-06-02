@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+    <title>ScoreLive</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../production/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../custom/css/scorelive.css">
+    <link rel="stylesheet" href="../production/font-awesome/css/font-awesome.min.css">
+</head>
+
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">足球计划</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">每日球报</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">比赛情报</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./scorelive.html">比分直播</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">足彩推荐</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">博彩心得</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">会员理财</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark">-->
+<!--<div class="container">-->
+<!--<a class="navbar-brand" href="#">足球计划</a>-->
+<!--<div class="collapse navbar-collapse">-->
+<!--<ul class="navbar-nav mr-auto">-->
+<!--<li class="nav-item">-->
+<!--<a class="nav-link" href="#">每日球报</a>-->
+<!--</li>-->
+<!--<li class="nav-item">-->
+<!--<a class="nav-link" href="#">比分直播</a>-->
+<!--</li>-->
+<!--<li class="nav-item">-->
+<!--<a class="nav-link" href="#">足彩推荐</a>-->
+<!--</li>-->
+<!--<li class="nav-item">-->
+<!--<a class="nav-link" href="#">会员理财</a>-->
+<!--</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+<!--</nav>-->
+<main role="main">
+    <div class="container-fluid">
+        <div class="card matchBox">
+            <div class="card-header text-center">
+                <form>
+                    <div class="dropdown date" style="display: inline-block;">
+                        <button class="btn btn-sm dropdown-toggle" style="width: 150px;" type="button"
+                                id="dropdownDate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            选择日期
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownDate">
+                            <a class="dropdown-item">2018-05-16</a>
+                            <a class="dropdown-item" href="#">2018-05-16</a>
+                            <a class="dropdown-item" href="#">2018-05-16</a>
+                            <a class="dropdown-item" href="#">2018-05-16</a>
+                            <a class="dropdown-item" href="#">2018-05-16</a>
+                            <a class="dropdown-item" href="#">2018-05-16</a>
+                        </div>
+                    </div>
+                    <div class="dropdown date" style="display: inline-block;">
+                        <button class="btn btn-sm dropdown-toggle" style="width: 150px;" type="button"
+                                id="dropdownTime" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            选择时间
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownTime">
+                            <a class="dropdown-item">18：00</a>
+                            <a class="dropdown-item" href="#">18：00</a>
+                            <a class="dropdown-item" href="#">18：00</a>
+                            <span class="dropdown-item"><input type="checkbox"> 18:00</span>
+                            <span class="dropdown-item"><input type="checkbox"> 19:00</span>
+                            <span class="dropdown-item"><input type="checkbox"> 20:00</span>
+
+                        </div>
+                    </div>
+                    <div class="dropdown date" style="display: inline-block;">
+                        <button class="btn btn-sm dropdown-toggle" style="width: 150px;" type="button"
+                                id="dropdownMatch" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            选择赛事
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMatch">
+                            <a class="dropdown-item">欧冠</a>
+                            <a class="dropdown-item" href="#">英超</a>
+                            <a class="dropdown-item" href="#">西甲</a>
+                            <span class="dropdown-item"><input type="checkbox"> 欧冠</span>
+                            <span class="dropdown-item"><input type="checkbox"> 英超</span>
+                            <span class="dropdown-item"><input type="checkbox"> 西甲</span>
+                        </div>
+                    </div>
+                    <div class="dropdown date" style="display: inline-block;">
+                        <button class="btn btn-sm dropdown-toggle" style="width: 150px;" type="button"
+                                id="dropdownStatus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            选择状态
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownStatus">
+                            <a class="dropdown-item">已结束</a>
+                            <a class="dropdown-item" href="#">进行中</a>
+                            <a class="dropdown-item" href="#">未开赛</a>
+                            <span class="dropdown-item"><input type="checkbox"> 已结束</span>
+                            <span class="dropdown-item"><input type="checkbox"> 进行中</span>
+                            <span class="dropdown-item"><input type="checkbox"> 未开赛</span>
+                        </div>
+                    </div>
+                    <div style="display: inline-block;">&nbsp;&nbsp;&nbsp;
+                        <button type="button" class="btn btn-dark btn-sm">查询</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-header pt-0 pb-0 match-header">
+                <div class="row item-header">
+                    <div class="col matchDetail">
+                        <div class="row align-items-center" style="height: 30px">
+                            <div class="period col-3">场次</div>
+                            <div class="events col-3">赛事</div>
+                            <div class="playTime col-3">比赛时间</div>
+                            <div class="type col-3">状态</div>
+                        </div>
+                    </div>
+                    <div class="col-5 vsDetail">
+                        <div class="row align-items-center" style="height: 30px">
+                            <div class="host col">(排名)主队</div>
+                            <div class="score col-2">比分</div>
+                            <div class="guest col">客队(排名)</div>
+                        </div>
+                    </div>
+                    <div class="col analyzeDetail">
+                        <div class="row align-items-center" style="height: 30px">
+                            <div class="half col">半场</div>
+                            <div class="half col">全场</div>
+                            <div class="results col">彩果</div>
+                            <div class="other col"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body pt-0 pb-0 match-body">
+                <div class="row item-body">
+                    <div class="col matchDetail">
+                        <div class="row align-items-center" style="height: 35px">
+                            <div class="period col-3">周六001</div>
+                            <div class="events col-3">欧冠欧冠欧冠</div>
+                            <div class="playTime col-3">18:00</div>
+                            <div class="type col-3">已結束</div>
+
+                        </div>
+                    </div>
+                    <div class="col-5 vsDetail">
+                        <div class="row align-items-center" style="height: 35px">
+                            <div class="host col">
+                                <div class="col-8 text-right" style="display: inline-block;">
+                                    <span class="yellowNum badge badge-warning">1</span>
+                                    <span class="redCardNum badge badge-danger">1</span>
+                                    (<span class="rank">3</span>)<span class="teamName">曼联&nbsp;</span>
+                                </div>
+                                <div class="col-2" style="display: inline-block;">
+                                    <img src="http://pimg1.126.net/caipiao_info/images/zcdata/team/logo/24826.png"
+                                         alt="Munich">
+                                </div>
+                            </div>
+                            <div class="score col-1">
+                                <span class="host">1</span> : <span class="guest">1</span>
+                            </div>
+                            <div class="guest col">
+                                <div class="col-2" style="display: inline-block;">
+                                    <img src="http://pimg1.126.net/caipiao_info/images/zcdata/team/logo/24830.png"
+                                         alt="Chelsea">
+                                </div>
+                                <div class="col-8 text-left" style="display: inline-block;">
+                                    <span class="teamName">&nbsp;切尔西</span>(<span class="rank">4</span>)
+                                    <span class="yellowNum badge badge-danger">1</span>
+                                    <span class="redNum badge badge-warning">1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col analyzeDetail">
+                        <div class="row align-items-center" style="height: 35px">
+                            <div class="half col"><span>0</span> : <span>1</span></div>
+                            <div class="half col"><span>1</span> : <span>1</span></div>
+                            <div class="results col">平局</div>
+                            <div class="other col"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row item-body">
+                    <div class="col matchDetail">
+                        <div class="row align-items-center" style="height: 35px">
+                            <div class="period col-3">周六001</div>
+                            <div class="events col-3">欧冠欧冠欧冠</div>
+                            <div class="playTime col-3">18:00</div>
+                            <div class="type col-3">已結束</div>
+
+                        </div>
+                    </div>
+                    <div class="col-5 vsDetail">
+                        <div class="row align-items-center" style="height: 35px">
+                            <div class="host col">
+                                <div class="col-8 text-right" style="display: inline-block;">
+                                    <span class="yellowNum badge badge-warning">1</span>
+                                    <span class="redCardNum badge badge-danger">1</span>
+                                    (<span class="rank">3</span>)<span class="teamName">曼联&nbsp;</span>
+                                </div>
+                                <div class="col-2" style="display: inline-block;">
+                                    <img src="http://pimg1.126.net/caipiao_info/images/zcdata/team/logo/24826.png"
+                                         alt="Munich">
+                                </div>
+                            </div>
+                            <div class="score col-1">
+                                <span class="host">1</span> : <span class="guest">1</span>
+                            </div>
+                            <div class="guest col">
+                                <div class="col-2" style="display: inline-block;">
+                                    <img src="http://pimg1.126.net/caipiao_info/images/zcdata/team/logo/24830.png"
+                                         alt="Chelsea">
+                                </div>
+                                <div class="col-8 text-left" style="display: inline-block;">
+                                    <span class="teamName">&nbsp;切尔西</span>(<span class="rank">4</span>)
+                                    <span class="yellowNum badge badge-danger">1</span>
+                                    <span class="redNum badge badge-warning">1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col analyzeDetail">
+                        <div class="row align-items-center" style="height: 35px">
+                            <div class="half col"><span>0</span> : <span>1</span></div>
+                            <div class="half col"><span>1</span> : <span>1</span></div>
+                            <div class="results col">平局</div>
+                            <div class="other col"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row item-body">
+                    <div class="col matchDetail">
+                        <div class="row align-items-center" style="height: 35px">
+                            <div class="period col-3">周六001</div>
+                            <div class="events col-3">欧冠欧冠欧冠</div>
+                            <div class="playTime col-3">18:00</div>
+                            <div class="type col-3">已結束</div>
+
+                        </div>
+                    </div>
+                    <div class="col-5 vsDetail">
+                        <div class="row align-items-center" style="height: 35px">
+                            <div class="host col">
+                                <div class="col-8 text-right" style="display: inline-block;">
+                                    <span class="yellowNum badge badge-warning">1</span>
+                                    <span class="redCardNum badge badge-danger">1</span>
+                                    (<span class="rank">3</span>)<span class="teamName">曼彻斯特联&nbsp;</span>
+                                </div>
+                                <div class="col-2" style="display: inline-block;">
+                                    <img src="http://pimg1.126.net/caipiao_info/images/zcdata/team/logo/24826.png"
+                                         alt="Munich">
+                                </div>
+                            </div>
+                            <div class="score col-1">
+                                <a class="popover-link" data-container="body" data-toggle="popover"
+                                   data-placement="bottom">
+                                    <span class="host">1</span> : <span class="guest">1</span>
+                                </a>
+                            </div>
+                            <div class="guest col">
+                                <div class="col-2" style="display: inline-block;">
+                                    <img src="http://pimg1.126.net/caipiao_info/images/zcdata/team/logo/24830.png"
+                                         alt="Chelsea">
+                                </div>
+                                <div class="col-8 text-left" style="display: inline-block;">
+                                    <span class="teamName">&nbsp;切尔西切尔西切</span>
+                                    (<span class="rank">4</span>)
+                                    <span class="yellowNum badge badge-danger">1</span>
+                                    <span class="redNum badge badge-warning">1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col analyzeDetail">
+                        <div class="row align-items-center" style="height: 35px">
+                            <div class="half col"><span>0</span> : <span>1</span></div>
+                            <div class="half col"><span>1</span> : <span>1</span></div>
+                            <div class="results col">平局</div>
+                            <div class="other col"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-footer">
+                <ul class="list-unstyled">
+                    <li>
+                        点击球队名：查看球队战绩，选择赛事筛选可对赛事类别进行隐藏/显示切换。
+                    </li>
+                    <li>
+                        网易彩票比分直播提示：以上比分数据仅供浏览、投注参考之用，并不作为最终派奖赛果依据。
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+<div id="pop-analysis" class="container-fluid">
+    <div class="card analysisCard">
+        <ul class="list-unstyled">
+            <li>
+                点击球队名：查看球队战绩，选择赛事筛选可对赛事类别进行隐藏/显示切换。
+            </li>
+            <li>
+                网易彩票比分直播提示：以上比分数据仅供浏览、投注参考之用，并不作为最终派奖赛果依据。
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<script src="../production/jquery/jquery.min.js"></script>
+<script src="../production/bootstrap/js/popper.min.js"></script>
+<script src="../production/bootstrap/js/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        // $("[data-toggle='popover']").popover();
+        $(".popover-link").popover({
+            delay: 50,
+            html: true,
+            title: 'analysis',
+            content: $('.analysisCard')
+        });
+    });
+</script>
+
+</html>
