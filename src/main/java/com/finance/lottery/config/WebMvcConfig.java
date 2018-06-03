@@ -1,6 +1,8 @@
 package com.finance.lottery.config;
 
 import com.finance.lottery.interceptor.LoginInterceptor;
+import com.finance.lottery.interceptor.VisitInterceptor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -25,6 +27,21 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/account/**");
+        registry.addInterceptor(loginInterceptor()).addPathPatterns("/account/**");
+        List<String> visitPaths = new ArrayList<>();
+        visitPaths.add("/football/news/list");
+        visitPaths.add("/analysis/info");
+        visitPaths.add("/live/matchs/lastest");
+        registry.addInterceptor(visitInterceptor()).addPathPatterns(visitPaths);
+    }
+
+    @Bean
+    public LoginInterceptor loginInterceptor() {
+        return new LoginInterceptor();
+    }
+
+    @Bean
+    VisitInterceptor visitInterceptor() {
+        return new VisitInterceptor();
     }
 }

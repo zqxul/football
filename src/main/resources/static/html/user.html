@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>用户分析</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../production/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../production/font-awesome/css/font-awesome.min.css">
+</head>
+
+<body>
+<nav class="navbar navbar-dark bg-dark sticky-top">
+    <div class="col-2 p-0 text-center">
+    <a class="navbar-brand" href="#">后台管理</a>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 position-fixed h-100 d-none d-md-block navbar-expand-md navbar-dark bg-dark">
+            <ul class="navbar-nav flex-column p-1 pt-4">
+                <li class="nav-item my-1">
+                    <a class="nav-link p-2" href="./admin.html">
+                        <div class="row m-0">
+                            <span class="col-4 p-0 text-center" style="width: 50px;">
+                                <i class="fa fa-home"></i>
+                            </span>
+                            <span class="col-8 p-0">全站一览</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item my-1">
+                    <a class="nav-link p-2" href="./todo.html">
+                        <div class="row m-0">
+                            <span class="col-4 p-0 text-center" style="width: 50px;">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                            <span class="col-8 p-0">待办事项</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item my-1">
+                    <a class="nav-link p-2" href="./recharge.html">
+                        <div class="row m-0">
+                            <span class="col-4 p-0 text-center" style="width: 50px;">
+                                <i class="fa fa-cny"></i>
+                            </span>
+                            <span class="col-8 p-0">充值管理</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item my-1">
+                    <a class="nav-link p-2" href="./withdraw.html">
+                        <div class="row m-0">
+                            <span class="col-4 p-0 text-center" style="width: 50px;">
+                                <i class="fa fa-money"></i>
+                            </span>
+                            <span class="col-8 p-0">提现管理</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item active my-1">
+                    <a class="nav-link p-2" href="./user.html">
+                        <div class="row m-0">
+                            <span class="col-4 p-0 text-center" style="width: 50px;">
+                                <i class="fa fa-users"></i>
+                            </span>
+                            <span class="col-8 p-0">用户分析</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item my-1">
+                    <a class="nav-link p-2" href="./action.html">
+                        <div class="row m-0">
+                            <span class="col-4 p-0 text-center" style="width: 50px;">
+                                <i class="fa fa-smile-o"></i>
+                            </span>
+                            <span class="col-8 p-0">行为分析</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="row m-0">
+                <div class="col p-0">
+                    <div class="row m-0 justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                        <h5 class="h5">访问量</h5>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group mr-2">
+                                <button class="btn btn-sm btn-outline-secondary">今日</button>
+                                <button class="btn btn-sm btn-outline-secondary">本周</button>
+                                <button class="btn btn-sm btn-outline-secondary">近两周</button>
+                                <button class="btn btn-sm btn-outline-secondary">一个月</button>
+                                <button class="btn btn-sm btn-outline-secondary">三个月</button>
+                                <button class="btn btn-sm btn-outline-secondary">半年</button>
+                                <button class="btn btn-sm btn-outline-secondary">一年</button>
+                            </div>
+                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                                <span data-feather="calendar"></span>
+                                This week
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row m-0 justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                        <div class="col">
+                            <div class="row my-1">
+                                <h5 class="h5">新增用户</h5>
+                                <div class="btn-toolbar mb-2 mb-md-0">
+                                    <div class="btn-group mr-2">
+                                        <button class="btn btn-sm btn-outline-secondary">今日</button>
+                                        <button class="btn btn-sm btn-outline-secondary">本周</button>
+                                        <button class="btn btn-sm btn-outline-secondary">本月</button>
+                                        <!--<button class="btn btn-sm btn-outline-secondary">近两周</button>-->
+                                        <!--<button class="btn btn-sm btn-outline-secondary">一个月</button>-->
+                                        <!--<button class="btn btn-sm btn-outline-secondary">三个月</button>-->
+                                        <!--<button class="btn btn-sm btn-outline-secondary">半年</button>-->
+                                        <!--<button class="btn btn-sm btn-outline-secondary">一年</button>-->
+                                    </div>
+                                    <div>近
+                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                                            <span data-feather="calendar"></span>
+                                            This week
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col">
+                                    汇总
+                                </div>
+                                <div class="col">
+                                    详细的图表展示
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-0 justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                        <h5 class="h5">排行榜(列表+分布图饼图展示等，不同用户访问不同页面的数据)</h5>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group mr-2">
+                                <button class="btn btn-sm btn-outline-secondary">访问量</button>
+                                <button class="btn btn-sm btn-outline-secondary">充值</button>
+                                <button class="btn btn-sm btn-outline-secondary">提现</button>
+                            </div>
+                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                                <span data-feather="calendar"></span>
+                                This week
+                            </button>
+                        </div>
+                    </div>
+                    <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Graphs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<script>
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            datasets: [{
+                data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+                lineTension: 0,
+                backgroundColor: 'transparent',
+                borderColor: '#007bff',
+                borderWidth: 4,
+                pointBackgroundColor: '#007bff'
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }]
+            },
+            legend: {
+                display: false,
+            }
+        }
+    });
+</script>
+</body>
+<script src="../production/jquery/jquery.min.js"></script>
+<script src="../production/bootstrap/js/bootstrap.min.js"></script>
+</html>

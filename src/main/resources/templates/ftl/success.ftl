@@ -28,6 +28,9 @@
                 <a class="nav-link" href="#">博彩心得</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="#">我的账户</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="#">投资收益</a>
             </li>
         </ul>

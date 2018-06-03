@@ -50,6 +50,7 @@ mybatis:
 
 football:
   redis:
+    visit-count-key: 'visit_count'
     resetpass:
       prefix: resetpass_
       timeout:

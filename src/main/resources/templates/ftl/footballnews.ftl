@@ -23,23 +23,23 @@
             <li class="nav-item">
                 <a class="nav-link" href="/analysis/info">赛事分析</a>
             </li>
-            <!--<li class="nav-item">-->
-            <!--<a class="nav-link" href="#">冷热指数</a>-->
-            <!--</li>-->
             <li class="nav-item">
                 <a class="nav-link" href="/live/matchs/lastest">比分直播</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">大数据</a>
-            </li>
             <#--<li class="nav-item">-->
-                <#--<a class="nav-link" href="#">足彩推荐</a>-->
+                <#--<a class="nav-link" href="#">大数据</a>-->
             <#--</li>-->
+            <li class="nav-item">
+                <a class="nav-link" href="#">足彩推荐</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">博彩心得</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">会员理财</a>
+                <a class="nav-link" href="#">我的账户</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">投资收益</a>
             </li>
         </ul>
     </div>
