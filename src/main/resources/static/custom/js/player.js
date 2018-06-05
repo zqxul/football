@@ -344,14 +344,14 @@ data[0].push({
 });
 data[0].push({
     axis: "盘带 ",
-    value: "0"
+    value: "70"
 });
 data[0].push({
     axis: "传球",
-    value: "0"
+    value: "67"
 });
 data[0].push({
     axis: "射门",
-    value: "0"
+    value: "80"
 });
 RadarChart.draw("#chart", data);

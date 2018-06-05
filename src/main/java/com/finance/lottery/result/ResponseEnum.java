@@ -18,6 +18,7 @@ public enum ResponseEnum {
     USER_AVAILABLE(3007,"用户名可以使用"),
     EMAIL_NOT_BIND(3008,"该邮箱未绑定账户"),
     RESET_PASS_INVALID(3009,"密码重置链接已失效"),
+    INVALID(3010,"报歉，你访问的页面失踪了"),
     ;
 
     private int code;

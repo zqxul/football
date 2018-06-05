@@ -59,5 +59,6 @@
 <script src="/production/jquery/jquery.min.js"></script>
 <script src="/production/bootstrap/js/bootstrap.min.js"></script>
 <script src="/custom/js/d3.js"></script>
-<script src="/custom/js/player.js"></script>
+<#--<script src="/custom/js/player.js"></script>-->
+${script}
 </html>

@@ -6,11 +6,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @Author: xuzhiqing
@@ -41,17 +43,37 @@ public class BigDataService {
      * @Date: 2018/6/5 12:07
      * @Description: 获取球员数据
      */
-    public String getPlayerData(String playerId) {
+    public List<String> getPlayerData(String playerId) {
         String url = dqdWebsite + "player/" + playerId + ".html";
         String responseHtml = HttpUtil.get(url);
+        if (responseHtml == null) {
+            return null;
+        }
         Document document = Jsoup.parse(responseHtml);
         Element newMainElement = document.selectFirst(".newmain");
+        if (newMainElement == null) {
+            return null;
+        }
         Element newListElement = newMainElement.selectFirst(".news_list");
-        newListElement.remove();
+        if (newListElement != null) {
+            newListElement.remove();
+        }
         Element moreInfoElement = newMainElement.selectFirst(".more_info_button");
-        moreInfoElement.remove();
-        String elementStr = newMainElement.toString().replaceAll("<a href=\"https://www.dongqiudi.com", "<a href=\"");
-        return elementStr;
+        if (moreInfoElement != null) {
+            moreInfoElement.remove();
+        }
+        List<String> elements = new ArrayList<>();
+
+        String mainElement = newMainElement.toString().replaceAll("<a href=\"https://www.dongqiudi.com", "<a href=\"");
+        elements.add(mainElement);
+        Elements scripts = document.select("script");
+        if (scripts.size() > 2) {
+            Element script = scripts.get(scripts.size() - 2);
+            if (script != null) {
+                elements.add(script.toString());
+            }
+        }
+        return elements;
     }
 
     /**
@@ -63,10 +85,18 @@ public class BigDataService {
     public String getTeamData(String teamId) {
         String url = dqdWebsite + "team/" + teamId + ".html";
         String responseHtml = HttpUtil.get(url);
+        if (responseHtml == null) {
+            return null;
+        }
         Document document = Jsoup.parse(responseHtml);
         Element newMainElement = document.selectFirst(".newmain");
+        if (newMainElement == null) {
+            return null;
+        }
         Element newListElement = newMainElement.selectFirst(".news_list");
-        newListElement.remove();
+        if (newListElement != null) {
+            newListElement.remove();
+        }
         String elementStr = newMainElement.toString().replaceAll("<a href=\"https://www.dongqiudi.com", "<a href=\"");
         return elementStr;
     }
@@ -106,6 +136,9 @@ public class BigDataService {
             url = url + "&version=" + bigDataPara.getVersion();
         }
         String responseHtml = HttpUtil.get(url);
+        if (responseHtml == null) {
+            return null;
+        }
         Document document = Jsoup.parse(responseHtml);
         Element statListElement = document.selectFirst(statListCssPath);
         Element statDetailElement = document.selectFirst(statDetailCssPath);
@@ -115,6 +148,9 @@ public class BigDataService {
         if (statDetailElement != null) {
             String elementStr = statDetailElement.toString().replaceAll("<a href=\"https://www.dongqiudi.com", "<a href=\"");
             elements.add(elementStr);
+        }
+        if (elements.size() < 1) {
+            return null;
         }
         return elements;
     }

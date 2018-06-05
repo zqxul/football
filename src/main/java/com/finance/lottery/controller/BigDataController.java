@@ -1,6 +1,7 @@
 package com.finance.lottery.controller;
 
 import com.finance.lottery.entity.BigDataPara;
+import com.finance.lottery.result.ResponseEnum;
 import com.finance.lottery.service.BigDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +34,12 @@ public class BigDataController {
         DeferredResult<ModelAndView> result = new DeferredResult<>();
         ModelAndView mav = new ModelAndView("bigdata");
         List<String> elements = bigDataService.getMatchData(bigDataPara);
+        if (elements == null) {
+            mav.setViewName("invalid");
+            mav.addObject("msg", ResponseEnum.INVALID);
+            result.setResult(mav);
+            return result;
+        }
         mav.addObject("statList", elements.get(0));
         mav.addObject("statDetail", elements.get(1));
         result.setResult(mav);
@@ -48,8 +55,14 @@ public class BigDataController {
     @GetMapping("/team/{teamId}.html")
     public DeferredResult<ModelAndView> getTeamDetail(@PathVariable String teamId) {
         DeferredResult<ModelAndView> result = new DeferredResult<>();
-        String teamDetail = bigDataService.getTeamData(teamId);
         ModelAndView mav = new ModelAndView("team");
+        String teamDetail = bigDataService.getTeamData(teamId);
+        if (teamDetail == null) {
+            mav.setViewName("invalid");
+            mav.addObject("msg", ResponseEnum.INVALID.getMsg());
+            result.setResult(mav);
+            return result;
+        }
         mav.addObject("teamDetail", teamDetail);
         result.setResult(mav);
         return result;
@@ -64,9 +77,18 @@ public class BigDataController {
     @GetMapping("/player/{playerId}.html")
     public DeferredResult<ModelAndView> getPlayerDetail(@PathVariable String playerId) {
         DeferredResult<ModelAndView> result = new DeferredResult<>();
-        String playerDetail = bigDataService.getPlayerData(playerId);
         ModelAndView mav = new ModelAndView("player");
+        List<String> elements = bigDataService.getPlayerData(playerId);
+        if (elements == null && elements.size() < 1) {
+            mav.setViewName("invalid");
+            mav.addObject("msg", ResponseEnum.INVALID);
+            result.setResult(mav);
+            return result;
+        }
+        String playerDetail = elements.get(0);
+        String script = elements.get(1);
         mav.addObject("playerDetail", playerDetail);
+        mav.addObject("script", script);
         result.setResult(mav);
         return result;
     }
