@@ -1,5 +1,6 @@
 package com.finance.lottery;
 
+import com.finance.lottery.util.HttpUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = FootballLotteryApplication.class)
@@ -81,6 +84,16 @@ public class FootballLotteryApplicationTests {
 
     @Test
     public void contextLoads() {
+    }
+
+    @Test
+    public void httpPost(){
+        String url = "localhost:5555/user/login";
+        Map<String,String> paramsMap = new HashMap<>();
+        paramsMap.put("username","xuzhiqing");
+        paramsMap.put("password","xuzhiqing1");
+        String responseText = HttpUtil.post(url,paramsMap);
+        System.out.println(responseText);
     }
 
 }

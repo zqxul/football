@@ -50,7 +50,7 @@
             <div class="card-header text-center">
                 <form>
                     <div class="dropdown date" style="display: inline-block;">
-                        <button class="btn btn-sm dropdown-toggle" style="width: 150px;" type="button"
+                        <button class="btn btn-sm dropdown-toggle" style="width: 170px;" type="button"
                                 id="dropdownDate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         ${currentPeriod!'比赛日期'}
                         </button>
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                     <div class="dropdown date" style="display: inline-block;">
-                        <button class="btn btn-sm dropdown-toggle" style="width: 150px;" type="button"
+                        <button class="btn btn-sm dropdown-toggle" style="width: 160px;" type="button"
                                 id="dropdownMatch" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             赛事筛选
                         </button>

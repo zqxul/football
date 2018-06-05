@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 public class WebUtil {
 
     public static String getIPAddress(HttpServletRequest request) {
-        String ip = request.getHeader("x-forwarded-for");
+        String ip = request.getHeader("X-Forwarded-For");
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
         }

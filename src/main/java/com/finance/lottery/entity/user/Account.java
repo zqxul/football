@@ -6,4 +6,5 @@ package com.finance.lottery.entity.user;
  * @Date: 2018/5/30 13:40
  */
 public class Account {
+
 }
