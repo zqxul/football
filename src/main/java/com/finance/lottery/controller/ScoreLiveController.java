@@ -40,26 +40,6 @@ public class ScoreLiveController {
      * @Date: 2018/5/13 08:10
      * @Description: 获取一周之内的所有比赛
      */
-//    @GetMapping("/matchs")
-//    public DeferredResult<ScoreLiveMatchResponse> getMatchs() {
-//        DeferredResult<ScoreLiveMatchResponse> deferredResult = new DeferredResult<>();
-//        CompletableFuture.supplyAsync(() ->
-//                scoreLiveService.getScoreLiveMatchResponse(scoreLiveMatchRequest)).thenApply(response -> deferredResult.setResult(response));
-//        return deferredResult;
-//    }
-//    @GetMapping("/matchs")
-//    public DeferredResult<String> getMatchs() {
-//        DeferredResult<String> deferredResult = new DeferredResult<>();
-//        CompletableFuture.supplyAsync(() ->
-//                scoreLiveService.getScoreLiveMatchResponseJson(scoreLiveMatchRequest)).thenApply(response -> deferredResult.setResult(response));
-//        return deferredResult;
-//    }
-//    @GetMapping("/matchs")
-//    public List<MatchInfo> getMatchs() {
-//        List<MatchInfo> matchInfos = scoreLiveService.getScoreLiveMatchResponseJson(scoreLiveMatchRequest);
-//        return matchInfos;
-//    }
-
 //    @GetMapping("/matchs/lastest")
 //    public DeferredResult<List<MatchInfo>> getMatchsLastest() {
 //        DeferredResult<List<MatchInfo>> deferredResult = new DeferredResult<>();
@@ -71,24 +51,45 @@ public class ScoreLiveController {
 //        });
 //        return deferredResult;
 //    }
+//    @GetMapping("/matchs/lastest")
+//    public DeferredResult<ModelAndView> getMatchsLastest() {
+//        DeferredResult<ModelAndView> deferredResult = new DeferredResult<>();
+//        long time1 = System.currentTimeMillis();
+//        CompletableFuture.supplyAsync(() ->
+//                scoreLiveService.getScoreLiveMatchs(scoreLiveMatchRequest)).thenApply(matchInfoList -> {
+//            List<String> periods = scoreLiveService.getMatchPeriods(scoreLiveMatchRequest);
+//            List<String> times = matchInfoList.parallelStream().map(matchInfo -> matchInfo.getMatchTime()).collect(Collectors.toSet()).parallelStream().sorted().collect(Collectors.toList());
+//            List<String> leagues = matchInfoList.parallelStream().map(matchInfo -> matchInfo.getLeagueName()).collect(Collectors.toSet()).parallelStream().sorted().collect(Collectors.toList());
+//            ModelAndView mav = new ModelAndView("scorelive");
+//            mav.addObject("periods", periods);
+//            mav.addObject("times", times);
+//            mav.addObject("leagues", leagues);
+//            mav.addObject("matchInfos", matchInfoList);
+//            return deferredResult.setResult(mav);
+//        });
+//        System.out.println("It takes for " + (System.currentTimeMillis() - time1) + " seconds");
+//        return deferredResult;
+//    }
     @GetMapping("/matchs/lastest")
     public DeferredResult<ModelAndView> getMatchsLastest() {
         DeferredResult<ModelAndView> deferredResult = new DeferredResult<>();
         long time1 = System.currentTimeMillis();
-        CompletableFuture.supplyAsync(() ->
-                scoreLiveService.getScoreLiveMatchs(scoreLiveMatchRequest)).thenApply(matchInfoList -> {
-            List<String> periods = scoreLiveService.getMatchPeriods(scoreLiveMatchRequest);
-            List<String> times = matchInfoList.parallelStream().map(matchInfo -> matchInfo.getMatchTime()).collect(Collectors.toSet()).parallelStream().sorted().collect(Collectors.toList());
-            List<String> leagues = matchInfoList.parallelStream().map(matchInfo -> matchInfo.getLeagueName()).collect(Collectors.toSet()).parallelStream().sorted().collect(Collectors.toList());
-            ModelAndView mav = new ModelAndView("scorelive");
-            mav.addObject("periods", periods);
-            mav.addObject("times", times);
-            mav.addObject("leagues", leagues);
-            mav.addObject("matchInfos", matchInfoList);
-            return deferredResult.setResult(mav);
-        });
+        List<MatchInfo> matchInfoList = scoreLiveService.getScoreLiveMatchs(scoreLiveMatchRequest);
+        List<String> times = matchInfoList.parallelStream().map(matchInfo -> matchInfo.getMatchTime()).collect(Collectors.toSet()).parallelStream().sorted().collect(Collectors.toList());
+        List<String> leagues = matchInfoList.parallelStream().map(matchInfo -> matchInfo.getLeagueName()).collect(Collectors.toSet()).parallelStream().sorted().collect(Collectors.toList());
+        ModelAndView mav = new ModelAndView("scorelive");
+        mav.addObject("times", times);
+        mav.addObject("leagues", leagues);
+        mav.addObject("matchInfos", matchInfoList);
+        deferredResult.setResult(mav);
         System.out.println("It takes for " + (System.currentTimeMillis() - time1) + " seconds");
         return deferredResult;
+    }
+
+    @GetMapping("/getPeriods")
+    public List<String> getPeriods() {
+        List<String> periods = scoreLiveService.getMatchPeriods(scoreLiveMatchRequest);
+        return periods;
     }
 
     @GetMapping("/matchs")
@@ -96,7 +97,7 @@ public class ScoreLiveController {
         DeferredResult<ModelAndView> deferredResult = new DeferredResult<>();
         long time1 = System.currentTimeMillis();
         CompletableFuture.supplyAsync(() ->
-            scoreLiveService.getScoreLiveMatchsByDate(scoreLiveMatchRequest,date)).thenApply(matchInfoList -> {
+                scoreLiveService.getScoreLiveMatchsByDate(scoreLiveMatchRequest, date)).thenApply(matchInfoList -> {
             List<String> periods = scoreLiveService.getMatchPeriods(scoreLiveMatchRequest);
             List<String> times = matchInfoList.parallelStream().map(matchInfo -> matchInfo.getMatchTime()).collect(Collectors.toSet()).parallelStream().sorted().collect(Collectors.toList());
             List<String> leagues = matchInfoList.parallelStream().map(matchInfo -> matchInfo.getLeagueName()).collect(Collectors.toSet()).parallelStream().sorted().collect(Collectors.toList());
@@ -105,9 +106,9 @@ public class ScoreLiveController {
             mav.addObject("times", times);
             mav.addObject("leagues", leagues);
             mav.addObject("matchInfos", matchInfoList);
-            mav.addObject("currentPeriod",date);
+            mav.addObject("currentPeriod", date);
             return deferredResult.setResult(mav);
-    });
+        });
         System.out.println("It takes for " + (System.currentTimeMillis() - time1) + " seconds");
         return deferredResult;
     }

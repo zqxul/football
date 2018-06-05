@@ -71,13 +71,13 @@ public class ScoreLiveService {
             if (guestTeamLogo != null) {
                 guestLogo = guestTeamLogo.attr("src");
             }
-            matchInfos.add(new MatchInfo(period, eventStyle, events, playTime, round, hostRedCard, hostYellowCard, hostName, hostLogo, score, guestLogo, guestName, visitYellowCard, visitredcard, statusDesc, matchStatus, halfScore, bidScore,concede));
+            matchInfos.add(new MatchInfo(period, eventStyle, events, playTime, round, hostRedCard, hostYellowCard, hostName, hostLogo, score, guestLogo, guestName, visitYellowCard, visitredcard, statusDesc, matchStatus, halfScore, bidScore, concede));
         });
         return matchInfos;
     }
 
-    public List<MatchInfo> getScoreLiveMatchsByDate(ScoreLiveMatchRequest request,String date) {
-        String responseText = restTemplate.getForObject(request.getUrl()+"/jcbf/?date="+date, String.class);
+    public List<MatchInfo> getScoreLiveMatchsByDate(ScoreLiveMatchRequest request, String date) {
+        String responseText = restTemplate.getForObject(request.getUrl() + "/jcbf/?date=" + date, String.class);
         Document document = Jsoup.parse(responseText);
         Elements elements = document.selectFirst("#gameList").children();
         List<MatchInfo> matchInfos = new ArrayList<>();
@@ -89,8 +89,8 @@ public class ScoreLiveService {
             String score = e.attr("score");
             String[] goals = score.split(":");
             int hostGoals = 0;
-            int guestGoals =0;
-            if(goals.length==2){
+            int guestGoals = 0;
+            if (goals.length == 2) {
                 hostGoals = Integer.valueOf(goals[0]);
                 guestGoals = Integer.valueOf(goals[1]);
             }
@@ -118,18 +118,17 @@ public class ScoreLiveService {
             if (guestTeamLogo != null) {
                 guestLogo = guestTeamLogo.attr("src");
             }
-            matchInfos.add(new MatchInfo(period, eventStyle, events, playTime, round, hostRedCard, hostYellowCard, hostName, hostLogo, score, guestLogo, guestName, visitYellowCard, visitredcard, statusDesc, matchStatus, halfScore, bidScore,concede));
+            matchInfos.add(new MatchInfo(period, eventStyle, events, playTime, round, hostRedCard, hostYellowCard, hostName, hostLogo, score, guestLogo, guestName, visitYellowCard, visitredcard, statusDesc, matchStatus, halfScore, bidScore, concede));
         });
         return matchInfos;
     }
 
-    public List<String> getMatchPeriods(ScoreLiveMatchRequest request){
+    public List<String> getMatchPeriods(ScoreLiveMatchRequest request) {
         String responseText = restTemplate.getForObject(request.getUrl(), String.class);
         Document document = Jsoup.parse(responseText);
         Elements elements = document.select("#selectDate .optionList a");
-        List<String> periods = new ArrayList<>();
-        elements.parallelStream().forEach(element -> periods.add(element.text()));
-        return periods.parallelStream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        List<String> periods = elements.stream().map(element -> element.text()).collect(Collectors.toList());
+        return periods;
     }
 
     public ScoreLiveMatchInfoResponse getScoreLiveMatchInfoResponse(MatchAnalysisRequest request) {

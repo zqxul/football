@@ -7,7 +7,7 @@
     <title>ScoreLive</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/production/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/production/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/custom/css/scorelive.css">
     <link rel="stylesheet" href="/production/font-awesome/css/font-awesome.min.css">
 </head>
@@ -44,27 +44,6 @@
         </ul>
     </div>
 </nav>
-<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark">-->
-<!--<div class="container">-->
-<!--<a class="navbar-brand" href="#">足球计划</a>-->
-<!--<div class="collapse navbar-collapse">-->
-<!--<ul class="navbar-nav mr-auto">-->
-<!--<li class="nav-item">-->
-<!--<a class="nav-link" href="#">每日球报</a>-->
-<!--</li>-->
-<!--<li class="nav-item">-->
-<!--<a class="nav-link" href="#">比分直播</a>-->
-<!--</li>-->
-<!--<li class="nav-item">-->
-<!--<a class="nav-link" href="#">足彩推荐</a>-->
-<!--</li>-->
-<!--<li class="nav-item">-->
-<!--<a class="nav-link" href="#">会员理财</a>-->
-<!--</li>-->
-<!--</ul>-->
-<!--</div>-->
-<!--</div>-->
-<!--</nav>-->
 <main role="main">
     <div class="container-fluid">
         <div class="card matchBox">
@@ -75,12 +54,7 @@
                                 id="dropdownDate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         ${currentPeriod!'比赛日期'}
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownDate">
-                            <#list periods>
-                                <#items as period>
-                                    <a class="dropdown-item" href="/live/matchs?date=${period}">${period}</a>
-                                </#items>
-                            </#list>
+                        <div id="dateMenus" class="dropdown-menu" aria-labelledby="dropdownDate">
                         </div>
                     </div>
                     <div id="timeOption" class="dropdown time" style="display: inline-block;">
@@ -90,20 +64,20 @@
                         </button>
 
                         <div class="dropdown-menu" aria-labelledby="dropdownTime">
-                            <#--<div class="dropdown-header p-1 text-center" style="font-size: 8px">-->
-                                <#--<label class="row m-0">-->
-                                <#--<a class="col p-0">全选</a>-->
-                                <#--<a class="col p-0">全不选</a>-->
-                                <#--</label>-->
-                            <#--</div>-->
-                            <#--<div class="dropdown-body">-->
+                        <#--<div class="dropdown-header p-1 text-center" style="font-size: 8px">-->
+                        <#--<label class="row m-0">-->
+                        <#--<a class="col p-0">全选</a>-->
+                        <#--<a class="col p-0">全不选</a>-->
+                        <#--</label>-->
+                        <#--</div>-->
+                        <#--<div class="dropdown-body">-->
                             <#list times>
                                 <#items as time>
                                     <span class="dropdown-item time-item"><input class="timeCheckbox" type="checkbox"
                                                                                  checked> ${time}</span>
                                 </#items>
                             </#list>
-                            <#--</div>-->
+                        <#--</div>-->
                         </div>
                     </div>
                     <div class="dropdown date" style="display: inline-block;">
@@ -124,7 +98,7 @@
                     <div class="dropdown date" style="display: inline-block;">
                         <button class="btn btn-sm dropdown-toggle" style="width: 150px;" type="button"
                                 id="dropdownStatus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            选择状态
+                            比赛状态
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownStatus">
                             <span class="dropdown-item status-item"><input class="statusCheckbox" type="checkbox"
@@ -135,9 +109,6 @@
                                                                            checked> <span>进行中</span></span>
                         </div>
                     </div>
-                <#--<div style="display: inline-block;">&nbsp;&nbsp;&nbsp;-->
-                <#--<button type="button" class="btn btn-dark btn-sm">查询</button>-->
-                <#--</div>-->
                 </form>
             </div>
             <div class="card-header pt-0 pb-0 match-header">
@@ -256,10 +227,10 @@
             <div class="card-footer">
                 <ul class="list-unstyled">
                     <li>
-                        点击球队名：查看球队战绩，选择赛事筛选可对赛事类别进行隐藏/显示切换。
+                        筛选菜单：选择比赛时间、赛事筛选、状态可对赛事类别进行隐藏/显示切换。
                     </li>
                     <li>
-                        网易彩票比分直播提示：以上比分数据仅供浏览、投注参考之用，并不作为最终派奖赛果依据。
+                       比分直播提示：以上比分数据仅供浏览、投注参考之用，并不作为最终派奖赛果依据。
                     </li>
                 </ul>
             </div>
@@ -270,53 +241,5 @@
 <script src="/production/jquery/jquery.min.js"></script>
 <script src="/production/bootstrap/js/popper.min.js"></script>
 <script src="/production/bootstrap/js/bootstrap.min.js"></script>
-<#--<script>-->
-<#--$(function () {-->
-<#--// $("[data-toggle='popover']").popover();-->
-<#--$(".popover-link").popover({-->
-<#--delay: 50,-->
-<#--html: true,-->
-<#--title: 'analysis',-->
-<#--content: $('.analysisCard')-->
-<#--});-->
-<#--});-->
-<#--</script>-->
-<script>
-    $('.leagueCheckbox').change(function () {
-        var checked = $(this).prop("checked");
-        var val = $(this).parent(".league-item").text().trim();
-        // alert(checked+"--"+val+'---'+$('.league-hidden-input[value='+val+']').parent('.row-league').attr("class"));
-        if (checked) {
-            $('.league-hidden-input[value="' + val + '"]').parent('.row-optional').show();
-        } else {
-            $('.league-hidden-input[value="' + val + '"]').parent('.row-optional').hide();
-        }
-    });
-    $('.timeCheckbox').change(function () {
-        var checked = $(this).prop("checked");
-        var val = $(this).parent(".time-item").text().trim();
-        if (checked) {
-            $('.time-hidden-input[value="' + val + '"]').parent('.row-optional').show();
-        } else {
-            $('.time-hidden-input[value="' + val + '"]').parent('.row-optional').hide();
-        }
-    });
-    $('.statusCheckbox').change(function () {
-        var checked = $(this).prop("checked");
-        var val = $(this).parent(".status-item").text().trim();
-        if (checked) {
-            if (val == '进行中') {
-                $('.matchstatus-hidden-input[value="1"]').parent('.row-optional').show();
-            } else {
-                $('.status-hidden-input[value="' + val + '"]').parent('.row-optional').show();
-            }
-        } else {
-            if (val == '进行中') {
-                $('.matchstatus-hidden-input[value="1"]').parent('.row-optional').hide();
-            } else {
-                $('.status-hidden-input[value="' + val + '"]').parent('.row-optional').hide();
-            }
-        }
-    });
-</script>
+<script src="/custom/js/scorelive.js"></script>
 </html>

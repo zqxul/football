@@ -14,6 +14,9 @@
         table th{
             text-align: center;
         }
+        .navbar-nav{
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -30,7 +33,7 @@
                 <a class="nav-link" href="/live/matchs/lastest">比分直播</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="/data" style="font-weight: 500;">大数据</a>
+                <a class="nav-link" href="/data">大数据</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">足彩推荐</a>

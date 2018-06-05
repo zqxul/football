@@ -22,9 +22,6 @@ public class VisitInterceptor implements HandlerInterceptor {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    @Value("${football.redis.admin.index.visit-count-key}")
-    private String visitCountKey;
-
     @Autowired
     private BackgroundProperties backgroundProperties;
 
