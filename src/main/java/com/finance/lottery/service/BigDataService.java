@@ -14,48 +14,32 @@ import java.util.List;
 
 /**
  * @Author: xuzhiqing
- * @Description:
+ * @Description: 大数据内容Service
  * @Date: 2018/6/4 14:16
  */
 @Service
 public class BigDataService {
 
     @Value("${lottery.bigdata.url}")
-    private String bigDataUrl;
+    private String bigDataUrl;//大数据内容抓取链接
 
     @Value("${lottery.bigdata.dqdWebsite}")
-    private String dqdWebsite;
+    private String dqdWebsite;//懂球帝站点
 
     @Value("${server.ip}")
-    private String serverIp;
+    private String serverIp;//本站服务器IP
 
     @Value("${lottery.bigdata.statListCssPath}")
-    private String statListCssPath;
+    private String statListCssPath;//Jsoup抓取内容的CssPath路径
 
     @Value("${lottery.bigdata.statDetailCssPath}")
-    private String statDetailCssPath;
-
-//    public List<String> getMatchData(BigDataPara bigDataPara) {
-//        List<String> elements = new ArrayList<>();
-//        String url = bigDataUrl + "?competition=" + bigDataPara.getCompetition();
-//        String responseHtml = HttpUtil.get(url);
-//        Document document = Jsoup.parse(responseHtml);
-//        Element statListElement = document.selectFirst(statListCssPath);
-//        Element statDetailElement = document.selectFirst(statDetailCssPath);
-//        if (statListElement != null) {
-//            elements.add(statListElement.toString());
-//        }
-//        if (statDetailElement != null) {
-//            elements.add(statDetailElement.toString());
-//        }
-//        return elements;
-//    }
+    private String statDetailCssPath;//Jsoup抓取内容的CssPath路径
 
     /**
+     * @param playerId
      * @Author: xuzhiqing
      * @Date: 2018/6/5 12:07
      * @Description: 获取球员数据
-     * @param playerId
      */
     public String getPlayerData(String playerId) {
         String url = dqdWebsite + "player/" + playerId + ".html";
@@ -71,10 +55,10 @@ public class BigDataService {
     }
 
     /**
+     * @param teamId
      * @Author: xuzhiqing
      * @Date: 2018/6/5 12:06
      * @Description: 获取球队数据
-     * @param teamId
      */
     public String getTeamData(String teamId) {
         String url = dqdWebsite + "team/" + teamId + ".html";

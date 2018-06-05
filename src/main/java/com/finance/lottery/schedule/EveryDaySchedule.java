@@ -18,26 +18,20 @@ import java.util.Calendar;
 @Component
 public class EveryDaySchedule {
     @Autowired
-    private RedisTemplate redisTemplate;
-
-    @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
     private BackgroundProperties backgroundProperties;
 
-    @Value("${football.redis.admin.index.visit-count-key}")
-    private String visitCountKey;
-
     @Scheduled(cron = "0 0 0/1 * * ?")
     public void resetVisitCount() {
         System.out.println("CurrentTime:" + Calendar.getInstance().getTime());
-        stringRedisTemplate.opsForValue().set(visitCountKey, "0");
+        stringRedisTemplate.opsForValue().set(backgroundProperties.getCountVisitTotal(), "0");
         stringRedisTemplate.opsForValue().set(backgroundProperties.getCountVisitFootballNews(), "0");
         stringRedisTemplate.opsForValue().set(backgroundProperties.getCountVisitMatchAnalysis(), "0");
         stringRedisTemplate.opsForValue().set(backgroundProperties.getCountVisitScoreLive(), "0");
-        stringRedisTemplate.opsForValue().set(backgroundProperties.getCountVisitTotal(), "0");
-        System.out.println("VisitCount Reset to :" + stringRedisTemplate.opsForValue().get(visitCountKey));
+        stringRedisTemplate.opsForValue().set(backgroundProperties.getCountBigData(), "0");
+        System.out.println("VisitCount Reset to :" + stringRedisTemplate.opsForValue().get(backgroundProperties.getCountVisitTotal()));
     }
 
     public void saveVisitCount() {

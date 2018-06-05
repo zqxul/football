@@ -30,11 +30,10 @@ public class VisitInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex) throws Exception {
-        stringRedisTemplate.opsForValue().increment(visitCountKey, 1l);
+        stringRedisTemplate.opsForValue().increment(backgroundProperties.getCountVisitTotal(), 1l);
         String ip = WebUtil.getIPAddress(request);
 
-        System.out.println("来自 " + ip + " 的访问");
-        System.out.println(stringRedisTemplate.opsForValue().get(visitCountKey));
+        System.out.println("来自 " + ip + " 的访问:" + stringRedisTemplate.opsForValue().get(backgroundProperties.getCountVisitTotal()));
 
         String uri = request.getRequestURI();
         if ("/analysis/info".equals(uri)) {
@@ -45,6 +44,9 @@ public class VisitInterceptor implements HandlerInterceptor {
         }
         if ("/football/news/list".equals(uri)) {
             stringRedisTemplate.opsForValue().increment(backgroundProperties.getCountVisitFootballNews(), 1l);
+        }
+        if ("/data".equals(uri)) {
+            stringRedisTemplate.opsForValue().increment(backgroundProperties.getCountBigData(), 1l);
         }
     }
 

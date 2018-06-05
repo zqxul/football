@@ -155,6 +155,7 @@ count:
     football-news: count_visit_footballnews
     match-analysis: count_visit_match_analysis
     score-live: count_visit_score_live
+    big-data: count_visit_big_data
   newuser:
     total: count_newuser_total
     common: count_newuser_common

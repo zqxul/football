@@ -23,6 +23,8 @@ public class BackgroundProperties {
     private String countVisitMatchAnalysis;
     @Value("${count.visit.score-live}")
     private String countVisitScoreLive;
+    @Value("${count.visit.big-data}")
+    private String countBigData;
 
     @Value("${count.newuser.total}")
     private String countNewUserTotal;
