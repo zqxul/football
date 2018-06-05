@@ -12,6 +12,7 @@ spring:
      type: com.alibaba.druid.pool.DruidDataSource
    freemarker:
      prefix: ftl/
+     cache: false
    mail:
      host: smtp.163.com
      username: xuzhiqing2014@163.com
@@ -41,7 +42,6 @@ redis:
     testOnBorrow: true
     testOnReturn: true
 
-
 mybatis:
   check-config-location: true
   config-location: classpath:mybatis-config.xml
@@ -50,38 +50,41 @@ mybatis:
 
 football:
   redis:
-    visit-count-key: 'visit_count'
-    resetpass:
-      prefix: resetpass_
-      timeout:
-        day:
-        hour: 6
-        minite:
-        second:
-user:
-  resetpass:
-    email:
-      subject: 密码重置
-      htmlTemplate: '<div style="padding: 10px;">
-                    <div style="padding: 2px;font-size: 1.3vw">
-                        <p>尊敬的 %s 您好，您正在使用重置密码功能，请点击 <a href="%s">重置密码</a> 完成密码重置。</p>
-                    </div>
-                    <div style="padding: 2px">
-                        <ul style="color: rgb(169, 169, 189);font-size: 1.2vw">
-                            <li>为了保障您帐号的安全，该链接有效期为12小时。</li>
-                            <li>该链接只能使用一次，请周知。</li>
-                            <li>如果该链接无法点击，请直接复制以上网址到浏览器地址栏中访问。</li>
-                            <li>请您妥善保管，此邮件无需回复。</li>
-                        </ul>
-                    </div>
-                 </div>'
-
-
-
+    admin:
+      index:
+        visit-count-key: 'visit_count'
+    user:
+      resetpass:
+        prefix: resetpass_
+        timeout:
+          day:
+          hour: 6
+          minite:
+          second:
+        email:
+          subject: 密码重置
+          htmlTemplate: '<div style="padding: 10px;">
+                        <div style="padding: 2px;font-size: 1.3vw">
+                            <p>尊敬的 %s 您好，您正在使用重置密码功能，请点击 <a href="%s">重置密码</a> 完成密码重置。</p>
+                        </div>
+                        <div style="padding: 2px">
+                            <ul style="color: rgb(169, 169, 189);font-size: 1.2vw">
+                                <li>为了保障您帐号的安全，该链接有效期为12小时。</li>
+                                <li>该链接只能使用一次，请周知。</li>
+                                <li>如果该链接无法点击，请直接复制以上网址到浏览器地址栏中访问。</li>
+                                <li>请您妥善保管，此邮件无需回复。</li>
+                            </ul>
+                        </div>
+                     </div>'
 
 
 
 lottery:
+  bigdata:
+    url: http://www.dongqiudi.com/data
+    dqdWebsite: http://www.dongqiudi.com/
+    statListCssPath: '#stat_list'
+    statDetailCssPath: '#stat_detail'
   live:
     netease:
       url: http://live.caipiao.163.com
@@ -145,3 +148,41 @@ logging:
       springframework:
         web: ERROR
 
+#redis key
+count:
+  visit:
+    total: count_visit_total
+    football-news: count_visit_footballnews
+    match-analysis: count_visit_match_analysis
+    score-live: count_visit_score_live
+  newuser:
+    total: count_newuser_total
+    common: count_newuser_common
+    senior: count_newuser_senior
+    finance: count_newuser_finance
+  recharge:
+    total: count_recharge_total
+    common: count_recharge_common
+    senior: count_recharge_senior
+    finance: count_recharge_finance
+  withdraw:
+    total: count_withdraw_total
+    common: count_withdraw_common
+    senior: count_withdraw_senior
+    finance: count_withdraw_finance
+  profit:
+    total: count_profit_tatal
+    recommend: count_profit_recommend
+    view: count_profit_view
+    member: count_profit_member
+
+todo:
+  recharge-count: todo_recharge_count
+  withdraw-count: todo_withdraw_count
+#recharge:
+#  todolist: recharge_todo_list
+#  donelist: recharge_done_list
+#  invalidlist: recharge_invalid_list
+#analysis:
+#  user:
+#  action:

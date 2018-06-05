@@ -19,7 +19,7 @@ public class ViewAllController {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-    @Value("${football.redis.visit-count-key}")
+    @Value("${football.redis.admin.index.visit-count-key}")
     private String visitCountKey;
 
     @GetMapping("/visitCount")

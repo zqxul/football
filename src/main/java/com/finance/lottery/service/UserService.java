@@ -34,10 +34,10 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class UserService {
 
-    @Value("${user.resetpass.email.htmlTemplate}")
+    @Value("${football.redis.user.resetpass.email.htmlTemplate}")
     private String emailHtmlTemplate;
 
-    @Value("${user.resetpass.email.subject}")
+    @Value("${football.redis.user.resetpass.email.subject}")
     private String emailSubject;
 
     @Value("${server.ip}")
@@ -46,10 +46,10 @@ public class UserService {
     @Value("${server.port}")
     private String port;
 
-    @Value("${football.redis.resetpass.prefix}")
+    @Value("${football.redis.user.resetpass.prefix}")
     private String resetpass_prefix;
 
-    @Value("${football.redis.resetpass.timeout.hour}")
+    @Value("${football.redis.user.resetpass.timeout.hour}")
     private long resetpass_timeout;
 
     @Autowired

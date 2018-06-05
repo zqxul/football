@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>News</title>
+    <link href="../production/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/production/font-awesome/css/font-awesome.min.css">
+    <style>
+        #detailBody img {
+            max-width: 100%;
+            max-height: 280px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">足球计划</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/football/news/list">每日球报</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/analysis/info">赛事分析</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/live/matchs/lastest">比分直播</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">大数据</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">足彩推荐</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">博彩心得</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">我的账户</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">投资收益</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<main class="p-2">
+
+</main>
+</body>
+<script src="/production/jquery/jquery.min.js"></script>
+<script src="/production/bootstrap/js/bootstrap.min.js"></script>
+<script>
+    function initNewsDetailModel(index) {
+        var title = $('#title-' + index).text();
+        $('#detailTitle').text(title);
+        var publishTime = $('#publishTime-' + index).text();
+        $('#publishTime').text(publishTime);
+        var url = $('#shareLink-' + index).attr("href");
+
+        $.ajax({
+            url: '/football/news/detail?url=' + url,
+            type: 'get',
+            success: function (response) {
+                var html = response;
+                $('#detailBody').html(html);
+            }
+        });
+
+
+    }
+
+    $('#newsDetailModal').on('show.bs.modal', function (event) {
+        var index = $(event.relatedTarget).attr("index");
+        initNewsDetailModel(index);
+    });
+</script>
+</html>

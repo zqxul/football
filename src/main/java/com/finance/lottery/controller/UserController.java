@@ -25,7 +25,7 @@ import java.util.Calendar;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    @Value("${football.redis.resetpass.prefix}")
+    @Value("${football.redis.user.resetpass.prefix}")
     private String resetpass_prefix;
 
     @Autowired

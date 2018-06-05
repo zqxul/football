@@ -1,0 +1,431 @@
+
+
+.newmain{
+    padding: 8px 25px 0;
+    font-size: 0px;
+}
+.leftmain{
+    display: inline-block;
+    width: 620px;
+    overflow: hidden;
+    font-size: 13px;
+    /*height: 300px;*/
+    /*background: #fef;*/
+}
+.rightmain{
+    display: inline-block;
+    margin-left: 20px;
+    width: 310px;
+    /*background: #ffe;*/
+    vertical-align: top;
+    overflow: hidden;
+    font-size: 13px;
+}
+.leftmain>div ,.rightmain>div{
+    margin-bottom: 20px;
+}
+/*leftmain/*/
+/*player_info*/
+.team_info{
+    position: relative;
+    height: 222px;
+    background: #f7f7f7;
+    border-top: 2px solid #ebeced;
+    overflow: hidden;
+}
+.player_stat{
+    display: inline-block;
+    /*height: 140px;*/
+    width: 400px;
+    margin: 26px 16px;
+    vertical-align: top;
+    /*background: #6f9;*/
+}
+.name{
+    display: inline-block;
+    font-weight: 500;
+    vertical-align: middle;
+    font-size: 24px;
+}
+.en_name{
+    font-size: 16px;
+    color: #999999;
+}
+.base_info{
+    margin-bottom: 5px;
+    height: 50px;
+}
+.base_info img{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+.detail_info{
+    display: block;
+    /*height: 100px;*/
+    width: 440px;
+    /*background: #68c;*/
+    overflow: hidden;
+
+}
+.detail_info li{
+    float: left;
+    display: inline-block;
+    height: 30px;
+    line-height: 15px;
+    color: #999999;
+    font-weight: 500;
+    font-size: 0;
+}
+.detail_info li.t1{
+    width: 190px;
+}
+.detail_info li.t2{
+    width: 120px;
+}
+.detail_info li.t3{
+    width: 250px;
+}
+.detail_info li span{
+    display: inline-block;
+    margin: 5px 0;
+    font-size: 13px;
+}
+.detail_info li span:first-of-type{
+    display: inline-block;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: top;
+}
+.detail_info li span:nth-of-type(2){
+    display: inline-block;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: top;
+}
+.detail_info .long{
+    display: inline-block;
+    /*word-break: break-all;*/
+    word-wrap: break-word;
+    width: 127px;
+    /*display: -webkit-box;*/
+    /*-webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;*/
+}
+.detail_info .long1{
+    display: inline-block;
+    /*word-break: break-all;*/
+    word-wrap: break-word;
+    width: 190px;
+}
+.detail_info .long2{
+    display: inline-block;
+    word-break: break-all;
+    /*word-wrap: break-word;*/
+    width: 190px;
+}
+.detail_info li span:nth-of-type(3){
+    color: #333333;
+}
+.w2{
+    letter-spacing:1em;
+    margin-right: -1em !important;
+}
+.team_info .img_wrapper{
+    position: relative;
+    display: inline-block;
+    height: 100%;
+    width: 130px;
+    margin: auto 0 auto 30px;
+}
+.player_img{
+    display: inline-block;
+    position: absolute;
+    top: -6px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 130px;
+    width: 130px;
+    /*box-shadow:0px 0px 10px #dfdfdf;*/
+}
+
+
+/*match_stat*/
+.match_stat_none{
+    /*height: 376px;*/
+    background: #f7f7f7;
+
+}
+.schedule{
+    background: #f7f7f7;
+    height: 361px;
+    overflow: hidden;
+}
+.title_player::before{
+    display: inline-block;
+    content: "";
+    width: 3px;
+    height: 22px;
+    background: #16b13a;
+    vertical-align: text-top;
+    margin-right: 14px;
+}
+.schedule_tab {
+    float: right;
+    display: inline-block;
+    width: 240px;
+    vertical-align: top;
+    font-size: 0;
+}
+.schedule_tab  a{
+    display: inline-block;
+    width: 100px;
+    height: 13px;
+    margin: 14px 10px;
+    /*border: 1px solid #16b13a;*/
+    /*color: #ffffff;*/
+    color: #384851;
+    font-size: 13px;
+    line-height: 13px;
+    text-align: center;
+    /*background: #999999*/
+}
+.schedule_tab  a:hover{
+    color: #16b13a;
+    cursor: pointer;
+}
+.schedule_tab .nomore{
+    color: #aeaeae !important;
+    cursor:default !important;
+}
+.schedule_tab  a:nth-of-type(3){
+    margin-right: 20px;
+}
+.schedule_tab  a:nth-of-type(4){
+    margin-left: 20px;
+}
+.tab_active{
+    background: #38485a;
+    color: #ffffff !important;
+}
+.split{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    display: inline-block;
+    height: 15px;
+    width: 1px;
+    background: #cdcdcd;
+    vertical-align: middle;
+}
+table.schedule_list{width:100%;border-collapse:collapse;border-spacing:0;table-layout:"fixed";}
+table.schedule_list th{font-weight: 300;}
+table.schedule_list td{height:28px;background:#f7f7f7;text-align:center;line-height:28px;font-weight: 500;}
+table.schedule_list td:nth-child(2){width: 98px;padding-left:5px;}
+table.schedule_list td:nth-child(3){width: 133px;text-align: left;padding-left:55px; }
+table.schedule_list td:nth-child(4){text-align:right;width: 170px;}
+table.schedule_list td:nth-child(5){width: 38px;}
+table.schedule_list td:nth-child(6){text-align:left;width: 200px;}
+table.schedule_list tr.stat_list:nth-child(2n+1) td{background: #ffffff;}
+table.schedule_list th.noneitem{height:50px;background:#f7f7f7;text-align:center;line-height:50px;}
+.stat_list .team_name{
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 107px;
+}
+.stat_list .fs_a{
+    margin: auto 3px auto 6px;
+}
+.stat_list .fs_b{
+    margin: auto 6px auto 3px;
+}
+
+/*.honour_record*/
+.honour_record{
+    background: #f7f7f7;
+    margin-bottom: 60px !important;
+}
+.schedule_header,
+.honour_header,
+.transfer_header,
+.invalid_header,
+.team_stat_header{
+    position: relative;
+    height: 40px;
+    background: #f7f7f7;
+    border-bottom: 1px solid #ffffff;
+}
+.scoreboard_title,
+.schedule_title,
+.honour_title,
+.transfer_title,
+.invalid_title{
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+}
+.honour_item{
+    display: table;
+    width: 590px;
+    color: #16b13a;
+    border-bottom: 1px solid #e3e3e3;
+    margin-left: 16px;
+}
+.none_item{
+    display: inline-block;
+    width: 100%;
+    height: 50px;
+    color:#888888;
+    font-size: 12px;
+    font-weight: 500;
+    background: #f7f7f7;
+    border-bottom: 1px solid #e3e3e3;
+    text-align: center;
+    line-height: 50px;
+}
+.honour_item_title{
+    display: inline-block;
+    width: 175px;
+    vertical-align: top;
+    line-height: 50px;
+}
+/*.match_name{
+    display: inline-block;
+    width: 130px;
+
+}*/
+.honour_item img{
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    vertical-align: -9%;
+}
+.honour_item .session_area{
+    display: table-cell;
+    vertical-align: middle;
+    padding: 13px 0 13px 20px;
+    margin-left: 20px;
+    min-width: 390px;
+    max-width: 390px;
+    color: #3c3c3c;
+}
+.honour_item .session_area span{
+    display: inline-block;
+    min-width: 68px;
+    line-height: 20px;
+}
+
+
+.honour_item:last-of-type,
+.schedule_item:last-of-type,
+.invalid_item:last-of-type{
+    border-bottom: 0;
+}
+
+
+
+/*.news_list*/
+.news_list{
+    margin-top: 40px;
+    /*height: 500px;*/
+    /*background: #9fc;*/
+}
+.title_news_list{
+    font-size: 16px;
+    font-weight: 500;
+}
+#news_list h2{
+    font-size: 18px;
+}
+.none_news{
+    text-align: center;
+    line-height: 100px;
+}
+
+
+/*.team_stat*/
+.team_stat{
+    font-weight: 500;
+}
+.stat_list img{
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+.stat_list span{
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+table.teammates_list{width:100%;border-collapse:collapse;border-spacing:0;}
+table.teammates_list td{height:33px;background:#f7f7f7;text-align:center;line-height:33px;font-weight:500}
+table.teammates_list th{height:24px;background:#ebeced;color:#888888;text-align:center;vertical-align:middle;font-size:12px;line-height:24px;font-weight:300}
+table.teammates_list td:nth-child(3){text-align: left;padding-left: 10px;}
+table.teammates_list th:nth-child(3){text-align: left;padding-left: 10px;}
+table.teammates_list tr.stat_list:nth-child(2n+1) td{background: #ffffff;}
+table.teammates_list tr.stat_list:last-of-type{border-bottom: 1px solid #ebeced}
+table.teammates_list tr.stat_list:hover td{
+    background: #ebeced;
+}
+table.teammates_list tr.stat_list:hover a{
+    color: #16b13a;
+}
+
+/*rightmain/*/
+/*scoreboard*/
+
+.scoreboard_header{
+    position: relative;
+    height: 40px;
+    background: #f7f7f7;
+}
+.scoreboard .more{
+    display: inline-block;
+    float: right;
+    height: 40px;
+    line-height: 40px;
+    font-weight: 500;
+    margin-right: 15px;
+}
+
+table.scoreboard_list{width:100%;border-collapse:collapse;border-spacing:0;}
+table.scoreboard_list td{height:33px;background:#f7f7f7;text-align:center;line-height:33px;font-weight:500}
+/*table.scoreboard_list td:nth-child(1){width: 60px;}*/
+/*table.scoreboard_list th:nth-child(1){display: inline-block;width: 40px;}*/
+table.scoreboard_list td:nth-child(2){text-align:left;}
+table.scoreboard_list th:nth-child(2){text-align:left;padding-left: 37px;}
+table.scoreboard_list td img{margin-right: 5px;}
+table.scoreboard_list th{height:24px;background:#ebeced;color:#888888;text-align:center;vertical-align:middle;font-size:12px;line-height:24px;font-weight:300}
+table.scoreboard_list tr.stat_list:nth-child(2n) td{background: #ffffff;}
+table.scoreboard_list tr.stat_list:last-of-type{border-bottom: 1px solid #ebeced}
+table.scoreboard_list tr.stat_list:hover td{
+    background: #ebeced;
+}
+table.scoreboard_list tr.stat_list:hover a{
+    color: #16b13a;
+}
+.ranking{
+    color: #38485a;
+}
+tr:nth-of-type(2) .ranking{
+    color: #ff0000;
+}
+tr:nth-of-type(3) .ranking{
+    color: #ffa800;
+}
+tr:nth-of-type(4) .ranking{
+    color: #2eb398;
+}
+
+
+
