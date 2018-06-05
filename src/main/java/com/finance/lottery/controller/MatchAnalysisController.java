@@ -52,7 +52,7 @@ public class MatchAnalysisController {
     @Autowired
     private BFIndexService bfIndexService;
 
-    @GetMapping("/infos")
+    @GetMapping("/info")
     public DeferredResult<ModelAndView> getAnalysisInfo() {
         DeferredResult<ModelAndView> result = new DeferredResult<>();
         ModelAndView mav = new ModelAndView("analysis");
@@ -62,30 +62,29 @@ public class MatchAnalysisController {
         List<MatchTeamInfo> matchTeamInfoList = JSONArray.parseArray(matchInfoJson, MatchTeamInfo.class);
         List<MatchTeamInfo> matchTeamInfos = matchTeamInfoList.parallelStream().sorted(Comparator.comparing(MatchTeamInfo::getMatchCode).reversed()).collect(Collectors.toList());
         Long endTime = System.currentTimeMillis();
-        System.out.println("Process MatchAnalysis uses " + (endTime - startTime) / 1000 + " seconds");
+        System.out.println("MatchAnalysis uses " + (endTime - startTime) + " ms");
         mav.addObject("matchTeamInfos", matchTeamInfos);
         result.setResult(mav);
         return result;
     }
 
-    @GetMapping("/info")
-    public DeferredResult<ModelAndView> getAnalysisInfos() {
-
-        DeferredResult<ModelAndView> result = new DeferredResult<>();
-        CompletableFuture.runAsync(() -> {
-            ModelAndView mav = new ModelAndView("analysis");
-            Long startTime = System.currentTimeMillis();
-            String responseJson = matchAnalysisService.getMatchsResponseJson(matchRequest);
-            String matchInfoJson = JSONPath.read(responseJson, "$.data[0].matchInfo").toString();
-            List<MatchTeamInfo> matchTeamInfoList = JSONArray.parseArray(matchInfoJson, MatchTeamInfo.class);
-            List<MatchTeamInfo> matchTeamInfos = matchTeamInfoList.parallelStream().sorted(Comparator.comparing(MatchTeamInfo::getMatchCode).reversed()).collect(Collectors.toList());
-            Long endTime = System.currentTimeMillis();
-            System.out.println("Process MatchAnalysis uses " + (endTime - startTime) / 1000 + " seconds");
-            mav.addObject("matchTeamInfos", matchTeamInfos);
-            result.setResult(mav);
-        });
-        return result;
-    }
+//    @GetMapping("/info")
+//    public DeferredResult<ModelAndView> getAnalysisInfos() {
+//        DeferredResult<ModelAndView> result = new DeferredResult<>();
+//        CompletableFuture.runAsync(() -> {
+//            ModelAndView mav = new ModelAndView("analysis");
+//            Long startTime = System.currentTimeMillis();
+//            String responseJson = matchAnalysisService.getMatchsResponseJson(matchRequest);
+//            String matchInfoJson = JSONPath.read(responseJson, "$.data[0].matchInfo").toString();
+//            List<MatchTeamInfo> matchTeamInfoList = JSONArray.parseArray(matchInfoJson, MatchTeamInfo.class);
+//            List<MatchTeamInfo> matchTeamInfos = matchTeamInfoList.parallelStream().sorted(Comparator.comparing(MatchTeamInfo::getMatchCode).reversed()).collect(Collectors.toList());
+//            Long endTime = System.currentTimeMillis();
+//            System.out.println("GetAnalysisInfo uses " + (endTime - startTime) + " ms");
+//            mav.addObject("matchTeamInfos", matchTeamInfos);
+//            result.setResult(mav);
+//        });
+//        return result;
+//    }
 
     /**
      * @param matchTeamInfo 比赛信息(主要使用:比赛顺序、比赛日期、比赛时间)

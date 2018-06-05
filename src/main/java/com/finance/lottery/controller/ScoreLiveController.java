@@ -82,7 +82,7 @@ public class ScoreLiveController {
         mav.addObject("leagues", leagues);
         mav.addObject("matchInfos", matchInfoList);
         deferredResult.setResult(mav);
-        System.out.println("It takes for " + (System.currentTimeMillis() - time1) + " seconds");
+        System.out.println("GetMatchsLastest uses " + (System.currentTimeMillis() - time1) + " ms");
         return deferredResult;
     }
 
@@ -119,17 +119,6 @@ public class ScoreLiveController {
 //        CompletableFuture.supplyAsync(() ->
 //                scoreLiveService.getScoreLiveMatchResponse(scoreLiveMatchRequest)).thenApply(response -> {
 //            List<MatchInfo> matchInfos = response.getData().parallelStream().filter(matchPeriod -> date.equals(matchPeriod.getPeriod())).findFirst().get().getMatchInfo();
-//            return deferredResult.setResult(matchInfos);
-//        });
-//        return deferredResult;
-//    }
-
-//    @GetMapping("/matchs/query")
-//    public DeferredResult<List<MatchInfo>> getMatchsByDate(@RequestParam String date, @RequestParam List<String> times, @RequestParam List<String> leagues, @RequestParam List<String> status) {
-//        DeferredResult<List<MatchInfo>> deferredResult = new DeferredResult<>();
-//        CompletableFuture.supplyAsync(() ->
-//                scoreLiveService.getScoreLiveMatchResponse(scoreLiveMatchRequest)).thenApply(response -> {
-//            List<MatchInfo> matchInfos = response.getData().parallelStream().filter(matchPeriod -> date.equals(matchPeriod.getPeriod())).findFirst().get().getMatchInfo().parallelStream().filter(matchInfo -> times.contains(matchInfo.getMatchTime())).filter(matchInfo -> leagues.contains(matchInfo.getLeagueName())).filter(matchInfo -> status.contains(matchInfo.getMatchStatus())).collect(Collectors.toList());
 //            return deferredResult.setResult(matchInfos);
 //        });
 //        return deferredResult;
