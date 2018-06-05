@@ -1,6 +1,7 @@
 package com.finance.lottery.schedule;
 
 import com.finance.lottery.properties.BackgroundProperties;
+import com.finance.lottery.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -18,23 +19,11 @@ import java.util.Calendar;
 @Component
 public class EveryDaySchedule {
     @Autowired
-    private StringRedisTemplate stringRedisTemplate;
-
-    @Autowired
-    private BackgroundProperties backgroundProperties;
+    private ScheduleService scheduleService;
 
     @Scheduled(cron = "0 0 0/1 * * ?")
-    public void resetVisitCount() {
-        System.out.println("CurrentTime:" + Calendar.getInstance().getTime());
-        stringRedisTemplate.opsForValue().set(backgroundProperties.getCountVisitTotal(), "0");
-        stringRedisTemplate.opsForValue().set(backgroundProperties.getCountVisitFootballNews(), "0");
-        stringRedisTemplate.opsForValue().set(backgroundProperties.getCountVisitMatchAnalysis(), "0");
-        stringRedisTemplate.opsForValue().set(backgroundProperties.getCountVisitScoreLive(), "0");
-        stringRedisTemplate.opsForValue().set(backgroundProperties.getCountBigData(), "0");
-        System.out.println("VisitCount Reset to :" + stringRedisTemplate.opsForValue().get(backgroundProperties.getCountVisitTotal()));
+    public void SaveAndResetDailyVisitCount() {
+        scheduleService.saveAndResetDailyVisitCount();
     }
 
-    public void saveVisitCount() {
-
-    }
 }

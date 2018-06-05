@@ -41,7 +41,7 @@ public class ScoreLiveService {
         Document document = Jsoup.parse(responseText);
         Elements elements = document.selectFirst("#gameList").children();
         List<MatchInfo> matchInfos = new ArrayList<>();
-        elements.stream().forEach(e -> {
+        elements.parallelStream().forEach(e -> {
             String hostRedCard = e.attr("hostredcard");
             String visitredcard = e.attr("visitredcard");
             String hostYellowCard = e.attr("hostyellowcard");
@@ -81,7 +81,7 @@ public class ScoreLiveService {
         Document document = Jsoup.parse(responseText);
         Elements elements = document.selectFirst("#gameList").children();
         List<MatchInfo> matchInfos = new ArrayList<>();
-        elements.stream().forEach(e -> {
+        elements.parallelStream().forEach(e -> {
             String hostRedCard = e.attr("hostredcard");
             String visitredcard = e.attr("visitredcard");
             String hostYellowCard = e.attr("hostyellowcard");

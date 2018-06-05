@@ -10,7 +10,6 @@ import com.finance.lottery.request.MatchRequest;
 import com.finance.lottery.result.ResponseEnum;
 import com.finance.lottery.service.BFIndexService;
 import com.finance.lottery.service.InformationService;
-import com.finance.lottery.service.MatchAnalysisService;
 import com.finance.lottery.service.ScoreLiveService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,6 @@ import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
@@ -39,9 +37,6 @@ public class MatchAnalysisController {
 
     @Autowired
     private MatchAnalysisRequest matchAnalysisRequest;
-
-    @Autowired
-    private MatchAnalysisService matchAnalysisService;
 
     @Autowired
     private ScoreLiveService scoreLiveService;

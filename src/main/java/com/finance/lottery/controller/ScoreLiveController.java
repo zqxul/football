@@ -41,17 +41,6 @@ public class ScoreLiveController {
      * @Description: 获取一周之内的所有比赛
      */
 //    @GetMapping("/matchs/lastest")
-//    public DeferredResult<List<MatchInfo>> getMatchsLastest() {
-//        DeferredResult<List<MatchInfo>> deferredResult = new DeferredResult<>();
-//        CompletableFuture.supplyAsync(() ->
-//                scoreLiveService.getScoreLiveMatchResponse(scoreLiveMatchRequest)).thenApply(response -> {
-//            String lastedPerid = response.getData().parallelStream().map(matchPeriod -> matchPeriod.getPeriod()).sorted(Comparator.reverseOrder()).findFirst().get().toString();
-//            List<MatchInfo> matchInfos = response.getData().parallelStream().filter(matchPeriod -> lastedPerid.equals(matchPeriod.getPeriod())).findFirst().get().getMatchInfo();
-//            return deferredResult.setResult(matchInfos);
-//        });
-//        return deferredResult;
-//    }
-//    @GetMapping("/matchs/lastest")
 //    public DeferredResult<ModelAndView> getMatchsLastest() {
 //        DeferredResult<ModelAndView> deferredResult = new DeferredResult<>();
 //        long time1 = System.currentTimeMillis();
