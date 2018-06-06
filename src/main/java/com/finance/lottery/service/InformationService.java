@@ -73,6 +73,9 @@ public class InformationService {
             String url = String.format(informationRequest.getUrl(), matchCode, page);
 //            String responseHtml = restTemplate.getForObject(url, String.class);
             String responseHtml = HttpUtil.get(url);
+            if (responseHtml == null) {
+                break;
+            }
             Document document = Jsoup.parse(responseHtml);
             Elements elementList = document.select(informationRequest.getCssPath());
             elements.addAll(elementList);
@@ -98,6 +101,9 @@ public class InformationService {
     public String getInformationDetail(String href) {
         String url = String.format(informationDetailRequest.getUrl(), href);
         String responseHtml = HttpUtil.get(url);
+        if (responseHtml == null) {
+            return null;
+        }
         Document document = Jsoup.parse(responseHtml);
         Element element = document.selectFirst(informationDetailRequest.getCssPath());
         if (element != null) {

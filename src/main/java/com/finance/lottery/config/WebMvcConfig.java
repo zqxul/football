@@ -32,6 +32,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         visitPaths.add("/football/news/list");
         visitPaths.add("/analysis/info");
         visitPaths.add("/live/matchs/lastest");
+        visitPaths.add("/data");
         registry.addInterceptor(visitInterceptor()).addPathPatterns(visitPaths);
     }
 

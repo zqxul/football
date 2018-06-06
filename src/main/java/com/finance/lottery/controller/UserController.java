@@ -32,7 +32,7 @@ public class UserController {
     private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
-    private RedisTemplate<Object, Object> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
     private UserService userService;

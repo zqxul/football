@@ -59,7 +59,7 @@ public class UserService {
     private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
-    private RedisTemplate<Object, Object> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Value("${spring.mail.username}")
     private String username;
