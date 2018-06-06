@@ -39,7 +39,7 @@ function initBFIndex(index, param) {
                     dataRow.html(data[i]);
                     bfIndexBody.append(dataRow);
                 }
-            }else {
+            } else {
                 var emptyBody = $('<div class="m-0 h-100 text-center" style="background: #333;color: #fff;">暂无数据</div>');
                 bfIndexBody.html("");
                 bfIndexBody.append(emptyBody);

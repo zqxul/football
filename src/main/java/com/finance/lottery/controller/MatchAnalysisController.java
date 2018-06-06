@@ -11,6 +11,7 @@ import com.finance.lottery.result.ResponseEnum;
 import com.finance.lottery.service.BFIndexService;
 import com.finance.lottery.service.InformationService;
 import com.finance.lottery.service.ScoreLiveService;
+import com.sun.org.apache.xml.internal.security.Init;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -70,6 +71,12 @@ public class MatchAnalysisController {
         String responseJson = scoreLiveService.getMatchsResponseJson(matchRequest);
         String matchInfoJson = JSONPath.read(responseJson, "$.data[0].matchInfo").toString();
         List<MatchTeamInfo> matchTeamInfoList = JSONArray.parseArray(matchInfoJson, MatchTeamInfo.class);
+
+        //设置排名
+        matchTeamInfoList.parallelStream().forEach(matchTeamInfo -> {
+            initRanking(matchTeamInfo);
+        });
+
         matchTeamInfos = matchTeamInfoList.parallelStream().sorted(Comparator.comparing(MatchTeamInfo::getMatchCode).reversed()).collect(Collectors.toList());
         if (matchTeamInfos != null && matchTeamInfos.size() > 0) {
             redisTemplate.opsForValue().set(infoKey, matchTeamInfos, 3, TimeUnit.HOURS);
@@ -387,26 +394,41 @@ public class MatchAnalysisController {
     }
 
     /**
-     * @param hostId  主队id
+     * @param teamAId 主队id
      * @param matchId 比赛id
-     * @param visitId 客队id
+     * @param teamBId 客队id
      * @param type    比赛信息类型: 10、赛事 11、战绩 12、积分 13、赔率 14、聊球
      * @Author: xuzhiqing
      * @Date: 2018/5/13 08:03
      * @Description: 获取某一场比赛的信息
      */
     @GetMapping("/matchInfo")
-    public String getMatchInfo(@RequestParam String hostId, @RequestParam String matchId, @RequestParam String visitId, @RequestParam String
+    public String getMatchInfo(@RequestParam String teamAId, @RequestParam String matchId, @RequestParam String teamBId, @RequestParam String
             type) {
-        if (StringUtils.isBlank(hostId) || StringUtils.isBlank(matchId) || StringUtils.isBlank(visitId) || StringUtils.isBlank(type)) {
+        if (StringUtils.isBlank(teamAId) || StringUtils.isBlank(matchId) || StringUtils.isBlank(teamBId) || StringUtils.isBlank(type)) {
             return JSON.toJSONString(ResponseEnum.PARAM_ERROR);
         }
         Map<String, String> params = matchAnalysisRequest.getParams();
-        params.put("hostId", hostId);
+        params.put("hostId", teamAId);
         params.put("matchId", matchId);
-        params.put("visitId", visitId);
+        params.put("visitId", teamBId);
         params.put("type", type);
         return scoreLiveService.getScoreLiveMatchInfoResponseJson(matchAnalysisRequest);
+    }
+
+    public void initRanking(MatchTeamInfo matchTeamInfo) {
+        DeferredResult<String> result = new DeferredResult<>();
+        Map<String, String> params = matchAnalysisRequest.getParams();
+        params.put("hostId", matchTeamInfo.getTeamAId());
+        params.put("matchId", matchTeamInfo.getMatchId());
+        params.put("visitId", matchTeamInfo.getTeamBId());
+        params.put("type", "12");
+        String ranking = scoreLiveService.getScoreLiveMatchInfoResponseJson(matchAnalysisRequest);
+        JSONObject jsonObject = (JSONObject) JSONPath.read(ranking, "data[0]");
+        matchTeamInfo.setHostRankingTotal(jsonObject.getString("hostRankAll"));
+        matchTeamInfo.setHostRankingHost(jsonObject.getString("hostRankHomeCourt"));
+        matchTeamInfo.setVisitRankingTotal(jsonObject.getString("visitRankAll"));
+        matchTeamInfo.setVisitRankingVisit(jsonObject.getString("visitRankAwayCourt"));
     }
 
     @GetMapping("/matchInfo/odds")

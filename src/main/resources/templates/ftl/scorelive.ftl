@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-<#--<meta http-equiv="refresh" content="30">-->
+    <meta http-equiv="refresh" content="30">
     <!--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
     <title>ScoreLive</title>
 
@@ -230,7 +230,7 @@
                         筛选菜单：选择比赛时间、赛事筛选、状态可对赛事类别进行隐藏/显示切换。
                     </li>
                     <li>
-                       比分直播提示：以上比分数据仅供浏览、投注参考之用，并不作为最终派奖赛果依据。
+                        比分直播提示：以上比分数据仅供浏览、投注参考之用，并不作为最终派奖赛果依据。
                     </li>
                 </ul>
             </div>

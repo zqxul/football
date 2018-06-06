@@ -37,4 +37,8 @@ public class MatchTeamInfo {
     private String teamBId;
     private String teamAGoal;
     private String extraStatus;
+    private String hostRankingTotal;
+    private String hostRankingHost;
+    private String visitRankingTotal;
+    private String visitRankingVisit;
 }

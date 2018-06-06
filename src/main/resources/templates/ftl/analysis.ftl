@@ -61,7 +61,8 @@
                                     <img src="${matchTeamInfo.teamALogo}" onerror="setDefaultImgSrc(this)">
                                 </div>
                                 <div class="col-12 pt-1 h-25">${matchTeamInfo.teamA}</div>
-                                <div class="col-12 p-1 h-25">排名：总17主16</div>
+                                <div id="rank-host-${matchTeamInfo_index}" class="col-12 p-1 h-25">
+                                    排名：总${matchTeamInfo.hostRankingTotal}主${matchTeamInfo.hostRankingHost}</div>
                             </div>
                             <div class="col p-0">
                                 <div class="col-12 p-1 h-35" style="font-size: 24px">
@@ -84,7 +85,8 @@
                                     <img src="${matchTeamInfo.teamBLogo}" onerror="setDefaultImgSrc(this)">
                                 </div>
                                 <div class="col-12 pt-1 h-25">${matchTeamInfo.teamB}</div>
-                                <div class="col-12 p-1 h-25">排名：总15客1</div>
+                                <div id="rank-visit-${matchTeamInfo_index}" class="col-12 p-1 h-25">
+                                    排名：总${matchTeamInfo.visitRankingTotal}客${matchTeamInfo.visitRankingVisit}</div>
                             </div>
                         <#--<span class="pt-0 pr-1"><a href="#"><i class="fa fa-refresh"></i></a></span>-->
                         </div>
@@ -98,9 +100,11 @@
                             <input name="teamB" value="${matchTeamInfo.teamB}">
                             <input name="matchOrder" value="${matchTeamInfo.matchOrder}">
                             <input name="matchDay" value="${matchTeamInfo.matchDay}">
-                            <input name="matchDayPart" value="${matchTeamInfo.matchDay?date('yyyy-MM-dd')?string('MM-dd')}">
+                            <input name="matchDayPart"
+                                   value="${matchTeamInfo.matchDay?date('yyyy-MM-dd')?string('MM-dd')}">
                             <input name="matchTime" value="${matchTeamInfo.matchTime}">
-                            <input name="matchCode" value="${matchTeamInfo.matchCode?substring(0,8)?date('yyyyMMdd')?string('yyyy-MM-dd')}">
+                            <input name="matchCode"
+                                   value="${matchTeamInfo.matchCode?substring(0,8)?date('yyyyMMdd')?string('yyyy-MM-dd')}">
                         </form>
                     </div>
                     <div id="card-content-${matchTeamInfo_index}" class="collapse hide"

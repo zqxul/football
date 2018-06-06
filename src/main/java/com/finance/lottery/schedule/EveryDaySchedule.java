@@ -21,7 +21,7 @@ public class EveryDaySchedule {
     @Autowired
     private ScheduleService scheduleService;
 
-    @Scheduled(cron = "0 0 0/1 * * ?")
+    @Scheduled(cron = "0 0 0/12 * * ?")
     public void SaveAndResetDailyVisitCount() {
         scheduleService.saveAndResetDailyVisitCount();
     }
