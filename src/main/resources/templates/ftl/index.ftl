@@ -33,18 +33,18 @@
             <li class="nav-item">
                 <a class="nav-link" href="/data">大数据</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/recommend/">足彩推荐</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">博彩心得</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">我的账户</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">投资收益</a>
-            </li>
+            <#--<li class="nav-item">-->
+                <#--<a class="nav-link" href="/recommend/">足彩推荐</a>-->
+            <#--</li>-->
+            <#--<li class="nav-item">-->
+                <#--<a class="nav-link" href="#">博彩心得</a>-->
+            <#--</li>-->
+            <#--<li class="nav-item">-->
+                <#--<a class="nav-link" href="#">我的账户</a>-->
+            <#--</li>-->
+            <#--<li class="nav-item">-->
+                <#--<a class="nav-link" href="#">投资收益</a>-->
+            <#--</li>-->
         </ul>
         <ul class="navbar-nav">
             <#if user??>
@@ -76,7 +76,6 @@
             <li data-target="#carouselExampleControls" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleControls" data-slide-to="1"></li>
             <li data-target="#carouselExampleControls" data-slide-to="2"></li>
-            <li data-target="#carouselExampleControls" data-slide-to="3"></li>
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
