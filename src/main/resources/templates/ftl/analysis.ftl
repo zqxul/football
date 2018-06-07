@@ -18,8 +18,11 @@
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <a class="navbar-brand" href="#">足球计划</a>
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse justify-content-between">
         <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/"><i class="fa fa-home">&nbsp;首页</i></a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="/football/news/list">每日球报</a>
             </li>
@@ -33,7 +36,7 @@
                 <a class="nav-link" href="/data">大数据</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">足彩推荐</a>
+                <a class="nav-link" href="/recommend/">足彩推荐</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">博彩心得</a>
@@ -44,6 +47,27 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">投资收益</a>
             </li>
+        </ul>
+        <ul class="navbar-nav">
+            <#if user??>
+                <li class="nav-item dropdown" style="width: 100px">
+                    <a class="nav-link dropdown-toggle text-center" data-toggle="dropdown" href="#">${user.username}</a>
+                    <div class="dropdown-menu dropdown-menu-right text-center" style="min-width: 100px;width: 100px;font-size: 1.2vw">
+                        <a class="dropdown-item px-2 py-1" href="#">我的账户</a>
+                        <a class="dropdown-item px-2 py-1" href="#">修改密码</a>
+                        <a class="dropdown-item px-2 py-1" href="#">完善信息</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item px-2 py-1" href="/user/logout?url=${url}">登出</a>
+                    </div>
+                </li>
+            <#else>
+            <li class="nav-item">
+                <a class="nav-link" href="/login">登录</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/register">注册</a>
+            </li>
+            </#if>
         </ul>
     </div>
 </nav>

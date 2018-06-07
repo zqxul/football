@@ -5,6 +5,7 @@ import com.finance.lottery.entity.user.User;
 import com.finance.lottery.result.FootballResult;
 import com.finance.lottery.result.ResponseEnum;
 import com.finance.lottery.service.UserService;
+import com.finance.lottery.util.WebUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,12 +16,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Calendar;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author: xuzhiqing
  * @Date: 2018/5/24 17:39
- * @Description:    用户Controller
+ * @Description: 用户Controller
  */
 @RestController
 @RequestMapping("/user")
@@ -59,12 +64,23 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public FootballResult login(@RequestParam String username, @RequestParam String password) {
+    public FootballResult login(HttpServletResponse response, @RequestParam String username, @RequestParam String password) {
         User user = userService.loginUser(username, password);
         if (null == user) {
             return new FootballResult(ResponseEnum.LOGIN_FAILURE);
         }
+        String token = UUID.randomUUID().toString();
+        WebUtil.writeCookie(response, "token", token, 7200);
+        redisTemplate.opsForValue().set(token, user, 2, TimeUnit.HOURS);
         return new FootballResult(ResponseEnum.SUCCESS);
+    }
+
+    @RequestMapping("/logout")
+    public ModelAndView logout(HttpServletRequest request,String url) {
+        ModelAndView mav = new ModelAndView("redirect:"+url);
+        String token = WebUtil.getCookieValue(request, "token");
+        redisTemplate.delete(token);
+        return mav;
     }
 
     @GetMapping("/check")

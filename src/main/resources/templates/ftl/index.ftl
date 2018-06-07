@@ -2,29 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>News</title>
-    <link rel="stylesheet" href="/custom/css/bigdata.css">
-    <link href="/production/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/production/font-awesome/css/font-awesome.min.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel='stylesheet' href='/production/bootstrap/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='/production/font-awesome/css/font-awesome.min.css'>
+    <script src="/production/jquery/jquery.min.js"></script>
+    <title>首页</title>
     <style>
-        table td{
-            font-size: .8vw;
-        }
-        table th{
-            text-align: center;
-        }
-        .navbar-nav{
-            font-weight: 500;
+        .w-80{
+            width: 80%;
         }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand navbar-dark bg-dark" style="font-weight: 500">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <a class="navbar-brand" href="#">足球计划</a>
     <div class="collapse navbar-collapse justify-content-between">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
                 <a class="nav-link" href="/"><i class="fa fa-home">&nbsp;首页</i></a>
             </li>
             <li class="nav-item">
@@ -36,7 +30,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/live/matchs/lastest">比分直播</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/data">大数据</a>
             </li>
             <li class="nav-item">
@@ -56,7 +50,8 @@
             <#if user??>
                 <li class="nav-item dropdown" style="width: 100px">
                     <a class="nav-link dropdown-toggle text-center" data-toggle="dropdown" href="#">${user.username}</a>
-                    <div class="dropdown-menu dropdown-menu-right text-center" style="min-width: 100px;width: 100px;font-size: 1.2vw">
+                    <div class="dropdown-menu dropdown-menu-right text-center"
+                         style="min-width: 100px;width: 100px;font-size: 1.2vw">
                         <a class="dropdown-item px-2 py-1" href="#">我的账户</a>
                         <a class="dropdown-item px-2 py-1" href="#">修改密码</a>
                         <a class="dropdown-item px-2 py-1" href="#">完善信息</a>
@@ -75,13 +70,35 @@
         </ul>
     </div>
 </nav>
-<div id="main" class="cf">
-            ${statList}
-            ${statDetail}
-</div>
+<main class="container pt-4">
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleControls" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleControls" data-slide-to="1"></li>
+            <li data-target="#carouselExampleControls" data-slide-to="2"></li>
+            <li data-target="#carouselExampleControls" data-slide-to="3"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="/img/first.jpg" alt="First slide" style="height: 540px">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="/img/third.jpg" alt="Second slide" style="height: 540px">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="/img/second.jpg" alt="Second slide" style="height: 540px">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</main>
 </body>
-<script src="/production/jquery/jquery.min.js"></script>
 <script src="/production/bootstrap/js/bootstrap.min.js"></script>
-<script src="/custom/js/bigdata.js"></script>
-
 </html>

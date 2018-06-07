@@ -10,7 +10,7 @@
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <a class="navbar-brand" href="#">足球计划</a>
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse justify-content-between">
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="/football/news/list">每日球报</a>
@@ -35,6 +35,24 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">投资收益</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+        <#--<li class="nav-item">-->
+        <#--<a class="nav-link" href="/login">登录</a>-->
+        <#--</li>-->
+        <#--<li class="nav-item">-->
+        <#--<a class="nav-link" href="/register">注册</a>-->
+        <#--</li>-->
+            <li class="nav-item dropdown" style="width: 150px">
+                <a class="nav-link dropdown-toggle text-center" data-toggle="dropdown" href="#">XXX</a>
+                <div class="dropdown-menu dropdown-menu-right" style="min-width: 150px">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another</a>
+                    <a class="dropdown-item" href="#">Something</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">登出</a>
+                </div>
             </li>
         </ul>
     </div>

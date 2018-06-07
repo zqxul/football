@@ -6,6 +6,7 @@ import com.finance.lottery.request.MatchAnalysisRequest;
 import com.finance.lottery.request.MatchRequest;
 import com.finance.lottery.request.ScoreLiveMatchRequest;
 import com.finance.lottery.response.ScoreLiveMatchInfoResponse;
+import com.finance.lottery.util.HttpUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -37,7 +38,7 @@ public class ScoreLiveService {
      * @Description:
      */
     public List<MatchInfo> getScoreLiveMatchs(ScoreLiveMatchRequest request) {
-        String responseText = restTemplate.getForObject(request.getUrl(), String.class);
+        String responseText = HttpUtil.get(request.getUrl());
         Document document = Jsoup.parse(responseText);
         Elements elements = document.selectFirst("#gameList").children();
         List<MatchInfo> matchInfos = new ArrayList<>();

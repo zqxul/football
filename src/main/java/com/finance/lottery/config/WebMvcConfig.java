@@ -1,6 +1,7 @@
 package com.finance.lottery.config;
 
 import com.finance.lottery.interceptor.LoginInterceptor;
+import com.finance.lottery.interceptor.LoginStatusInterceptor;
 import com.finance.lottery.interceptor.VisitInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,11 +24,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/register").setViewName("register");
+        registry.addViewController("/").setViewName("index");
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginInterceptor()).addPathPatterns("/account/**");
+        registry.addInterceptor(loginStatusInterceptor()).addPathPatterns("/**").excludePathPatterns("/user/logout");
         List<String> visitPaths = new ArrayList<>();
         visitPaths.add("/football/news/list");
         visitPaths.add("/analysis/info");
@@ -42,7 +45,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    VisitInterceptor visitInterceptor() {
+    public VisitInterceptor visitInterceptor() {
         return new VisitInterceptor();
+    }
+
+    @Bean
+    public LoginStatusInterceptor loginStatusInterceptor(){
+        return new LoginStatusInterceptor();
     }
 }

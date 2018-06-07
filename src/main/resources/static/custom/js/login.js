@@ -8,7 +8,7 @@ $('#submitBtn').on('click', function () {
                 if (data.code == 3006) {
                     $('.help-tip').text(data.msg);
                 } else {
-                    location.href = "/analysis/info";
+                    location.href = "/";
                 }
             }
         }

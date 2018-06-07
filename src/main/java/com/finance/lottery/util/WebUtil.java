@@ -1,6 +1,14 @@
 package com.finance.lottery.util;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * @Author: xuzhiqing
@@ -29,4 +37,18 @@ public class WebUtil {
         return ip;
     }
 
+    public static String getCookieValue(HttpServletRequest request, String cookieName) {
+        Optional<Cookie> optionalCookie = Arrays.stream(request.getCookies()).filter(cookie -> cookieName.equals(cookie.getName())).findFirst();
+        if (optionalCookie.isPresent()) {
+            return optionalCookie.get().getValue();
+        }
+        return null;
+    }
+
+    public static void writeCookie(HttpServletResponse response,String cookieName,String cookieValue,Integer expire){
+        Cookie cookie = new Cookie(cookieName,cookieValue);
+        cookie.setPath("/");
+        cookie.setMaxAge(expire);
+        response.addCookie(cookie);
+    }
 }

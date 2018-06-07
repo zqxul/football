@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Description:
  * @Date: 2018/5/29 18:42
  */
-public class LoginInterceptor implements HandlerInterceptor {
+public class LoginStatusInterceptor implements HandlerInterceptor {
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
@@ -26,12 +26,14 @@ public class LoginInterceptor implements HandlerInterceptor {
     private RedisTemplate redisTemplate;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        request.getCookies();
-        if (true) {
-            response.sendRedirect("/login");
-            return false;
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) throws Exception {
+        if (modelAndView != null) {
+            String token = WebUtil.getCookieValue(request, "token");
+            if (token != null) {
+                User user = (User) redisTemplate.opsForValue().get(token);
+                modelAndView.addObject("user", user);
+                modelAndView.addObject("url",request.getRequestURL().toString());
+            }
         }
-        return true;
     }
 }
