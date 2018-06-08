@@ -8,6 +8,7 @@ package com.finance.lottery.result;
 
 public enum ResponseEnum {
     SUCCESS(200, "OK"),
+    ADMINSUCCESS(2001,"OK"),
     ERROR(3000,"错误"),
     PARAM_ERROR(3001, "参数错误"),
     PARAM_NULL(3002,"参数为空"),

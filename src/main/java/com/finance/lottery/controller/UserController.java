@@ -52,6 +52,8 @@ public class UserController {
         String password = user.getPassword();
         user.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
         user.setCreateTime(Calendar.getInstance().getTime());
+        user.setRole(0);
+        user.setLevel(0);
         if (!userService.registerUser(user)) {
             mav.addObject("response", ResponseEnum.SERVER_ERROR);
             return mav;
@@ -68,6 +70,9 @@ public class UserController {
         User user = userService.loginUser(username, password);
         if (null == user) {
             return new FootballResult(ResponseEnum.LOGIN_FAILURE);
+        }
+        if(user.getRole() == 1){
+            return new FootballResult(ResponseEnum.ADMINSUCCESS);
         }
         String token = UUID.randomUUID().toString();
         WebUtil.writeCookie(response, "token", token, 7200);

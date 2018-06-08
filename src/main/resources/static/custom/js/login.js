@@ -7,6 +7,8 @@ $('#submitBtn').on('click', function () {
             if (status == "success") {
                 if (data.code == 3006) {
                     $('.help-tip').text(data.msg);
+                } else if (data.code == 2001) {
+                    location.href = "/admin";
                 } else {
                     location.href = "/";
                 }
