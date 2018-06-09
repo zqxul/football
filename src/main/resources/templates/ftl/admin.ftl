@@ -24,7 +24,7 @@
         <nav class="col-md-2 position-fixed h-100 d-none d-md-block navbar-expand-md navbar-dark bg-dark">
             <ul class="navbar-nav flex-column p-1 pt-4">
                 <li class="nav-item active my-1">
-                    <a class="nav-link p-2" href="./admin.html">
+                    <a class="nav-link p-2" href="#">
                         <div class="row m-0">
                             <span class="col-4 p-0 text-center" style="width: 50px;">
                                 <i class="fa fa-home"></i>
@@ -34,7 +34,7 @@
                     </a>
                 </li>
                 <li class="nav-item my-1">
-                    <a class="nav-link p-2" href="./todo.html">
+                    <a class="nav-link p-2" href="#">
                         <div class="row m-0">
                             <span class="col-4 p-0 text-center" style="width: 50px;">
                                 <i class="fa fa-calendar"></i>
@@ -44,7 +44,7 @@
                     </a>
                 </li>
                 <li class="nav-item my-1">
-                    <a class="nav-link p-2" href="./recharge.html">
+                    <a class="nav-link p-2" href="#">
                         <div class="row m-0">
                             <span class="col-4 p-0 text-center" style="width: 50px;">
                                 <i class="fa fa-cny"></i>
@@ -54,7 +54,7 @@
                     </a>
                 </li>
                 <li class="nav-item my-1">
-                    <a class="nav-link p-2" href="./withdraw.html">
+                    <a class="nav-link p-2" href="#">
                         <div class="row m-0">
                             <span class="col-4 p-0 text-center" style="width: 50px;">
                                 <i class="fa fa-money"></i>
@@ -64,7 +64,7 @@
                     </a>
                 </li>
                 <li class="nav-item my-1">
-                    <a class="nav-link p-2" href="./user.html">
+                    <a class="nav-link p-2" href="#">
                         <div class="row m-0">
                             <span class="col-4 p-0 text-center" style="width: 50px;">
                                 <i class="fa fa-users"></i>
@@ -74,7 +74,7 @@
                     </a>
                 </li>
                 <li class="nav-item my-1">
-                    <a class="nav-link p-2" href="./action.html">
+                    <a class="nav-link p-2" href="#">
                         <div class="row m-0">
                             <span class="col-4 p-0 text-center" style="width: 50px;">
                                 <i class="fa fa-smile-o"></i>
@@ -118,16 +118,16 @@
                                 <div class="row m-0 h-75 text-center" style="font-size: 1.2vw">
                                     <div class="col p-3">
                                         <div class="col-12 m-0 p-1">
-                                            <a href="/football/news/list">每日球报</a>&nbsp;被访问了&nbsp;<span>88</span>&nbsp;次
+                                            <a href="/football/news/list">每日球报</a>&nbsp;被访问了&nbsp;<span>${footballNewsVisitCount}</span>&nbsp;次
                                         </div>
                                         <div class="col-12 m-0 p-1">
-                                            <a href="/analysis/info">赛事分析</a>&nbsp;被访问了&nbsp;<span>88</span>&nbsp;次
+                                            <a href="/analysis/info">赛事分析</a>&nbsp;被访问了&nbsp;<span>${matchAnalysisVisitCount}</span>&nbsp;次
                                         </div>
                                         <div class="col-12 m-0 p-1">
-                                            <a href="/live/matchs/lastest">比分直播</a>&nbsp;被访问了&nbsp;<span>88</span>&nbsp;次
+                                            <a href="/live/matchs/lastest">比分直播</a>&nbsp;被访问了&nbsp;<span>${scoreLiveVisitCount}</span>&nbsp;次
                                         </div>
                                         <div class="col-12 m-0 p-1">
-                                            <a href="/data">大数据</a>&nbsp;被访问了&nbsp;<span>88</span>&nbsp;次
+                                            <a href="/data">大数据</a>&nbsp;被访问了&nbsp;<span>${bigDataVisitCount}</span>&nbsp;次
                                         </div>
                                     </div>
                                 </div>

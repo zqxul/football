@@ -156,5 +156,5 @@
 </body>
 <script src="/production/jquery/jquery.min.js"></script>
 <script src="/production/bootstrap/js/bootstrap.min.js"></script>
-<script src=/custom/js/register.js"></script>
+<script src="/custom/js/register.js"></script>
 </html>

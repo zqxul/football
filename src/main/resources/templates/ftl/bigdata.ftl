@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>News</title>
+    <title>Data</title>
     <link rel="stylesheet" href="/custom/css/bigdata.css">
     <link href="/production/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/production/font-awesome/css/font-awesome.min.css">

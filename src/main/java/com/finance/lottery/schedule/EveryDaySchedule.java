@@ -25,5 +25,4 @@ public class EveryDaySchedule {
     public void SaveAndResetDailyVisitCount() {
         scheduleService.saveAndResetDailyVisitCount();
     }
-
 }

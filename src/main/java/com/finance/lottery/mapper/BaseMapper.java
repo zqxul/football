@@ -21,8 +21,10 @@ public interface BaseMapper<T> {
 
     T selectByPrimaryKey(Long id);
 
-    int selectCount(T t);
+    T selectByPrimaryKey(Integer id);
 
-    int delete(List<Long> id);
+    int selectCount();
+
+    int delete(List<Integer> id);
 
 }

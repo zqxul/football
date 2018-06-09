@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <#--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
     <link rel='stylesheet' href='/production/bootstrap/css/bootstrap.min.css'>
     <link rel='stylesheet' href='/production/font-awesome/css/font-awesome.min.css'>
     <script src="/production/jquery/jquery.min.js"></script>
@@ -14,7 +14,7 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand navbar-dark bg-dark">
     <a class="navbar-brand" href="#">足球计划</a>
     <div class="collapse navbar-collapse justify-content-between">
         <ul class="navbar-nav">

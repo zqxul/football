@@ -34,13 +34,19 @@ public class BFIndexService {
         String matchOrder = matchTeamInfo.getMatchOrder();
         String url = String.format(bfIndexRequest.getUrl(), matchCode);
         String responseJson = HttpUtil.get(url);
+        if (responseJson == null) {
+            return null;
+        }
         JSONObject jsonObject = JSONObject.parseObject(responseJson);
+        if (jsonObject == null) {
+            return null;
+        }
         String result = jsonObject.get("result").toString();
         String status = jsonObject.get("status").toString();
         if (StringUtils.isBlank(result) || "fail".equals(status)) {
             return null;
         }
-        String responseHtml = (String) JSONPath.read(responseJson,"$.result.bf_page");
+        String responseHtml = (String) JSONPath.read(responseJson, "$.result.bf_page");
         Document document = Jsoup.parse(responseHtml);
         Elements elements = document.select(bfIndexRequest.getCssPath());
         Optional<Element> optionalElement = elements.parallelStream().filter(element -> matchOrder.equals(element.selectFirst(".c_yellow").text())).findFirst();

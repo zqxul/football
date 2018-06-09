@@ -38,7 +38,11 @@ public class WebUtil {
     }
 
     public static String getCookieValue(HttpServletRequest request, String cookieName) {
-        Optional<Cookie> optionalCookie = Arrays.stream(request.getCookies()).filter(cookie -> cookieName.equals(cookie.getName())).findFirst();
+        Cookie[] cookies = request.getCookies();
+        if(cookies == null){
+            return null;
+        }
+        Optional<Cookie> optionalCookie = Arrays.stream(cookies).filter(cookie -> cookieName.equals(cookie.getName())).findFirst();
         if (optionalCookie.isPresent()) {
             return optionalCookie.get().getValue();
         }

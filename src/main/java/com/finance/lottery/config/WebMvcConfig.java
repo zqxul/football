@@ -25,13 +25,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/register").setViewName("register");
         registry.addViewController("/").setViewName("index");
-        registry.addViewController("/admin").setViewName("admin");
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginInterceptor()).addPathPatterns("/account/**");
-        registry.addInterceptor(loginStatusInterceptor()).addPathPatterns("/**").excludePathPatterns("/user/logout");
+        registry.addInterceptor(loginStatusInterceptor()).addPathPatterns("/**").excludePathPatterns("/user/**");
         List<String> visitPaths = new ArrayList<>();
         visitPaths.add("/football/news/list");
         visitPaths.add("/analysis/info");

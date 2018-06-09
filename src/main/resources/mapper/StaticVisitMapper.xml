@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.finance.lottery.mapper.StaticVisitMapper">
+
+    <resultMap id="staticVisitResultMap" type="StaticVisit">
+        <result column="static_visit_id" property="id"/>
+        <result column="static_visit_url" property="visitUrl"/>
+        <result column="static_visit_count" property="visitCount"/>
+        <result column="static_visit_create_time" property="createTime"/>
+    </resultMap>
+
+    <sql id="staticVisitColumns">
+	  static_visit_id,
+	  static_visit_url,
+	  static_visit_count,
+	  static_visit_create_time
+    </sql>
+
+    <select id="selectByVisitUrl" resultMap="staticVisitResultMap" parameterType="java.lang.String">
+        select
+        <include refid="staticVisitColumns"/>
+        from t_static_visit
+        where static_visit_url = #{visitUrl,jdbcType=VARCHAR}
+        limit 1;
+    </select>
+
+    <insert id="insert" parameterType="StaticVisit" useGeneratedKeys="true">
+		insert into
+            t_static_visit(
+              static_visit_url,
+              static_visit_count,
+              static_visit_create_time
+            )
+        values
+            (
+              #{visitUrl,jdbcType = VARCHAR},
+              #{visitCount,jdbcType = INTEGER},
+              #{createTime,jdbcType = TIMESTAMP}
+		    )
+	</insert>
+
+    <update id="update" parameterType="StaticVisit">
+		update t_static_visit
+		set
+		  static_visit_url = #{visitUrl},
+		  static_visit_count = #{visitCount},
+		  static_visit_create_time = #{createTime}
+		WHERE static_visit_id = #{id}
+	</update>
+    <update id="updateSelective" parameterType="StaticVisit">
+        update t_static_visit
+        <set>
+            <if test="visitUrl != null">
+                static_visit_url = #{visitUrl},
+            </if>
+            <if test="visitCount != null">
+                static_visit_count = #{visitCount},
+            </if>
+            <if test="createTime != null">
+                static_visit_create_time = #{createTime}
+            </if>
+        </set>
+        WHERE static_visit_id = #{id}
+    </update>
+
+    <select id="selectByPrimaryKey" resultMap="staticVisitResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="staticVisitColumns"/>
+        from t_static_visit
+        WHERE
+        static_visit_id = #{id}
+    </select>
+
+    <select id="select" resultMap="staticVisitResultMap" parameterType="StaticVisit">
+        SELECT
+        <include refid="staticVisitColumns"/>
+        FROM t_static_visit
+        <where>
+            <if test="visitUrl!=null">
+                static_visit_url = #{visitUrl}
+            </if>
+            <if test="visitCount!=null">
+                AND static_visit_count = #{visitCount}
+            </if>
+            <if test="createTime!=null">
+                AND static_visit_create_time = #{createTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectOne" resultMap="staticVisitResultMap" parameterType="StaticVisit">
+        SELECT
+        <include refid="staticVisitColumns"/>
+        FROM t_static_visit
+        <where>
+            <if test="visitUrl!=null">
+                static_visit_url = #{visitUrl}
+            </if>
+            <if test="visitCount!=null">
+                AND static_visit_count = #{visitCount}
+            </if>
+            <if test="createTime!=null">
+                AND static_visit_create_time = #{createTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_static_visit
+    </select>
+
+    <select id="selectCountByVisitUrl" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_static_visit WHERE static_visit_url = #{visitUrl}
+    </select>
+
+    <select id="selectTodayRecord" resultMap="staticVisitResultMap">
+        SELECT
+        <include refid="staticVisitColumns"/>
+        FROM t_static_visit
+        WHERE
+        date(static_visit_create_time) = curdate()
+    </select>
+
+</mapper>

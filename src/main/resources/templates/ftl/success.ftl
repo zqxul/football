@@ -38,21 +38,11 @@
             </li>
         </ul>
         <ul class="navbar-nav">
-        <#--<li class="nav-item">-->
-        <#--<a class="nav-link" href="/login">登录</a>-->
-        <#--</li>-->
-        <#--<li class="nav-item">-->
-        <#--<a class="nav-link" href="/register">注册</a>-->
-        <#--</li>-->
-            <li class="nav-item dropdown" style="width: 150px">
-                <a class="nav-link dropdown-toggle text-center" data-toggle="dropdown" href="#">XXX</a>
-                <div class="dropdown-menu dropdown-menu-right" style="min-width: 150px">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another</a>
-                    <a class="dropdown-item" href="#">Something</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">登出</a>
-                </div>
+            <li class="nav-item">
+                <a class="nav-link" href="/login">登录</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/register">注册</a>
             </li>
         </ul>
     </div>
@@ -86,4 +76,6 @@
 </body>
 
 <script src="/production/jquery/jquery.min.js"></script>
+<script src="/production/bootstrap/js/popper.min.js"></script>
+<script src="/production/bootstrap/js/bootstrap.min.js"></script>
 </html>
