@@ -4,7 +4,7 @@ server:
 
 spring:
    profiles:
-     active: dev
+     active: prod
    datasource:
      name: user
      url: jdbc:mysql://localhost/football?useUnicode=true&characterEncoding=utf-8

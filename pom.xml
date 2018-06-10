@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.finance.lottery</groupId>
-	<artifactId>football-lottery</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>football</artifactId>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 
 	<name>football-lottery</name>
