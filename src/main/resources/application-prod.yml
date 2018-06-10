@@ -3,8 +3,6 @@ server:
   port: 80
 
 spring:
-   profiles:
-     active: prod
    datasource:
      name: user
      url: jdbc:mysql://localhost/football?useUnicode=true&characterEncoding=utf-8

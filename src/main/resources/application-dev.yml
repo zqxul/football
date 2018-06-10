@@ -1,15 +1,13 @@
 server:
   ip: localhost
-  port: 80
+  port: 5555
 
 spring:
-   profiles:
-     active: prod
    datasource:
      name: user
-     url: jdbc:mysql://localhost/football?useUnicode=true&characterEncoding=utf-8
+     url: jdbc:mysql://localhost/lottery?useUnicode=true&characterEncoding=utf-8
      username: root
-     password: W123456w!
+     password: root
      driver-class-name: com.mysql.jdbc.Driver
      type: com.alibaba.druid.pool.DruidDataSource
    freemarker:

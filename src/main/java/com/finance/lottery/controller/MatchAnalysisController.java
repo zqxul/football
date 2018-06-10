@@ -11,7 +11,6 @@ import com.finance.lottery.result.ResponseEnum;
 import com.finance.lottery.service.BFIndexService;
 import com.finance.lottery.service.InformationService;
 import com.finance.lottery.service.ScoreLiveService;
-import com.sun.org.apache.xml.internal.security.Init;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

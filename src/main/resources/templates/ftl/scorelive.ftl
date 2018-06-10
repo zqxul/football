@@ -14,7 +14,7 @@
 
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">足球计划</a>
+    <a class="navbar-brand" href="#">玩个球</a>
     <div class="collapse navbar-collapse justify-content-between">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
@@ -47,9 +47,9 @@
         </ul>
         <ul class="navbar-nav">
             <#if user??>
-                <li class="nav-item dropdown" style="width: 100px">
+                <li class="nav-item dropdown" style="width: 165px">
                     <a class="nav-link dropdown-toggle text-center" data-toggle="dropdown" href="#">${user.username}</a>
-                    <div class="dropdown-menu dropdown-menu-right text-center" style="min-width: 100px;width: 100px;font-size: 1.2vw">
+                    <div class="dropdown-menu dropdown-menu-right text-center" style="min-width: 100px;width: 165px;font-size: 1.2vw">
                         <a class="dropdown-item px-2 py-1" href="#">我的账户</a>
                         <a class="dropdown-item px-2 py-1" href="#">修改密码</a>
                         <a class="dropdown-item px-2 py-1" href="#">完善信息</a>

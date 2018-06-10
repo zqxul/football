@@ -14,7 +14,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">足球计划</a>
+    <a class="navbar-brand" href="#">玩个球</a>
     <div class="collapse navbar-collapse justify-content-between">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
