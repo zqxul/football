@@ -17,9 +17,9 @@ a.live{display:inline-block;padding:2px 8px;height:16px;color:#16b13a;vertical-a
 span.live{display:inline-block;padding:2px 8px;height:16px;background:#16b13a;color:#fff;vertical-align:middle;line-height:16px;}
 span.sad{display:inline-block;width:22px;height:22px;background:url(../images/icon_sad.png?201706) 0 0 no-repeat;vertical-align:middle;}
 a.close{display:inline-block;width:18px;height:18px;background:url(../images/icon_close.png?201706) 0 0 no-repeat;vertical-align:middle;}
-.btn{display:inline-block;padding:0 20px;height:34px;background:#58c2ad;color:#fff;text-align:center;font-size:16px;line-height:34px;opacity:.85;}
-.btn:hover{color:#fff;opacity:1;}
-.btn_disable,.btn_disable:hover{background:#ccc;color:#000;}
+/*.btn{display:inline-block;padding:0 20px;height:34px;background:#58c2ad;color:#fff;text-align:center;font-size:16px;line-height:34px;opacity:.85;}*/
+/*.btn:hover{color:#fff;opacity:1;}*/
+/*.btn_disable,.btn_disable:hover{background:#ccc;color:#000;}*/
 span.arrow_w{display:inline-block;overflow:hidden;width:9px;height:17px;background:url(../images/bg_arrow.png?201706) 0 0 no-repeat;vertical-align:middle;}
 a.arrow_l,a.arrow_r{position:absolute;top:105px;left:10px;z-index:1000;display:block;overflow:hidden;width:25px;height:47px;background:url(../images/arrow.png) 0 0 no-repeat;opacity:.2;}
 #show:hover a.arrow_l,#show:hover a.arrow_r{opacity:.8;}

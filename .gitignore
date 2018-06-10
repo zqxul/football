@@ -29,3 +29,4 @@
 /mvnw.cmd
 /src/main/test/
 /dump.rdb
+/Jenkinsfile
