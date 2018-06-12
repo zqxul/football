@@ -2,6 +2,7 @@ package com.finance.lottery.interceptor;
 
 import com.finance.lottery.properties.BackgroundProperties;
 import com.finance.lottery.util.WebUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -33,17 +34,20 @@ public class VisitInterceptor implements HandlerInterceptor {
         System.out.println("来自 " + ip + " 的访问:" + stringRedisTemplate.opsForValue().get(backgroundProperties.getCountVisitTotal()));
 
         String uri = request.getRequestURI();
-        if ("/analysis/info".equals(uri)) {
-            stringRedisTemplate.opsForValue().increment(backgroundProperties.getCountVisitMatchAnalysis(), 1l);
-        }
-        if ("/live/matchs/lastest".equals(uri)) {
-            stringRedisTemplate.opsForValue().increment(backgroundProperties.getCountVisitScoreLive(), 1l);
-        }
-        if ("/football/news/list".equals(uri)) {
-            stringRedisTemplate.opsForValue().increment(backgroundProperties.getCountVisitFootballNews(), 1l);
-        }
-        if ("/data".equals(uri)) {
-            stringRedisTemplate.opsForValue().increment(backgroundProperties.getCountBigData(), 1l);
+        String queryString = request.getQueryString();
+        if (StringUtils.isBlank(queryString)) {
+            if ("/analysis/info".equals(uri)) {
+                stringRedisTemplate.opsForValue().increment(backgroundProperties.getCountVisitMatchAnalysis(), 1l);
+            }
+            if ("/live/matchs/lastest".equals(uri)) {
+                stringRedisTemplate.opsForValue().increment(backgroundProperties.getCountVisitScoreLive(), 1l);
+            }
+            if ("/football/news/list".equals(uri)) {
+                stringRedisTemplate.opsForValue().increment(backgroundProperties.getCountVisitFootballNews(), 1l);
+            }
+            if ("/data".equals(uri)) {
+                stringRedisTemplate.opsForValue().increment(backgroundProperties.getCountBigData(), 1l);
+            }
         }
     }
 

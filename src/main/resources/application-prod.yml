@@ -5,7 +5,7 @@ server:
 spring:
    datasource:
      name: user
-     url: jdbc:mysql://localhost/football?useUnicode=true&characterEncoding=utf-8
+     url: jdbc:mysql://118.24.99.216/football?useUnicode=true&characterEncoding=utf-8
      username: root
      password: W123456w!
      driver-class-name: com.mysql.jdbc.Driver
