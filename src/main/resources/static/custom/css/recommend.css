@@ -1,0 +1,28 @@
+#hotmanRow {
+    height: 140px;
+    width: 100%;
+    font-size: .6vw;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+#hotmanRow img {
+    height: 100%;
+}
+
+.hotman {
+    width: 120px;
+    height: 120px;
+    position: relative;
+}
+.dropdown-menu{
+    min-width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.dropdownPosition .dropdown-toggle::after{
+    margin-left: -.1em;
+    margin-bottom: .3em;
+}

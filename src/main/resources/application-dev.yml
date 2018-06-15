@@ -140,7 +140,17 @@ lottery:
   football:
     new:
       url: http://api.dongqiudi.com/app/tabs/iphone/58.json?mark=gif&version=600
-
+  recommend:
+    matchs:
+      url: http://app.huanhuba.com/app/market/cBoxStep1?data={data}&sign={sign}
+      params:
+        data: '{"versionNum":"3.34","winy_token":"672480f5684b908e4ea4ba67fb96fc158d7682e5b3cd434b44bcac92ae36aa74","dt":"2","mf_token":"541306c51fe1c178322800dd3114e4612906e5e9","platform":"ios","login_id":"586437","iostype":"12","page":%s,"idfa":"BB681EA3-C227-45BE-8E30-F5ED29ACA2BC"}'
+        sign: e954f0e5e5905d3349f5bf21a795dddd
+    details:
+      url: http://app.huanhuba.com/app/Market/cBoxStep2New?data={data}&sign={sign}
+      params:
+        data: '{"dt":"2","login_id":"586437","versionNum":"3.34","match_id":%s,"platform":"ios","user_id":"586437","iostype":"12","idfa":"BB681EA3-C227-45BE-8E30-F5ED29ACA2BC"}'
+        sign: dfcbe8ecd8b91c70bcafb72d46edb72d
 
 logging:
   level:
