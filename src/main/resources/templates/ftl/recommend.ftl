@@ -12,7 +12,7 @@
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <a class="navbar-brand" href="#">玩个球</a>
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse justify-content-between">
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="/football/news/list">每日球报</a>
@@ -465,37 +465,50 @@
                 </div>
 
             </div>
+            <form id="recommendForm" style="display: none">
+                <input type="hidden" id="userId" name="userId" value="<#if user??>${user.id}</#if>"/>
+                <input type="hidden" id="matchId" name="matchId"/>
+                <input type="hidden" id="leagueName" name="leagueName"/>
+                <input type="hidden" id="hostName" name="hostName"/>
+                <input type="hidden" id="visitName" name="visitName"/>
+                <input type="hidden" id="recommendType" name="recommendType" value="1"/>
+                <input type="hidden" id="recommendValue" name="recommendValue"/>
+                <input type="hidden" id="handicap" name="handicap"/>
+                <input type="hidden" id="handicapValue" name="handicapValue"/>
+                <input type="hidden" id="recommendReason" name="recommendReason"/>
+                <input type="hidden" id="recommendPrice" name="recommendPrice" value="0"/>
+            </form>
             <div class="modal-body p-0">
                 <div class="p-0">
-                    <div id="odds-1" class="tab-pane recommend-panel">
+                    <div id="odds" class="tab-pane recommend-panel">
                         <div class="btn-group nav nav-tabs col justify-content-center border-0" role="group"
                              style="padding: .5rem .5rem;">
-                            <a href="#europeOdds" class="btn btn-sm btn-light">欧赔</a>
-                            <a href="#asiaOdds" class="btn btn-sm btn-light active">亚盘</a>
-                            <a href="#sizeOdds" class="btn btn-sm btn-light">大小盘</a>
+                            <a href="#europeOdds" recommendtype="1" class="btn btn-sm btn-light active">欧赔</a>
+                            <a href="#asiaOdds" recommendtype="2" class="btn btn-sm btn-light">亚盘</a>
+                            <a href="#sizeOdds" recommendtype="3" class="btn btn-sm btn-light">大小盘</a>
                         </div>
                         <div class="tab-content p-0">
-                            <div id="europeOdds" class="tab-pane">
+                            <div id="europeOdds" class="tab-pane active">
                                 <div class="card-header py-1 text-center"
-                                     style="font-size: 1.2vw">
+                                     style="font-size: 1.2vw;max-height: 200px;overflow-y: auto">
                                     欧赔选项
                                 </div>
                                 <div id="europeOddsRows" class="card-body p-2 text-center bg-white"
                                      style="font-size: 10px;"></div>
                             </div>
-                            <div id="asiaOdds" class="tab-pane active">
+                            <div id="asiaOdds" class="tab-pane">
                                 <div class="card-header py-1 text-center"
                                      style="font-size: 1.2vw">亚盘选项
                                 </div>
                                 <div id="asiaOddsRows" class="card-body p-2 text-center bg-white"
-                                     style="font-size: 10px;"></div>
+                                     style="font-size: 10px;max-height: 200px;overflow-y: auto"></div>
                             </div>
                             <div id="sizeOdds" class="tab-pane">
                                 <div class="card-header py-1 text-center"
                                      style="font-size: 1.2vw">大小球选项
                                 </div>
                                 <div id="sizeOddsRows" class="card-body p-2 text-center bg-white"
-                                     style="font-size: 10px;"></div>
+                                     style="font-size: 10px;max-height: 200px;overflow-y: auto"></div>
                             </div>
                         </div>
                     </div>
@@ -503,25 +516,28 @@
                 <div class="p-0">
                     <div class="card-header py-1 text-center" style="font-size: 1.2vw">推荐理由</div>
                     <div class="card-body p-2 text-center bg-white border-bottom" style="font-size: 10px;">
-                        <textarea name="reason" style="width: 100%;height: 80px"></textarea>
+                        <textarea id="reason" name="reason" onchange="setReasonInfo(this)" style="width: 100%;height: 80px"></textarea>
                     </div>
                 </div>
                 <div class="p-0">
                     <div class="card-body px-3 py-2 text-center">
                         <div class="row">
-                            <div class="input-group col-7 px-4">
+                            <div class="input-group col-5 pl-3 pr-2">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text px-2" style="font-size: 1vw;">发布价格</span>
                                 </div>
-                                <input type="text" class="form-control">
+                                <input id="deployPrice" type="text" class="form-control" onchange="setPriceInfo(this)"/>
                                 <div class="input-group-append">
                                     <span class="input-group-text px-2">
                                         <i class="fa fa-stop-circle-o text-warning"></i>
                                     </span>
                                 </div>
                             </div>
+                            <div class="col-2 p-0 my-auto text-left" style="font-size: 1.2vw;color: #a06d6d">
+                                (10 - 1000)
+                            </div>
                             <div class="col-5">
-                                <button type="button" class="btn btn-primary w-100">发布</button>
+                                <button id="deployBtn" type="button" class="btn btn-primary w-100">发布</button>
                             </div>
                         </div>
                     </div>

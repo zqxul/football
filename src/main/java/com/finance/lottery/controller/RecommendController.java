@@ -3,9 +3,9 @@ package com.finance.lottery.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPath;
+import com.finance.lottery.entity.zqmf.RecommendDetail;
 import com.finance.lottery.entity.zqmf.RecommendMatchDetail;
 import com.finance.lottery.entity.zqmf.RecommendMatchInfo;
-import com.finance.lottery.entity.zqmf.DeployRecomment;
 import com.finance.lottery.request.MatchRequest;
 import com.finance.lottery.request.RecommendDetailRequest;
 import com.finance.lottery.request.RecommendMatchRequest;
@@ -117,7 +117,7 @@ public class RecommendController {
     }
 
     @GetMapping("/deploy")
-    public DeferredResult<String> deployRecommend(DeployRecomment deployRecomment) {
+    public DeferredResult<String> deployRecommend(RecommendDetail recommendDetail) {
         DeferredResult<String> result = new DeferredResult<>();
         result.setResult("");
         return result;

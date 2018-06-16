@@ -2,13 +2,69 @@ function initRecommendPanel() {
     $('.recommend-panel a').click(function (e) {
         e.preventDefault();
         $(this).tab('show');
+
+        clearRecommendForm();//清空表单
+        //设置推荐类型：1、欧赔，2、亚盘，3、大小球
+        $('#recommendType').val($(this).attr("recommendtype"));
+
+        //清空赔率样式
+        $('#odds .commonOdd').css('background-color', '#ffffff');
+    });
+
+    //初始化推荐发布按钮事件
+    $('#deployBtn').click(function () {
+        $.ajax({
+            url: '/recommend/deploy',
+            method: 'get',
+            data: $('#recommendForm').serialize(),
+            success: function (data) {
+
+            }
+        });
+
     });
 }
 
 function initRecommendContent(element) {
     initTeamVS(element);
     initOdds(element);
+    initRecommendForm(element);
 }
+
+function initRecommendForm(element) {
+    setMatchInfo(element);
+}
+
+function setMatchInfo(element) {
+    //userId不需要设置，根据情况自动设值
+    var leagueName = $(element).attr("leaguename");
+    var matchId = $(element).attr("matchid");
+    var hostName = $(element).attr("hostname");
+    var visitName = $(element).attr("visitname");
+    $('#leagueName').val(leagueName);
+    $('#matchId').val(matchId);
+    $('#hostName').val(hostName);
+    $('#visitName').val(visitName);
+}
+function setOddInfo(element) {
+    //recommendType在选择欧赔、亚盘、大小球中已经设置
+    var recommendValue = $(element).attr("recommendvalue");
+    var handicap = $(element).attr("handicap");
+    var handicapValue = $(element).attr("handicapvalue");
+    $('#recommendValue').val(recommendValue);
+    $('#handicap').val(handicap);
+    $('#handicapValue').val(handicapValue);
+}
+function setReasonInfo(element) {
+    var recommendReason = $(element).val();
+    $('#recommendReason').val(recommendReason);
+}
+
+function setPriceInfo(element) {
+    var recommendPrice = $(element).val();
+    $('#recommendPrice').val(recommendPrice);
+}
+
 
 function initOdds(element) {
     var matchId = $(element).attr("matchid");
@@ -32,22 +88,19 @@ function initOdds(element) {
                         var sizeOddsRow = $('<div class="row m-0 p-1"></div>');
                         var companySpan = $('<span class="company col p-1"></span>');
                         companySpan.text(dxq.bname);
-                        var bigSpan = $('<span class="big col p-1 mx-1 border sizeOdd"></span>');
+                        var bigSpan = $('<span class="big col p-1 mx-1 border sizeOdd commonOdd" handicap="'+dxq.o3+'" handicapValue="'+dxq.o4+'" recommendvalue="6" onclick="changeSizeStyle(this)"></span>');
                         bigSpan.text(dxq.o1);
                         var handicapSpan = $('<span class="handicap col p-1 mx-1 border"></span>');
                         handicapSpan.text(dxq.o3);
-                        var handicapSpanHide = $('<span class="handicap col p-1 mx-1 border" style="display: none"></span>');
-                        handicapSpanHide.text(dxq.o4);
-                        var smallSpan = $('<span class="small col p-1 mx-1 border sizeOdd""></span>');
+                        var smallSpan = $('<span class="small col p-1 mx-1 border sizeOdd commonOdd" handicap="'+dxq.o3+'" handicapValue="'+dxq.o4+'" recommendvalue="7" onclick="changeSizeStyle(this)"></span>');
                         smallSpan.text(dxq.o2);
                         sizeOddsRow.append(companySpan);
                         sizeOddsRow.append(bigSpan);
                         sizeOddsRow.append(handicapSpan);
-                        sizeOddsRow.append(handicapSpanHide);
                         sizeOddsRow.append(smallSpan);
                         sizeOddsRows.append(sizeOddsRow);
                     }
-                }else{
+                } else {
 
                 }
 
@@ -57,18 +110,15 @@ function initOdds(element) {
                         var asiaOddsRow = $('<div class="row m-0 p-1"></div>');
                         var companySpan = $('<span class="company col p-1"></span>');
                         companySpan.text(yp.bname);
-                        var upSpan = $('<span class="up col p-1 mx-1 border asiaOdd"></span>');
+                        var upSpan = $('<span class="up col p-1 mx-1 border asiaOdd commonOdd" handicap="'+yp.o3+'" handicapValue="'+yp.o4+'" recommendvalue="4" onclick="changeAsiaStyle(this)"></span>');
                         upSpan.text(yp.o1);
                         var handicapSpan = $('<span class="handicap col p-1 mx-1 border"></span>');
                         handicapSpan.text(yp.o3);
-                        var handicapSpanHide = $('<span class="handicap col p-1 mx-1 border" style="display: none"></span>');
-                        handicapSpanHide.text(yp.o4);
-                        var downSpan = $('<span class="down col p-1 mx-1 border asiaOdd"></span>');
+                        var downSpan = $('<span class="down col p-1 mx-1 border asiaOdd commonOdd" handicap="'+yp.o3+'" handicapValue="'+yp.o4+'" recommendvalue="5" onclick="changeAsiaStyle(this)"></span>');
                         downSpan.text(yp.o2);
                         asiaOddsRow.append(companySpan);
                         asiaOddsRow.append(upSpan);
                         asiaOddsRow.append(handicapSpan);
-                        asiaOddsRow.append(handicapSpanHide);
                         asiaOddsRow.append(downSpan);
                         asiaOddsRows.append(asiaOddsRow);
                     }
@@ -78,11 +128,11 @@ function initOdds(element) {
                     var europeOddsRow = $('<div class="row m-0 p-1"></div>');
                     var companySpan = $('<span class="company col p-1"></span>');
                     companySpan.text(jc.title);
-                    var winSpan = $('<span class="win col p-1 mx-1 border europeOdd"></span>');
+                    var winSpan = $('<span class="win col p-1 mx-1 border europeOdd commonOdd" recommendvalue="1" onclick="changeEuropeStyle(this)"></span>');
                     winSpan.text(jc.o1);
-                    var drawSpan = $('<span class="draw col p-1 mx-1 border europeOdd"></span>');
+                    var drawSpan = $('<span class="draw col p-1 mx-1 border europeOdd commonOdd" recommendvalue="2" onclick="changeEuropeStyle(this)"></span>');
                     drawSpan.text(jc.o2);
-                    var lostSpan = $('<span class="lost col p-1 mx-1 border europeOdd"></span>');
+                    var lostSpan = $('<span class="lost col p-1 mx-1 border europeOdd commonOdd" recommendvalue="3" onclick="changeEuropeStyle(this)"></span>');
                     lostSpan.text(jc.o3);
                     europeOddsRow.append(companySpan);
                     europeOddsRow.append(winSpan);
@@ -151,11 +201,10 @@ function initLeagueDiv() {
 function resetMatchDiv(element) {
     var checked = $(element).prop("checked");
     var val = $(element).siblings(".leagueName").text().trim();
-    var item = $('.leagueNameDiv[leaguename="' + val + '"]');
     if (checked) {
-        item.parents('a').show();
+        $('#teamsMenus a[leaguename="' + val + '"]').show();
     } else {
-        item.parents('a').hide();
+        $('#teamsMenus a[leaguename="' + val + '"]').hide();
     }
 }
 
@@ -181,7 +230,7 @@ function initMatchDiv() {
                     vsRow.append(vsDiv);
                     vsRow.append(visitDiv);
                     vsRow.append(hiddenDiv);
-                    var vsA = $('<a class="dropdown-item p-1" style="font-size: 1vw" matchid="' + matchData.gsm_match_id + '" onclick="initRecommendContent(this)"></a>');
+                    var vsA = $('<a class="dropdown-item p-1" style="font-size: 1vw" hostname="' + matchData.home_name + '" visitname="' + matchData.away_name + '" leaguename="' + matchData.league_name + '" matchid="' + matchData.gsm_match_id + '" onclick="initRecommendContent(this)"></a>');
                     vsA.append(vsRow);
                     matchDiv.append(vsA);
                 }
@@ -189,6 +238,50 @@ function initMatchDiv() {
             }
         }
     });
+}
+
+//赔率被选中时改变样式
+function changeEuropeStyle(element) {
+    $('#europeOdds .europeOdd').css('background-color', '#ffffff');
+    $(element).css('background-color', '#9a9a9a');
+    setOddInfo(element);
+}
+
+function changeAsiaStyle(element) {
+    $('#asiaOdds .asiaOdd').css('background-color', '#ffffff');
+    $(element).css('background-color', '#9a9a9a');
+    setOddInfo(element);
+}
+
+function changeSizeStyle(element) {
+    $('#sizeOdds .sizeOdd').css('background-color', '#ffffff');
+    $(element).css('background-color', '#9a9a9a');
+    setOddInfo(element);
+}
+
+//显示模态框时清空初始化表单数据
+function clearRecommendForm() {
+    $('#matchId').val("");
+    $('#leagueName').val("");
+    $('#hostName').val("");
+    $('#visitName').val("");
+    $('#recommendType').val("1");
+    $('#recommendValue').val("");
+    $('#handicap').val("");
+    $('#handicapValue').val("");
+    $('#recommendReason').val("");
+    $('#recommendPrice').val("");
+
+    //清空推荐理由和发布价格
+    $('#reason').val("");
+    $('#deployPrice').val("");
+}
+
+//显示模态框时清空上次的赔率数据
+function clearOdds() {
+    $('#europeOddsRows').html("");
+    $('#asiaOddsRows').html("");
+    $('#sizeOddsRows').html("");
 }
 
 $(function () {
@@ -199,9 +292,11 @@ $(function () {
 
         initLeagueAndMatch();
         initRecommendPanel();
+        clearRecommendForm();//显示模态框时清空初始化表单数据
+        clearOdds();//显示模态框时清空上次的赔率数据
     });
 
-    //赔率被选中时改变样式
+    //赔率被选中时改变样式,在.html格式中才生效后面移除
     $('#europeOdds .europeOdd').click(function () {
         $('#europeOdds .europeOdd').css('background-color', '#ffffff');
         $(this).css('background-color', '#9a9a9a');
