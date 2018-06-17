@@ -2,7 +2,11 @@ package com.finance.lottery.service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONPath;
+import com.finance.lottery.entity.zqmf.HotMan;
+import com.finance.lottery.entity.zqmf.Recommend;
 import com.finance.lottery.entity.zqmf.RecommendMatchInfo;
+import com.finance.lottery.mapper.RecommendMapper;
+import com.finance.lottery.mapper.UserMapper;
 import com.finance.lottery.request.RecommendDetailRequest;
 import com.finance.lottery.request.RecommendMatchRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +31,10 @@ public class RecommendService {
     private RecommendDetailRequest recommendDetailRequest;
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private RecommendMapper recommendMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     public List<RecommendMatchInfo> getRecommendMatchList() {
         List<RecommendMatchInfo> recommendMatchInfos = new ArrayList<>();
@@ -44,5 +52,37 @@ public class RecommendService {
             }
         }
         return recommendMatchInfos;
+    }
+
+    public boolean saveRecommend(Recommend recommend) {
+        return recommendMapper.insert(recommend) > 0;
+    }
+
+    public List<Recommend> getRecommendList(){
+        return recommendMapper.selectAll();
+    }
+
+    public List<RecommendMatchInfo> getRecommendMatchs(){
+        List<RecommendMatchInfo> recommendMatchInfos = new ArrayList<>();
+        String data = recommendMatchRequest.getParams().get("data");
+        for (int i = 1; ; i++) {
+            Map<String, String> dataMap = new HashMap<>();
+            dataMap.put("sign", recommendMatchRequest.getParams().get("sign"));
+            dataMap.put("data", String.format(data, String.valueOf(i)));
+            String responseJson = restTemplate.getForObject(recommendMatchRequest.getUrl(), String.class, dataMap);
+            JSONArray dataArray = (JSONArray) JSONPath.read(responseJson, "$.data");
+            List<RecommendMatchInfo> recommendMatchInfoList = dataArray.toJavaList(RecommendMatchInfo.class);
+            recommendMatchInfos.addAll(recommendMatchInfoList);
+            if (recommendMatchInfoList.size() < 24) {
+                break;
+            }
+        }
+        return recommendMatchInfos;
+    }
+
+    public List<HotMan> getHotMans(){
+        List<HotMan> hotMans = new ArrayList<>();
+        //TODO
+        return hotMans;
     }
 }

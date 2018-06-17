@@ -20,6 +20,9 @@ public enum ResponseEnum {
     EMAIL_NOT_BIND(3008,"该邮箱未绑定账户"),
     RESET_PASS_INVALID(3009,"密码重置链接已失效"),
     INVALID(3010,"报歉，你访问的页面失踪了"),
+    INTERNAL_ERROR(3011,"内部错误"),
+    RECOMMEND_ODD_NULL(3012,"赔率不能为空"),
+    RECOMMEND_MATCH_NULL(3013,"请选择比赛"),
     ;
 
     private int code;

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.finance.lottery.mapper.RecommendMapper">
+
+    <resultMap id="recommendResultMap" type="Recommend">
+        <id column="recommend_id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="recommend_match_id" property="matchId"/>
+        <result column="recommend_league_name" property="leagueName"/>
+        <result column="recommend_type" property="type"/>
+        <result column="recommend_value" property="value"/>
+        <result column="recommend_handicap" property="handicap"/>
+        <result column="recommend_handicap_value" property="handicapValue"/>
+        <result column="recommend_reason" property="reason"/>
+        <result column="recommend_price" property="price"/>
+        <result column="recommend_match_result" property="matchResult"/>
+        <result column="recommend_host" property="host"/>
+        <result column="recommend_visit" property="visit"/>
+        <result column="recommend_match_time" property="matchTime"/>
+        <result column="recommend_create_time" property="createTime"/>
+        <result column="recommend_create_by" property="createBy"/>
+    </resultMap>
+
+    <sql id="recommendColumns">
+	  recommend_id,
+	  user_id,
+	  recommend_match_id,
+	  recommend_league_name,
+	  recommend_type,
+	  recommend_value,
+	  recommend_handicap,
+	  recommend_handicap_value,
+	  recommend_reason,
+	  recommend_price,
+	  recommend_match_result,
+	  recommend_host,
+	  recommend_visit,
+	  recommend_match_time,
+	  recommend_create_time,
+	  recommend_create_by
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="recommendResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="recommendColumns"/>
+        from t_recommend
+        WHERE
+        recommend_id = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="recommendResultMap">
+        select
+        <include refid="recommendColumns"/>
+        from t_recommend
+    </select>
+
+    <select id="select" resultMap="recommendResultMap" parameterType="Recommend">
+        SELECT
+        <include refid="recommendColumns"/>
+        FROM t_recommend
+        <where>
+            1=1
+            <if test="userId!=null">
+                AND user_id = #{userId}
+            </if>
+            <if test="matchId!=null">
+                AND recommend_match_id = #{matchId}
+            </if>
+            <if test="leagueName!=null">
+                AND recommend_league_name = #{leagueName}
+            </if>
+            <if test="type!=null">
+                AND recommend_type = #{type}
+            </if>
+            <if test="value!=null">
+                AND recommend_value = #{value}
+            </if>
+            <if test="handicap!=null">
+                AND recommend_handicap = #{handicap}
+            </if>
+            <if test="handicapValue!=null">
+                AND recommend_handicap_value = #{handicapValue}
+            </if>
+            <if test="reason!=null">
+                AND recommend_reason = #{reason}
+            </if>
+            <if test="price!=null">
+                AND recommend_price = #{price}
+            </if>
+            <if test="matchResult!=null">
+                AND recommend_match_result = #{matchResult}
+            </if>
+            <if test="host!=null">
+                AND recommend_host = #{host}
+            </if>
+            <if test="visit!=null">
+                AND recommend_visit = #{visit}
+            </if>
+            <if test="matchTime!=null">
+                AND recommend_match_time = #{matchTime}
+            </if>
+            <if test="createTime!=null">
+                AND recommend_create_time = #{createTime}
+            </if>
+            <if test="createBy!=null">
+                AND recommend_create_by = #{createBy}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectOne" resultMap="recommendResultMap" parameterType="Recommend">
+        SELECT
+        <include refid="recommendColumns"/>
+        FROM t_recommend
+        <where>
+            1=1
+            <if test="userId!=null">
+                AND user_id = #{userId}
+            </if>
+            <if test="matchId!=null">
+                AND recommend_match_id = #{matchId}
+            </if>
+            <if test="leagueName!=null">
+                AND recommend_league_name = #{leagueName}
+            </if>
+            <if test="type!=null">
+                AND recommend_type = #{type}
+            </if>
+            <if test="value!=null">
+                AND recommend_value = #{value}
+            </if>
+            <if test="handicap!=null">
+                AND recommend_handicap = #{handicap}
+            </if>
+            <if test="handicapValue!=null">
+                AND recommend_handicap_value = #{handicapValue}
+            </if>
+            <if test="reason!=null">
+                AND recommend_reason = #{reason}
+            </if>
+            <if test="price!=null">
+                AND recommend_price = #{price}
+            </if>
+            <if test="matchResult!=null">
+                AND recommend_match_result = #{matchResult}
+            </if>
+            <if test="host!=null">
+                AND recommend_host = #{host}
+            </if>
+            <if test="visit!=null">
+                AND recommend_visit = #{visit}
+            </if>
+            <if test="matchTime!=null">
+                AND recommend_match_time = #{matchTime}
+            </if>
+            <if test="createTime!=null">
+                AND recommend_create_time = #{createTime}
+            </if>
+            <if test="createBy!=null">
+                AND recommend_create_by = #{createBy}
+            </if>
+        </where>
+         limit 1
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_recommend
+    </select>
+
+    <select id="selectTodayRecord" resultMap="recommendResultMap">
+        SELECT
+        <include refid="recommendColumns"/>
+        FROM t_recommend
+        WHERE
+        date(recommend_create_time) = curdate()
+    </select>
+
+    <insert id="insert" parameterType="Recommend" useGeneratedKeys="true">
+		insert into
+            t_recommend(
+              user_id,
+              recommend_match_id,
+              recommend_league_name,
+              recommend_type,
+              recommend_value,
+              recommend_handicap,
+              recommend_handicap_value,
+              recommend_reason,
+              recommend_price,
+              recommend_match_result,
+              recommend_host,
+              recommend_visit,
+              recommend_match_time,
+              recommend_create_time,
+              recommend_create_by
+            )
+        values
+            (
+              #{userId,jdbcType = INTEGER},
+              #{matchId,jdbcType = VARCHAR},
+              #{leagueName,jdbcType = VARCHAR},
+              #{type,jdbcType = INTEGER},
+              #{value,jdbcType = INTEGER},
+              #{handicap,jdbcType = VARCHAR},
+              #{handicapValue,jdbcType = VARCHAR},
+              #{reason,jdbcType = VARCHAR},
+              #{price,jdbcType = INTEGER},
+              #{matchResult,jdbcType = INTEGER},
+              #{host,jdbcType = VARCHAR},
+              #{visit,jdbcType = VARCHAR},
+              #{matchTime,jdbcType = VARCHAR},
+              #{createTime,jdbcType = TIMESTAMP},
+              #{createBy,jdbcType = VARCHAR}
+		    )
+	</insert>
+
+    <update id="update" parameterType="Recommend">
+		update t_recommend
+		set
+		  user_id = #{userId},
+          recommend_match_id = #{matchId},
+          recommend_league_name = #{leagueName},
+          recommend_type = #{type},
+          recommend_value = #{value},
+          recommend_handicap = #{handicap},
+          recommend_handicap_value = #{handicapValue},
+          recommend_reason = #{reason},
+          recommend_price = #{price},
+          recommend_match_result = #{matchResult},
+          recommend_host = #{host},
+          recommend_visit = #{visit},
+          recommend_match_time = #{matchTime},
+          recommend_create_time = #{createTime},
+          recommend_create_by = #{createBy}
+		WHERE recommend_id = #{id}
+	</update>
+    <update id="updateSelective" parameterType="Recommend">
+        update t_recommend
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="matchId != null">
+                recommend_match_id = #{matchId},
+            </if>
+            <if test="leagueName != null">
+                recommend_league_name = #{leagueName},
+            </if>
+            <if test="type != null">
+                recommend_type = #{type},
+            </if>
+            <if test="value != null">
+                recommend_value = #{value},
+            </if>
+            <if test="handicap != null">
+                recommend_handicap = #{handicap},
+            </if>
+            <if test="handicapValue != null">
+                recommend_handicap_value = #{handicapValue},
+            </if>
+            <if test="reason != null">
+                recommend_reason = #{reason},
+            </if>
+            <if test="price != null">
+                recommend_price = #{price}
+            </if>
+            <if test="matchResult != null">
+                recommend_match_result = #{matchResult},
+            </if>
+            <if test="host != null">
+                recommend_host = #{host},
+            </if>
+            <if test="visit != null">
+                recommend_visit = #{visit},
+            </if>
+            <if test="matchTime!=null">
+                recommend_match_time = #{matchTime},
+            </if>
+            <if test="createTime != null">
+                recommend_create_time = #{createTime},
+            </if>
+            <if test="createBy != null">
+                recommend_create_by = #{createBy}
+            </if>
+        </set>
+        WHERE recommend_id = #{id}
+    </update>
+
+
+</mapper>

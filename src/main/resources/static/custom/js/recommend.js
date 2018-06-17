@@ -18,7 +18,7 @@ function initRecommendPanel() {
             method: 'get',
             data: $('#recommendForm').serialize(),
             success: function (data) {
-
+                //TODO
             }
         });
 
@@ -41,11 +41,14 @@ function setMatchInfo(element) {
     var matchId = $(element).attr("matchid");
     var hostName = $(element).attr("hostname");
     var visitName = $(element).attr("visitname");
+    var matchTime = $(element).attr("matchtime");
     $('#leagueName').val(leagueName);
     $('#matchId').val(matchId);
     $('#hostName').val(hostName);
     $('#visitName').val(visitName);
+    $('#matchTime').val(matchTime);
 }
+
 function setOddInfo(element) {
     //recommendType在选择欧赔、亚盘、大小球中已经设置
     var recommendValue = $(element).attr("recommendvalue");
@@ -55,6 +58,7 @@ function setOddInfo(element) {
     $('#handicap').val(handicap);
     $('#handicapValue').val(handicapValue);
 }
+
 function setReasonInfo(element) {
     var recommendReason = $(element).val();
     $('#recommendReason').val(recommendReason);
@@ -67,6 +71,7 @@ function setPriceInfo(element) {
 
 
 function initOdds(element) {
+    clearOdds();
     var matchId = $(element).attr("matchid");
     var europeOddsRows = $('#europeOddsRows');
     europeOddsRows.html('');
@@ -88,11 +93,11 @@ function initOdds(element) {
                         var sizeOddsRow = $('<div class="row m-0 p-1"></div>');
                         var companySpan = $('<span class="company col p-1"></span>');
                         companySpan.text(dxq.bname);
-                        var bigSpan = $('<span class="big col p-1 mx-1 border sizeOdd commonOdd" handicap="'+dxq.o3+'" handicapValue="'+dxq.o4+'" recommendvalue="6" onclick="changeSizeStyle(this)"></span>');
+                        var bigSpan = $('<span class="big col p-1 mx-1 border sizeOdd commonOdd" handicap="' + dxq.o3 + '" handicapValue="' + dxq.o4 + '" recommendvalue="6" onclick="changeSizeStyle(this)"></span>');
                         bigSpan.text(dxq.o1);
                         var handicapSpan = $('<span class="handicap col p-1 mx-1 border"></span>');
                         handicapSpan.text(dxq.o3);
-                        var smallSpan = $('<span class="small col p-1 mx-1 border sizeOdd commonOdd" handicap="'+dxq.o3+'" handicapValue="'+dxq.o4+'" recommendvalue="7" onclick="changeSizeStyle(this)"></span>');
+                        var smallSpan = $('<span class="small col p-1 mx-1 border sizeOdd commonOdd" handicap="' + dxq.o3 + '" handicapValue="' + dxq.o4 + '" recommendvalue="7" onclick="changeSizeStyle(this)"></span>');
                         smallSpan.text(dxq.o2);
                         sizeOddsRow.append(companySpan);
                         sizeOddsRow.append(bigSpan);
@@ -110,11 +115,11 @@ function initOdds(element) {
                         var asiaOddsRow = $('<div class="row m-0 p-1"></div>');
                         var companySpan = $('<span class="company col p-1"></span>');
                         companySpan.text(yp.bname);
-                        var upSpan = $('<span class="up col p-1 mx-1 border asiaOdd commonOdd" handicap="'+yp.o3+'" handicapValue="'+yp.o4+'" recommendvalue="4" onclick="changeAsiaStyle(this)"></span>');
+                        var upSpan = $('<span class="up col p-1 mx-1 border asiaOdd commonOdd" handicap="' + yp.o3 + '" handicapValue="' + yp.o4 + '" recommendvalue="4" onclick="changeAsiaStyle(this)"></span>');
                         upSpan.text(yp.o1);
                         var handicapSpan = $('<span class="handicap col p-1 mx-1 border"></span>');
                         handicapSpan.text(yp.o3);
-                        var downSpan = $('<span class="down col p-1 mx-1 border asiaOdd commonOdd" handicap="'+yp.o3+'" handicapValue="'+yp.o4+'" recommendvalue="5" onclick="changeAsiaStyle(this)"></span>');
+                        var downSpan = $('<span class="down col p-1 mx-1 border asiaOdd commonOdd" handicap="' + yp.o3 + '" handicapValue="' + yp.o4 + '" recommendvalue="5" onclick="changeAsiaStyle(this)"></span>');
                         downSpan.text(yp.o2);
                         asiaOddsRow.append(companySpan);
                         asiaOddsRow.append(upSpan);
@@ -208,6 +213,27 @@ function resetMatchDiv(element) {
     }
 }
 
+//推荐列表赛事筛选框选中状态变化时，隐藏或者显示推荐列表中的推荐内容
+function resetRecommendListDiv(element) {
+    var checked = $(element).prop("checked");
+    var val = $(element).siblings(".leagueName").text().trim();
+    if (checked) {
+        $('#recommendDiv .recommendRow[leaguename="' + val + '"]').show();
+    } else {
+        $('#recommendDiv .recommendRow[leaguename="' + val + '"]').hide();
+    }
+}
+//推荐列表作者筛选框选中状态变化时，隐藏或者显示推荐列表中的推荐内容
+function resetAuthorListDiv(element) {
+    var checked = $(element).prop("checked");
+    var val = $(element).siblings(".authorname").text().trim();
+    if (checked) {
+        $('#recommendDiv .recommendRow[authorname="' + val + '"]').show();
+    } else {
+        $('#recommendDiv .recommendRow[authorname="' + val + '"]').hide();
+    }
+}
+
 //比赛选择下拉框内容
 function initMatchDiv() {
     var matchDiv = $('#teamsMenus');
@@ -230,7 +256,7 @@ function initMatchDiv() {
                     vsRow.append(vsDiv);
                     vsRow.append(visitDiv);
                     vsRow.append(hiddenDiv);
-                    var vsA = $('<a class="dropdown-item p-1" style="font-size: 1vw" hostname="' + matchData.home_name + '" visitname="' + matchData.away_name + '" leaguename="' + matchData.league_name + '" matchid="' + matchData.gsm_match_id + '" onclick="initRecommendContent(this)"></a>');
+                    var vsA = $('<a class="dropdown-item p-1" style="font-size: 1vw" matchtime="' + matchData.match_time + '" hostname="' + matchData.home_name + '" visitname="' + matchData.away_name + '" leaguename="' + matchData.league_name + '" matchid="' + matchData.gsm_match_id + '" onclick="initRecommendContent(this)"></a>');
                     vsA.append(vsRow);
                     matchDiv.append(vsA);
                 }
@@ -265,6 +291,7 @@ function clearRecommendForm() {
     $('#leagueName').val("");
     $('#hostName').val("");
     $('#visitName').val("");
+    $('#matchTime').val("");
     $('#recommendType').val("1");
     $('#recommendValue').val("");
     $('#handicap').val("");

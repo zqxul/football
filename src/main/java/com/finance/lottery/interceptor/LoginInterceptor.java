@@ -27,8 +27,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        request.getCookies();
-        if (true) {
+        String token = WebUtil.getCookieValue(request,"token");
+        if (!redisTemplate.hasKey(token)) {
             response.sendRedirect("/login");
             return false;
         }

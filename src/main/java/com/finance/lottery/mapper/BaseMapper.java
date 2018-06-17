@@ -17,6 +17,8 @@ public interface BaseMapper<T> {
 
     List<T> select(T t);
 
+    List<T> selectAll();
+
     T selectOne(T t);
 
     T selectByPrimaryKey(Long id);

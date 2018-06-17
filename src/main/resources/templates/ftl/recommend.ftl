@@ -226,135 +226,108 @@
         <div class="row m-0 border">
             <div class="col-8 p-0 border">
                 <div class="m-auto p-2 text-right" style="height: 60px;background-color: rgba(0, 0, 0, .03);">
-                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                            data-target="#recommendModal">
-                        我要推荐
-                    </button>
+                    <div class="row m-0 w-100 justify-content-between">
+                        <div class="col-2 px-4 text-left m-auto">
+                            <span class="font-weight-bold">高手推荐</span>
+                        </div>
+                        <div class="col-2 p-0 mx-1 dropdown w-100" style="display: inline-block;">
+                            <button class="btn btn-sm dropdown-toggle w-100" type="button"
+                                    id="recommendLeagueDropdown" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                赛事筛选
+                            </button>
+                            <div id="recommendLeague" class="dropdown-menu w-100" style="min-width: 100%"
+                                 aria-labelledby="recommendLeagueDropdown">
+                                <#list leagues>
+                                    <#items as league>
+                                    <#if league??>
+                                    <span class="dropdown-item league-item">
+                                        <input class="leagueCheckbox" type="checkbox" onchange="resetRecommendListDiv(this)"
+                                               checked>
+                                        <span class="m-0 ml-2 leagueName" style="font-size: 1.2vw">${league}</span>
+                                    </span>
+                                    </#if>
+                                    </#items>
+                                </#list>
+                            </div>
+                        </div>
+                        <div class="col-2 p-0 mx-1 dropdown w-100" style="display: inline-block;">
+                            <button class="btn btn-sm dropdown-toggle w-100" type="button"
+                                    id="recommendAuthorDropdown" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                作者筛选
+                            </button>
+                            <div id="recommendAuthor" class="dropdown-menu w-100" style="min-width: 100%"
+                                 aria-labelledby="recommendAuthorDropdown">
+                                <#list authors>
+                                    <#items as author>
+                                        <#if author??>
+                                        <span class="dropdown-item author-item">
+                                            <input class="authorCheckbox" type="checkbox" onchange="resetAuthorListDiv(this)"
+                                                   checked>
+                                            <span class="m-0 ml-2 authorname" style="font-size: 1.2vw">${author}</span>
+                                        </span>
+                                        </#if>
+                                    </#items>
+                                </#list>
+                            </div>
+                        </div>
+                        <div class="col p-0"></div>
+                        <div class="col-2 p-0 text-center">
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                    data-target="#recommendModal">
+                                我要推荐
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="p-3">
-                    <div class="row mx-0 my-2 border">
+                <div id="recommendDiv" class="p-3">
+                    <#list recommends>
+                        <#items as recommend>
+                    <div class="row m-2 border recommendRow" leaguename="${recommend.leagueName}" authorname="${recommend.createBy!""}">
                         <div class="col-6 p-2 my-auto">
                             <div class="row m-0 text-center" style="font-size: .6vw">
                                 <div class="col p-1">
                                     <div class="row m-0 h-100">
-                                        <div class="col-6 p-0 m-auto">白禮頓白禮頓白禮頓</div>
-                                        <div class="col-6 p-0 m-auto">
-                                            <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139"/>
-                                        </div>
+                                        <div class="p-0 m-auto">${recommend.host}</div>
                                     </div>
                                 </div>
-                                <div class="col-4 p-1 m-auto">
-                                    <div class="col p-0">周五 001</div>
-                                    <div class="col p-0">06-14 00:12</div>
+                                <div class="col-6 p-1 m-auto">
+                                    <div class="col p-0 my-1">${recommend.leagueName}</div>
+                                    <div class="col p-0 my-1">${recommend.matchTime?datetime('yyyy-MM-dd HH:mm:ss')?string('MM-dd HH:mm')}</div>
                                 </div>
                                 <div class="col p-1">
                                     <div class="row m-0 h-100">
-                                        <div class="col-6 p-0 m-auto">
-                                            <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139"/>
-                                        </div>
-                                        <div class="col-6 p-0 m-auto">阿仙媽</div>
+                                        <div class="p-0 m-auto">${recommend.visit}</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4 p-0 border-left">
-                            <div class="row m-0 h-100">
-                                <div class="col-12 p-2 my-auto">
+                        <div class="col-2 p-0 border-left">
+                            <div class="row m-0 h-100 text-center">
+                                <div class="p-2 my-auto w-100">
                                     <span class="px-2">
-                                        50&nbsp;<i class="fa fa-stop-circle-o text-warning"></i>
+                                        ${recommend.price}&nbsp;<i class="fa fa-stop-circle-o text-warning"></i>
                                     </span>
-                                    <span class="px-2 fade">免费</span>
+                                    <span class="px-2" style="display: none">免费</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-2 p-2 my-auto">
+                        <div class="col-3 p-1 border-left">
+                            <div class="row m-0 h-100 text-center" style="font-size: 1vw">
+                                <div class="p-0 m-auto">
+                                    作者：<span class="author text-center">${recommend.createBy!""}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1 p-0 my-auto">
                             <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
                                     data-target="#viewModal">查看
                             </button>
                         </div>
                     </div>
-                    <div class="row mx-0 my-2 border">
-                        <div class="col-6 p-2 my-auto">
-                            <div class="row m-0 text-center" style="font-size: .6vw">
-                                <div class="col p-1">
-                                    <div class="row m-0 h-100">
-                                        <div class="col-6 p-0 m-auto">白禮頓白禮頓白禮頓</div>
-                                        <div class="col-6 p-0 m-auto">
-                                            <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4 p-1 m-auto">
-                                    <div class="col p-0">周五 001</div>
-                                    <div class="col p-0">06-14 00:12</div>
-                                </div>
-                                <div class="col p-1">
-                                    <div class="row m-0 h-100">
-                                        <div class="col-6 p-0 m-auto">
-                                            <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139"/>
-                                        </div>
-                                        <div class="col-6 p-0 m-auto">阿仙媽</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4 p-0 border-left">
-                            <div class="row m-0 h-100">
-                                <div class="col-12 p-2 my-auto">
-                                    <span class="px-2">
-                                        50&nbsp;<i class="fa fa-stop-circle-o text-warning"></i>
-                                    </span>
-                                    <span class="px-2 fade">免费</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-2 p-2 my-auto">
-                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                                    data-target="#viewModal">查看
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row mx-0 my-2 border">
-                        <div class="col-6 p-2 my-auto">
-                            <div class="row m-0 text-center" style="font-size: .6vw">
-                                <div class="col p-1">
-                                    <div class="row m-0 h-100">
-                                        <div class="col-6 p-0 m-auto">白禮頓白禮頓白禮頓</div>
-                                        <div class="col-6 p-0 m-auto">
-                                            <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4 p-1 m-auto">
-                                    <div class="col p-0">周五 001</div>
-                                    <div class="col p-0">06-14 00:12</div>
-                                </div>
-                                <div class="col p-1">
-                                    <div class="row m-0 h-100">
-                                        <div class="col-6 p-0 m-auto">
-                                            <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139"/>
-                                        </div>
-                                        <div class="col-6 p-0 m-auto">阿仙媽</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4 p-0 border-left">
-                            <div class="row m-0 h-100">
-                                <div class="col-12 p-2 my-auto">
-                                    <span class="px-2">
-                                        50&nbsp;<i class="fa fa-stop-circle-o text-warning"></i>
-                                    </span>
-                                    <span class="px-2 fade">免费</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-2 p-2 my-auto">
-                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                                    data-target="#viewModal">查看
-                            </button>
-                        </div>
-                    </div>
+                        </#items>
+                    </#list>
                 </div>
             </div>
             <div class="col-4 pl-2 py-2 pr-0 border">
@@ -467,10 +440,12 @@
             </div>
             <form id="recommendForm" style="display: none">
                 <input type="hidden" id="userId" name="userId" value="<#if user??>${user.id}</#if>"/>
+                <input type="hidden" id="username" name="username" value="<#if user??>${user.username}</#if>"/>
                 <input type="hidden" id="matchId" name="matchId"/>
                 <input type="hidden" id="leagueName" name="leagueName"/>
                 <input type="hidden" id="hostName" name="hostName"/>
                 <input type="hidden" id="visitName" name="visitName"/>
+                <input type="hidden" id="matchTime" name="matchTime"/>
                 <input type="hidden" id="recommendType" name="recommendType" value="1"/>
                 <input type="hidden" id="recommendValue" name="recommendValue"/>
                 <input type="hidden" id="handicap" name="handicap"/>
@@ -516,7 +491,8 @@
                 <div class="p-0">
                     <div class="card-header py-1 text-center" style="font-size: 1.2vw">推荐理由</div>
                     <div class="card-body p-2 text-center bg-white border-bottom" style="font-size: 10px;">
-                        <textarea id="reason" name="reason" onchange="setReasonInfo(this)" style="width: 100%;height: 80px"></textarea>
+                        <textarea id="reason" name="reason" onchange="setReasonInfo(this)"
+                                  style="width: 100%;height: 80px"></textarea>
                     </div>
                 </div>
                 <div class="p-0">
@@ -534,7 +510,7 @@
                                 </div>
                             </div>
                             <div class="col-2 p-0 my-auto text-left" style="font-size: 1.2vw;color: #a06d6d">
-                                (10 - 1000)
+                                (0 - 1000)
                             </div>
                             <div class="col-5">
                                 <button id="deployBtn" type="button" class="btn btn-primary w-100">发布</button>
