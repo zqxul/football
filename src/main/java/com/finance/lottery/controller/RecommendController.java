@@ -60,8 +60,8 @@ public class RecommendController {
     public ModelAndView getRecommend() {
         ModelAndView mav = new ModelAndView("recommend");
         String recommendsKey = "lottery_recommends";
-        List<Recommend> recommends = (List<Recommend>)redisTemplate.opsForValue().get(recommendsKey);
-        if(recommends!=null){
+        List<Recommend> recommends = (List<Recommend>) redisTemplate.opsForValue().get(recommendsKey);
+        if (recommends != null) {
             List<String> leagues = recommends.parallelStream().map(recommend -> recommend.getLeagueName()).collect(Collectors.toSet()).stream().collect(Collectors.toList());
             List<String> authors = recommends.parallelStream().map(recommend -> recommend.getCreateBy()).collect(Collectors.toSet()).stream().collect(Collectors.toList());
             mav.addObject("leagues", leagues);
@@ -87,8 +87,8 @@ public class RecommendController {
     public DeferredResult<List<String>> getLeagueList() {
         DeferredResult<List<String>> result = new DeferredResult<>();
         String recommendLeaguesKey = "lottery_recommend_leagues";
-        List<String> leagues = (List<String>)redisTemplate.opsForValue().get(recommendLeaguesKey);
-        if(leagues!=null){
+        List<String> leagues = (List<String>) redisTemplate.opsForValue().get(recommendLeaguesKey);
+        if (leagues != null) {
             result.setResult(leagues);
             return result;
         }
@@ -125,9 +125,9 @@ public class RecommendController {
     @GetMapping("/detail")
     public DeferredResult<RecommendMatchDetail> getRecommendList(String matchId) {
         DeferredResult<RecommendMatchDetail> result = new DeferredResult<>();
-        String recommendDetailKey = "lottery_recommend_detail_"+matchId;
-        RecommendMatchDetail recommendMatchDetail = (RecommendMatchDetail)redisTemplate.opsForValue().get(recommendDetailKey);
-        if(recommendMatchDetail!=null){
+        String recommendDetailKey = "lottery_recommend_detail_" + matchId;
+        RecommendMatchDetail recommendMatchDetail = (RecommendMatchDetail) redisTemplate.opsForValue().get(recommendDetailKey);
+        if (recommendMatchDetail != null) {
             result.setResult(recommendMatchDetail);
             return result;
         }
@@ -138,7 +138,7 @@ public class RecommendController {
         String url = recommendDetailRequest.getUrl();
         String responseJson = restTemplate.getForObject(url, String.class, dataMap);
         JSONObject jsonObject = (JSONObject) JSONPath.read(responseJson, "$.data.odds");
-        if(jsonObject==null){
+        if (jsonObject == null) {
             result.setResult(new RecommendMatchDetail());
             return result;
         }
@@ -146,7 +146,7 @@ public class RecommendController {
         if (recommendMatchDetail != null) {
             redisTemplate.opsForValue().set(recommendDetailKey, recommendMatchDetail, 3, TimeUnit.MINUTES);
         } else {
-            redisTemplate.opsForValue().set(recommendDetailKey,  new RecommendMatchDetail() , 1, TimeUnit.MINUTES);
+            redisTemplate.opsForValue().set(recommendDetailKey, new RecommendMatchDetail(), 1, TimeUnit.MINUTES);
         }
         result.setResult(recommendMatchDetail);
         return result;
@@ -156,13 +156,25 @@ public class RecommendController {
     public DeferredResult<FootballResult> deployRecommend(RecommendDetail recommendDetail) {
         DeferredResult<FootballResult> result = new DeferredResult<>();
         FootballResult footballResult = new FootballResult();
-        if (StringUtils.isBlank(String.valueOf(recommendDetail.getRecommendValue()))) {
+        if(StringUtils.isBlank(recommendDetail.getMatchId())){
+            footballResult.setResult(ResponseEnum.RECOMMEND_MATCH_NULL);
+            result.setResult(footballResult);
+            return result;
+        }
+
+        if (StringUtils.isBlank(recommendDetail.getRecommendValue())) {
             footballResult.setResult(ResponseEnum.RECOMMEND_ODD_NULL);
             result.setResult(footballResult);
             return result;
         }
         if (StringUtils.isBlank(recommendDetail.getMatchId())) {
             footballResult.setResult(ResponseEnum.RECOMMEND_MATCH_NULL);
+            result.setResult(footballResult);
+            return result;
+        }
+        String price = recommendDetail.getRecommendPrice();
+        if (price != null && !price.matches("\\d{1,3}")) {
+            footballResult.setResult(ResponseEnum.DATA_FORMAT_ERROR);
             result.setResult(footballResult);
             return result;
         }
@@ -182,7 +194,7 @@ public class RecommendController {
     }
 
     @GetMapping("/hostman")
-    public DeferredResult<List<HotMan>> getHotManList(){
+    public DeferredResult<List<HotMan>> getHotManList() {
         DeferredResult<List<HotMan>> result = new DeferredResult<>();
         //TODO
         List<HotMan> hotMans = recommendService.getHotMans();

@@ -3,22 +3,33 @@ function initRecommendPanel() {
         e.preventDefault();
         $(this).tab('show');
 
-        clearRecommendForm();//清空表单
+        clearRecommendFormDeployInfo();//清空表单发布信息，不清空比赛信息
         //设置推荐类型：1、欧赔，2、亚盘，3、大小球
         $('#recommendType').val($(this).attr("recommendtype"));
 
         //清空赔率样式
         $('#odds .commonOdd').css('background-color', '#ffffff');
+
+        clearRecommendMsg()//清空错误提示信息
     });
 
     //初始化推荐发布按钮事件
-    $('#deployBtn').click(function () {
+    $('#deployBtn').bind('click',function () {
         $.ajax({
             url: '/recommend/deploy',
             method: 'get',
             data: $('#recommendForm').serialize(),
             success: function (data) {
-                //TODO
+                var code = data.code;
+                var msg = data.msg;
+                if(code == 200){
+                    $('#recommendModal').modal('hide');
+                    $('#recommendSuccess').fadeIn(1000);
+                    $('#recommendSuccess').fadeOut(5000);
+                }else{
+                    $('#recommendMsg').text(msg);
+                }
+
             }
         });
 
@@ -29,6 +40,7 @@ function initRecommendContent(element) {
     initTeamVS(element);
     initOdds(element);
     initRecommendForm(element);
+    clearRecommendMsg();
 }
 
 function initRecommendForm(element) {
@@ -285,13 +297,16 @@ function changeSizeStyle(element) {
     setOddInfo(element);
 }
 
-//显示模态框时清空初始化表单数据
-function clearRecommendForm() {
+
+function clearRecommendFormTeamInfo() {
     $('#matchId').val("");
     $('#leagueName').val("");
     $('#hostName').val("");
     $('#visitName').val("");
     $('#matchTime').val("");
+}
+//初始化表单数据，不清空matchId
+function clearRecommendFormDeployInfo() {
     $('#recommendType').val("1");
     $('#recommendValue').val("");
     $('#handicap').val("");
@@ -302,6 +317,11 @@ function clearRecommendForm() {
     //清空推荐理由和发布价格
     $('#reason').val("");
     $('#deployPrice').val("");
+}
+
+//清空错误提示信息
+function clearRecommendMsg() {
+    $('#recommendMsg').text("");
 }
 
 //显示模态框时清空上次的赔率数据
@@ -319,8 +339,14 @@ $(function () {
 
         initLeagueAndMatch();
         initRecommendPanel();
-        clearRecommendForm();//显示模态框时清空初始化表单数据
+
+        //显示模态框时清空初始化表单数据
+        clearRecommendFormTeamInfo();
+        clearRecommendFormDeployInfo();
+
         clearOdds();//显示模态框时清空上次的赔率数据
+
+        clearRecommendMsg();//清空提示信息
     });
 
     //赔率被选中时改变样式,在.html格式中才生效后面移除

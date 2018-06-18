@@ -240,13 +240,14 @@
                                  aria-labelledby="recommendLeagueDropdown">
                                 <#list leagues>
                                     <#items as league>
-                                    <#if league??>
+                                        <#if league??>
                                     <span class="dropdown-item league-item">
-                                        <input class="leagueCheckbox" type="checkbox" onchange="resetRecommendListDiv(this)"
+                                        <input class="leagueCheckbox" type="checkbox"
+                                               onchange="resetRecommendListDiv(this)"
                                                checked>
                                         <span class="m-0 ml-2 leagueName" style="font-size: 1.2vw">${league}</span>
                                     </span>
-                                    </#if>
+                                        </#if>
                                     </#items>
                                 </#list>
                             </div>
@@ -263,7 +264,8 @@
                                     <#items as author>
                                         <#if author??>
                                         <span class="dropdown-item author-item">
-                                            <input class="authorCheckbox" type="checkbox" onchange="resetAuthorListDiv(this)"
+                                            <input class="authorCheckbox" type="checkbox"
+                                                   onchange="resetAuthorListDiv(this)"
                                                    checked>
                                             <span class="m-0 ml-2 authorname" style="font-size: 1.2vw">${author}</span>
                                         </span>
@@ -281,10 +283,11 @@
                         </div>
                     </div>
                 </div>
-                <div id="recommendDiv" class="p-3">
+                <div id="recommendDiv" class="p-3" style="height: 600px;overflow: auto">
                     <#list recommends>
                         <#items as recommend>
-                    <div class="row m-2 border recommendRow" leaguename="${recommend.leagueName}" authorname="${recommend.createBy!""}">
+                    <div class="row m-2 border recommendRow" leaguename="${recommend.leagueName}"
+                         authorname="${recommend.createBy!""}">
                         <div class="col-6 p-2 my-auto">
                             <div class="row m-0 text-center" style="font-size: .6vw">
                                 <div class="col p-1">
@@ -494,6 +497,9 @@
                         <textarea id="reason" name="reason" onchange="setReasonInfo(this)"
                                   style="width: 100%;height: 80px"></textarea>
                     </div>
+                    <div class="p-1 m-auto border-bottom text-center" style="font-size: 1vw">
+                        <span id="recommendMsg" class="text-danger"></span>
+                    </div>
                 </div>
                 <div class="p-0">
                     <div class="card-body px-3 py-2 text-center">
@@ -520,6 +526,11 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div id="recommendSuccess" class="row text-center w-100" style="top: 50%;position: absolute;display: none">
+    <div class="card p-3 m-auto text-center text-success" style="width: 150px;font-size: 1.2vw">
+        <span>推荐成功&nbsp;<i class="fa fa-check"></i></span>
     </div>
 </div>
 </body>

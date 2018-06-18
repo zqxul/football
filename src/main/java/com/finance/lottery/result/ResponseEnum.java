@@ -23,6 +23,7 @@ public enum ResponseEnum {
     INTERNAL_ERROR(3011,"内部错误"),
     RECOMMEND_ODD_NULL(3012,"赔率不能为空"),
     RECOMMEND_MATCH_NULL(3013,"请选择比赛"),
+    DATA_FORMAT_ERROR(3014,"数据格式有误"),
     ;
 
     private int code;

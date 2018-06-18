@@ -33,15 +33,15 @@ public class Recommend {
     private String createBy;
 
     public Recommend(RecommendDetail recommendDetail){
-        this.userId = recommendDetail.getUserId();
+        this.userId = Integer.valueOf(recommendDetail.getUserId());
         this.matchId = recommendDetail.getMatchId();
         this.leagueName = recommendDetail.getLeagueName();
-        this.type = recommendDetail.getRecommendType();
-        this.value = recommendDetail.getRecommendValue();
+        this.type = Integer.valueOf(recommendDetail.getRecommendType());
+        this.value = Integer.valueOf(recommendDetail.getRecommendValue());
         this.handicap = recommendDetail.getHandicap();
         this.handicapValue = recommendDetail.getHandicapValue();
         this.reason = recommendDetail.getRecommendReason();
-        this.price = recommendDetail.getRecommendPrice();
+        this.price = Integer.valueOf(recommendDetail.getRecommendPrice());
         this.host = recommendDetail.getHostName();
         this.visit = recommendDetail.getVisitName();
         this.matchTime = recommendDetail.getMatchTime();
