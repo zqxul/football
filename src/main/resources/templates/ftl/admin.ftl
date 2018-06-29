@@ -44,7 +44,7 @@
                     </a>
                 </li>
                 <li class="nav-item my-1">
-                    <a class="nav-link p-2" href="#">
+                    <a class="nav-link p-2" href="/recharge/">
                         <div class="row m-0">
                             <span class="col-4 p-0 text-center" style="width: 50px;">
                                 <i class="fa fa-cny"></i>
@@ -54,7 +54,7 @@
                     </a>
                 </li>
                 <li class="nav-item my-1">
-                    <a class="nav-link p-2" href="#">
+                    <a class="nav-link p-2" href="/withdraw/">
                         <div class="row m-0">
                             <span class="col-4 p-0 text-center" style="width: 50px;">
                                 <i class="fa fa-money"></i>

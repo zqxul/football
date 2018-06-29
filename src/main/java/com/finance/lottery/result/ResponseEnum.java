@@ -24,6 +24,12 @@ public enum ResponseEnum {
     RECOMMEND_ODD_NULL(3012,"赔率不能为空"),
     RECOMMEND_MATCH_NULL(3013,"请选择比赛"),
     DATA_FORMAT_ERROR(3014,"数据格式有误"),
+    ACCOUNT_CHARGE_SUCCESS(3015,"充值申请提交成功，等待确认"),
+    ACCOUNT_CHARGE_FAILURE(3016,"账户充值失败"),
+    ACCOUNT_WITHDRAW_SUCCESS(3017,"提现申请提交成功，等待确认"),
+    ACCOUNT_WITHDRAW_FAILURE(3017,"账户提现失败"),
+    ACCOUNT_AMOUNT_NOT_ENOUGH(3018,"可提现余额不足"),
+    ACCOUNT_CHARGE_AMOUNT_NULL(3019,"充值金额为空")
     ;
 
     private int code;

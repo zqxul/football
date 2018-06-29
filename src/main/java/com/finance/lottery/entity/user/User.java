@@ -14,7 +14,9 @@ import java.util.Date;
  * @Description:
  */
 @Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class User{
     private Integer id;
     private String username;
@@ -27,6 +29,11 @@ public class User{
     private Date createTime;
 
     public User(String email) {
+        this.email = email;
+    }
+
+    public User(Integer userId,String email){
+        this.id = userId;
         this.email = email;
     }
 

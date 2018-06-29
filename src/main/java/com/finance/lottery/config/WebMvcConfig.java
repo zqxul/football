@@ -29,7 +29,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loginInterceptor()).addPathPatterns("/account/**","/recommend/**");
+        registry.addInterceptor(loginInterceptor()).addPathPatterns("/account/**","/recommend/**").excludePathPatterns("/recommend/ranking/**");
         registry.addInterceptor(loginStatusInterceptor()).addPathPatterns("/**").excludePathPatterns("/user/**");
         List<String> visitPaths = new ArrayList<>();
         visitPaths.add("/football/news/list");

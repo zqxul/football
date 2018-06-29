@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.finance.lottery.mapper.WithdrawMapper">
+
+    <resultMap id="withdrawResultMap" type="Withdraw">
+        <id column="withdraw_id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="withdraw_amount" property="amount"/>
+        <result column="withdraw_status" property="status"/>
+        <result column="withdraw_create_time" property="createTime"/>
+        <result column="withdraw_create_by" property="createBy"/>
+        <result column="withdraw_is_active" property="isActive"/>
+    </resultMap>
+
+    <sql id="withdrawColumns">
+	  withdraw_id,
+	  user_id,
+	  withdraw_amount,
+	  withdraw_status,
+	  withdraw_create_time,
+	  withdraw_create_by,
+	  withdraw_is_active
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="withdrawResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="withdrawColumns"/>
+        from t_withdraw
+        WHERE
+        withdraw_id = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="withdrawResultMap">
+        select
+        <include refid="withdrawColumns"/>
+        from t_withdraw
+    </select>
+
+    <select id="select" resultMap="withdrawResultMap" parameterType="Withdraw">
+        SELECT
+        <include refid="withdrawColumns"/>
+        FROM t_withdraw
+        <where>
+            1=1
+            <if test="userId!=null">
+                AND user_id = #{userId}
+            </if>
+            <if test="amount!=null">
+                AND withdraw_amount = #{amount}
+            </if>
+            <if test="status!=null">
+                AND withdraw_status = #{status}
+            </if>
+            <if test="createTime!=null">
+                AND withdraw_create_time = #{createTime}
+            </if>
+            <if test="createBy!=null">
+                AND withdraw_create_by = #{createBy}
+            </if>
+            <if test="isActive!=null">
+                AND withdraw_is_active = #{isActive}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectOne" resultMap="withdrawResultMap" parameterType="Withdraw">
+        SELECT
+        <include refid="withdrawColumns"/>
+        FROM t_withdraw
+        <where>
+            1=1
+            <if test="userId!=null">
+                AND user_id = #{userId}
+            </if>
+            <if test="amount!=null">
+                AND withdraw_amount = #{amount}
+            </if>
+            <if test="status!=null">
+                AND withdraw_status = #{status}
+            </if>
+            <if test="createTime!=null">
+                AND withdraw_create_time = #{createTime}
+            </if>
+            <if test="createBy!=null">
+                AND withdraw_create_by = #{createBy}
+            </if>
+            <if test="isActive!=null">
+                AND withdraw_is_active = #{isActive}
+            </if>
+        </where>
+        limit 1
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_withdraw
+    </select>
+
+    <select id="selectTodayRecord" resultMap="withdrawResultMap">
+        SELECT
+        <include refid="withdrawColumns"/>
+        FROM
+        t_withdraw
+        WHERE
+        date(t_withdraw_create_time) = curdate()
+    </select>
+
+    <insert id="insert" parameterType="Withdraw" useGeneratedKeys="true">
+		insert into
+            t_withdraw(
+              user_id,
+              withdraw_amount,
+              withdraw_status,
+              withdraw_create_time,
+              withdraw_create_by,
+              withdraw_is_active
+            )
+        values
+            (
+              #{userId,jdbcType = INTEGER},
+              #{amount,jdbcType = INTEGER},
+              #{status,jdbcType = INTEGER},
+              #{createTime,jdbcType = TIMESTAMP},
+              #{createBy,jdbcType = VARCHAR},
+              #{isActive,jdbcType = INTEGER}
+		    )
+	</insert>
+
+    <update id="update" parameterType="Withdraw">
+        update t_withdraw
+        set
+        <if test="userId!=null">
+            user_id = #{userId},
+        </if>
+        <if test="amount!=null">
+            withdraw_amount = #{amount},
+        </if>
+        <if test="status!=null">
+            withdraw_status = #{status},
+        </if>
+        <if test="createTime!=null">
+            withdraw_create_time = #{createTime},
+        </if>
+        <if test="createBy!=null">
+            withdraw_create_by = #{createBy},
+        </if>
+        <if test="isActive!=null">
+            withdraw_is_active = #{isActive},
+        </if>
+        WHERE withdraw_id = #{id}
+    </update>
+    <update id="updateStatus">
+        UPDATE t_withdraw
+        SET withdraw_status = #{status}
+        WHERE withdraw_id = #{withdrawId}
+    </update>
+</mapper>

@@ -13,6 +13,9 @@
     <div class="collapse navbar-collapse justify-content-between">
         <ul class="navbar-nav">
             <li class="nav-item">
+                <a class="nav-link" href="/"><i class="fa fa-home">&nbsp;首页</i></a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/football/news/list">每日球报</a>
             </li>
             <li class="nav-item active">
@@ -25,17 +28,17 @@
                 <a class="nav-link" href="/data">大数据</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">足彩推荐</a>
+                <a class="nav-link" href="/recommend/">足彩推荐</a>
             </li>
+            <#--<li class="nav-item">-->
+                <#--<a class="nav-link" href="#">博彩心得</a>-->
+            <#--</li>-->
             <li class="nav-item">
-                <a class="nav-link" href="#">博彩心得</a>
+                <a class="nav-link" href="/account/">我的账户</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">我的账户</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">投资收益</a>
-            </li>
+            <#--<li class="nav-item">-->
+                <#--<a class="nav-link" href="#">投资收益</a>-->
+            <#--</li>-->
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item">

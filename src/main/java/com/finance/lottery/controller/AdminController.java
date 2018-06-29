@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  * @Description:
  * @Date: 2018/6/9 13:02
  */
-@Controller
+@RestController
 public class AdminController {
 
     @Autowired

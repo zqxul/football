@@ -30,22 +30,22 @@
             <li class="nav-item">
                 <a class="nav-link" href="/recommend/">足彩推荐</a>
             </li>
+            <#--<li class="nav-item">-->
+                <#--<a class="nav-link" href="#">博彩心得</a>-->
+            <#--</li>-->
             <li class="nav-item">
-                <a class="nav-link" href="#">博彩心得</a>
+                <a class="nav-link" href="/account/">我的账户</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">我的账户</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">投资收益</a>
-            </li>
+            <#--<li class="nav-item">-->
+                <#--<a class="nav-link" href="#">投资收益</a>-->
+            <#--</li>-->
         </ul>
         <ul class="navbar-nav">
             <#if user??>
                 <li class="nav-item dropdown" style="width: 165px">
                     <a class="nav-link dropdown-toggle text-center" data-toggle="dropdown" href="#">${user.username}</a>
                     <div class="dropdown-menu dropdown-menu-right text-center" style="min-width: 100px;width: 165px;font-size: 1.2vw">
-                        <a class="dropdown-item px-2 py-1" href="#">我的账户</a>
+                        <a class="dropdown-item px-2 py-1" href="/account/">我的账户</a>
                         <a class="dropdown-item px-2 py-1" href="#" data-toggle="modal" data-target="#resetPassword">修改密码</a>
                         <a class="dropdown-item px-2 py-1" href="#">完善信息</a>
                         <div class="dropdown-divider"></div>

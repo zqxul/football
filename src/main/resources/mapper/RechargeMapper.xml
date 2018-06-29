@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.finance.lottery.mapper.RechargeMapper">
+
+    <resultMap id="rechargeResultMap" type="Recharge">
+        <id column="recharge_id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="recharge_amount" property="amount"/>
+        <result column="recharge_status" property="status"/>
+        <result column="recharge_create_time" property="createTime"/>
+        <result column="recharge_create_by" property="createBy"/>
+        <result column="recharge_is_active" property="isActive"/>
+    </resultMap>
+
+    <sql id="rechargeColumns">
+	  recharge_id,
+	  user_id,
+	  recharge_amount,
+	  recharge_status,
+	  recharge_create_time,
+	  recharge_create_by,
+	  recharge_is_active
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="rechargeResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="rechargeColumns"/>
+        from t_recharge
+        WHERE
+        recharge_id = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="rechargeResultMap">
+        select
+        <include refid="rechargeColumns"/>
+        from t_recharge
+    </select>
+
+    <select id="select" resultMap="rechargeResultMap" parameterType="Recharge">
+        SELECT
+        <include refid="rechargeColumns"/>
+        FROM t_recharge
+        <where>
+            1=1
+            <if test="userId!=null">
+                AND user_id = #{userId}
+            </if>
+            <if test="amount!=null">
+                AND recharge_amount = #{amount}
+            </if>
+            <if test="status!=null">
+                AND recharge_status = #{status}
+            </if>
+            <if test="createTime!=null">
+                AND recharge_create_time = #{createTime}
+            </if>
+            <if test="createBy!=null">
+                AND recharge_create_by = #{createBy}
+            </if>
+            <if test="isActive!=null">
+                AND recharge_is_active = #{isActive}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectOne" resultMap="rechargeResultMap" parameterType="Recharge">
+        SELECT
+        <include refid="rechargeColumns"/>
+        FROM t_recharge
+        <where>
+            1=1
+            <if test="userId!=null">
+                AND user_id = #{userId}
+            </if>
+            <if test="amount!=null">
+                AND recharge_amount = #{amount}
+            </if>
+            <if test="status!=null">
+                AND recharge_status = #{status}
+            </if>
+            <if test="createTime!=null">
+                AND recharge_create_time = #{createTime}
+            </if>
+            <if test="createBy!=null">
+                AND recharge_create_by = #{createBy}
+            </if>
+            <if test="isActive!=null">
+                AND recharge_is_active = #{isActive}
+            </if>
+        </where>
+        limit 1
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_recharge
+    </select>
+
+    <select id="selectTodayRecord" resultMap="rechargeResultMap">
+        SELECT
+        <include refid="rechargeColumns"/>
+        FROM
+        t_recharge
+        WHERE
+        date(recharge_create_time) = curdate()
+    </select>
+
+    <insert id="insert" parameterType="Recharge" useGeneratedKeys="true">
+		insert into
+            t_recharge(
+              user_id,
+              recharge_amount,
+              recharge_status,
+              recharge_create_time,
+              recharge_create_by,
+              recharge_is_active
+            )
+        values
+            (
+              #{userId,jdbcType = INTEGER},
+              #{amount,jdbcType = INTEGER},
+              #{status,jdbcType = INTEGER},
+              #{createTime,jdbcType = TIMESTAMP},
+              #{createBy,jdbcType = VARCHAR},
+              #{isActive,jdbcType = INTEGER}
+		    )
+	</insert>
+
+    <update id="update" parameterType="Recharge">
+        update t_recharge
+        set
+        <if test="userId!=null">
+            user_id = #{userId},
+        </if>
+        <if test="amount!=null">
+            recharge_amount = #{amount},
+        </if>
+        <if test="status!=null">
+            recharge_status = #{status},
+        </if>
+        <if test="createTime!=null">
+            recharge_create_time = #{createTime},
+        </if>
+        <if test="createBy!=null">
+            recharge_create_by = #{createBy},
+        </if>
+        <if test="isActive!=null">
+            recharge_is_active = #{isActive},
+        </if>
+        WHERE recharge_id = #{id}
+    </update>
+    <update id="updateStatus">
+        UPDATE t_recharge
+        SET recharge_status = #{status}
+        WHERE recharge_id = #{rechargeId}
+    </update>
+</mapper>

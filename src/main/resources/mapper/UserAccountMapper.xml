@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.finance.lottery.mapper.UserAccountMapper">
+
+    <resultMap id="userAccountResultMap" type="UserAccount">
+        <id column="user_account_id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="account_id" property="accountId"/>
+        <result column="account_create_time" property="createTime"/>
+    </resultMap>
+
+    <sql id="userAccountColumns">
+      user_id,
+	  account_id,
+	  user_account_create_time
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="userAccountResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="userAccountColumns"/>
+        from t_user_account
+        WHERE
+        user_account_id = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="userAccountResultMap">
+        select
+        <include refid="userAccountColumns"/>
+        from t_user_account
+    </select>
+
+    <select id="select" resultMap="userAccountResultMap" parameterType="UserAccount">
+        SELECT
+        <include refid="userAccountColumns"/>
+        FROM t_user_account
+        <where>
+            1=1
+            <if test="userId!=null">
+                AND user_id = #{userId}
+            </if>
+            <if test="recommendId!=null">
+                AND account_id = #{accountId}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectOne" resultMap="userAccountResultMap" parameterType="UserAccount">
+        SELECT
+        <include refid="userAccountColumns"/>
+        FROM t_user_account
+        <where>
+            1=1
+            <if test="userId!=null">
+                AND user_id = #{userId}
+            </if>
+            <if test="accountId!=null">
+                AND account_id = #{accountId}
+            </if>
+        </where>
+        limit 1
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM t_user_account
+    </select>
+
+    <select id="selectTodayRecord" resultMap="userAccountResultMap">
+        SELECT
+        <include refid="userAccountColumns"/>
+        FROM t_user_account
+        WHERE
+        date(user_account_create_time) = curdate()
+    </select>
+
+    <insert id="insert" parameterType="UserAccount" useGeneratedKeys="true">
+		insert into
+            t_user_account(
+              user_id,
+              account_id,
+              user_account_create_time
+            )
+        values
+            (
+              #{userId,jdbcType = INTEGER},
+              #{accountId,jdbcType = INTEGER},
+              #{createTime,jdbcType = TIMESTAMP}
+		    )
+	</insert>
+
+    <update id="update" parameterType="UserAccount">
+		update t_user_account
+		set
+		  user_id = #{userId},
+          account_id = #{accountId},
+          user_account_create_time = #{createTime}
+		WHERE user_account_id = #{id}
+	</update>
+    <update id="updateSelective" parameterType="UserAccount">
+        update t_user_account
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="accountId != null">
+                account_id = #{accountId},
+            </if>
+            <if test="createTime != null">
+                user_account_create_time = #{createTime}
+            </if>
+        </set>
+        WHERE user_account_id = #{id}
+    </update>
+    <select id="selectUserAccountByUserId" resultType="UserAccount">
+        SELECT <include refid="userAccountColumns"/>
+        FROM t_user_account
+        WHERE user_id = #{userId}
+    </select>
+</mapper>

@@ -11,9 +11,12 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">玩个球</a>
+    <a class="navbar-brand" href="#"><i class="fa fa-futbol-o">&nbsp;玩个球</i></a>
     <div class="collapse navbar-collapse justify-content-between">
         <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/"><i class="fa fa-home">&nbsp;首页</i></a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="/football/news/list">每日球报</a>
             </li>
@@ -27,14 +30,14 @@
                 <a class="nav-link" href="/data">大数据</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">足彩推荐</a>
+                <a class="nav-link" href="/recommend/">足彩推荐</a>
             </li>
         <#--<li class="nav-item">-->
         <#--<a class="nav-link" href="#">博彩心得</a>-->
         <#--</li>-->
-        <#--<li class="nav-item">-->
-        <#--<a class="nav-link" href="#">我的账户</a>-->
-        <#--</li>-->
+            <li class="nav-item">
+                <a class="nav-link" href="/account/">我的账户</a>
+            </li>
         <#--<li class="nav-item">-->
         <#--<a class="nav-link" href="#">投资收益</a>-->
         <#--</li>-->
@@ -227,8 +230,8 @@
             <div class="col-8 p-0 border">
                 <div class="m-auto p-2 text-right" style="height: 60px;background-color: rgba(0, 0, 0, .03);">
                     <div class="row m-0 w-100 justify-content-between">
-                        <div class="col-2 px-4 text-left m-auto">
-                            <span class="font-weight-bold">高手推荐</span>
+                        <div class="col-2 pl-3 text-left m-auto">
+                            <span class="font-weight-bold"><i class="fa fa-user-secret">&nbsp;高手推荐</i></span>
                         </div>
                         <div class="col-2 p-0 mx-1 dropdown w-100" style="display: inline-block;">
                             <button class="btn btn-sm dropdown-toggle w-100" type="button"
@@ -276,7 +279,7 @@
                         </div>
                         <div class="col p-0"></div>
                         <div class="col-2 p-0 text-center">
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
                                     data-target="#recommendModal">
                                 我要推荐
                             </button>
@@ -306,26 +309,34 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-2 p-0 border-left">
+                        <div class="col-2 p-0 border-left" style="font-size: 1.2vw">
                             <div class="row m-0 h-100 text-center">
                                 <div class="p-2 my-auto w-100">
-                                    <span class="px-2">
+                                    <#if recommend.price gt 0>
+                                        <span class="px-2">
                                         ${recommend.price}&nbsp;<i class="fa fa-stop-circle-o text-warning"></i>
-                                    </span>
-                                    <span class="px-2" style="display: none">免费</span>
+                                        </span>
+                                    <#else>
+                                    <span class="px-2 text-success">免费</span>
+                                    </#if>
                                 </div>
                             </div>
                         </div>
                         <div class="col-3 p-1 border-left">
-                            <div class="row m-0 h-100 text-center" style="font-size: 1vw">
-                                <div class="p-0 m-auto">
+                            <div class="col p-0 h-100 text-center" style="font-size: 1vw">
+                                <div class="p-0 my-2">
                                     作者：<span class="author text-center">${recommend.createBy!""}</span>
+                                </div>
+                                <div class="p-0 my-2">
+                                    总胜率：<span>?</span>&nbsp;近10中<span>?</span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-1 p-0 my-auto">
-                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                                    data-target="#viewModal">查看
+                            <button type="button" class="btn btn-primary btn-sm payBtn" recommendid="${recommend.id}"
+                                    confirmMoney="${recommend.price}"
+                                    data-toggle="modal"
+                                    data-target="#payModal" onclick="payRecommend()">支付
                             </button>
                         </div>
                     </div>
@@ -391,6 +402,40 @@
     </div>
 
 </main>
+<div class="modal fade" id="payModal" tabindex="-1" role="dialog" aria-labelledby="payModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="payModalTitle">确认支付信息</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="recommendId" name="recommendId"/>
+                <div class="row h-70 m-0 pb-3">
+                    <div class="col p-0"></div>
+                    <div class="col-5 p-0 input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text px-1" style="font-size: 1vw;">您将支付</span>
+                        </div>
+                        <input id="confirmMoney" type="text" class="form-control text-center" readonly>
+                        <div class="input-group-append">
+                                <span class="input-group-text px-1">
+                                    <i class="fa fa-stop-circle-o text-warning"></i>
+                                </span>
+                        </div>
+                    </div>
+                    <div class="col p-0"></div>
+                    <div class="col-3 p-0 m-auto">
+                        <button id="payBtn" type="button" class="btn btn-warning btn-sm w-100">确认支付</button>
+                    </div>
+                    <div class="col p-0"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -401,7 +446,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                推荐信息
+                推荐内容
             </div>
         </div>
     </div>
@@ -519,7 +564,7 @@
                                 (0 - 1000)
                             </div>
                             <div class="col-5">
-                                <button id="deployBtn" type="button" class="btn btn-primary w-100">发布</button>
+                                <button id="deployBtn" type="button" onclick="deployRecommend()" class="btn btn-primary w-100">发布</button>
                             </div>
                         </div>
                     </div>

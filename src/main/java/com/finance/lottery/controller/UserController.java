@@ -1,9 +1,12 @@
 package com.finance.lottery.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.finance.lottery.entity.user.Account;
 import com.finance.lottery.entity.user.User;
 import com.finance.lottery.result.FootballResult;
 import com.finance.lottery.result.ResponseEnum;
+import com.finance.lottery.service.AccountService;
+import com.finance.lottery.service.UserAccountService;
 import com.finance.lottery.service.UserService;
 import com.finance.lottery.util.WebUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -42,6 +45,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AccountService accountService;
+
+    @Autowired
+    private UserAccountService userAccountService;
+
     @PostMapping("/register")
     public ModelAndView register(User user) {
         ModelAndView mav = new ModelAndView("success");
@@ -49,6 +58,7 @@ public class UserController {
             mav.addObject("response", ResponseEnum.USER_EXIST);
             return mav;
         }
+
         String password = user.getPassword();
         user.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
         user.setCreateTime(Calendar.getInstance().getTime());
@@ -58,7 +68,7 @@ public class UserController {
             mav.addObject("response", ResponseEnum.SERVER_ERROR);
             return mav;
         }
-        int count = userService.getUserCont();
+        int count = userService.getUserCount();
         mav.addObject("user", user);
         mav.addObject("response", ResponseEnum.SUCCESS);
         mav.addObject("count", count + 1);
@@ -71,7 +81,7 @@ public class UserController {
         if (null == user) {
             return new FootballResult(ResponseEnum.LOGIN_FAILURE);
         }
-        if(user.getRole() == 1){
+        if (user.getRole() == 1) {
             return new FootballResult(ResponseEnum.ADMINSUCCESS);
         }
         String token = UUID.randomUUID().toString();
@@ -81,8 +91,8 @@ public class UserController {
     }
 
     @RequestMapping("/logout")
-    public ModelAndView logout(HttpServletRequest request,String url) {
-        ModelAndView mav = new ModelAndView("redirect:"+url);
+    public ModelAndView logout(HttpServletRequest request, String url) {
+        ModelAndView mav = new ModelAndView("redirect:" + url);
         String token = WebUtil.getCookieValue(request, "token");
         redisTemplate.delete(token);
         return mav;
@@ -134,13 +144,16 @@ public class UserController {
     }
 
     @GetMapping("/reset/send/email")
-    public FootballResult sendEmail(@RequestParam String email) {
+    public FootballResult sendEmail(@RequestParam String email, HttpServletRequest request) {
+        String token = WebUtil.getCookieValue(request, "token");
+        User u = (User) redisTemplate.opsForValue().get(token);
+
         FootballResult result = new FootballResult();
         if (StringUtils.isBlank(email)) {
             result.setResult(ResponseEnum.PARAM_NULL);
             return result;
         }
-        User user = userService.getUser(new User(email));
+        User user = userService.getUser(new User(u.getId(), email));
         if (user == null) {
             result.setResult(ResponseEnum.EMAIL_NOT_BIND);
             return result;

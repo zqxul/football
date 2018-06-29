@@ -160,7 +160,7 @@
                 AND recommend_create_by = #{createBy}
             </if>
         </where>
-         limit 1
+        limit 1
     </select>
 
     <select id="selectCount" resultType="java.lang.Integer">
@@ -286,5 +286,171 @@
         WHERE recommend_id = #{id}
     </update>
 
+    <update id="updateMatchResult">
+        update t_recommend
+		set
+		  recommend_match_result = #{result}
+        WHERE recommend_id = #{recommendId}
+    </update>
 
+    <select id="selectRecommendNoMatchResult" resultMap="recommendResultMap">
+        SELECT
+        <include refid="recommendColumns"/>
+        FROM t_recommend
+        WHERE recommend_match_result IS NULL AND recommend_match_time <![CDATA[ < ]]> now()
+    </select>
+
+    <select id="selectRecommendUserIds" resultType="java.lang.Integer">
+        SELECT user_id FROM t_recommend GROUP BY user_id
+    </select>
+
+    <select id="selectTotalCountByRecommend" parameterType="Recommend" resultType="java.lang.Integer">
+        SELECT COUNT(user_id) FROM t_recommend
+        <where>
+            1=1
+            <if test="userId!=null">
+                AND user_id = #{userId}
+            </if>
+            <if test="matchId!=null">
+                AND recommend_match_id = #{matchId}
+            </if>
+            <if test="leagueName!=null">
+                AND recommend_league_name = #{leagueName}
+            </if>
+            <if test="type!=null">
+                AND recommend_type = #{type}
+            </if>
+            <if test="value!=null">
+                AND recommend_value = #{value}
+            </if>
+            <if test="handicap!=null">
+                AND recommend_handicap = #{handicap}
+            </if>
+            <if test="handicapValue!=null">
+                AND recommend_handicap_value = #{handicapValue}
+            </if>
+            <if test="reason!=null">
+                AND recommend_reason = #{reason}
+            </if>
+            <if test="price!=null">
+                AND recommend_price = #{price}
+            </if>
+            <if test="matchResult!=null">
+                AND recommend_match_result = #{matchResult}
+            </if>
+            <if test="host!=null">
+                AND recommend_host = #{host}
+            </if>
+            <if test="visit!=null">
+                AND recommend_visit = #{visit}
+            </if>
+            <if test="matchTime!=null">
+                AND recommend_match_time = #{matchTime}
+            </if>
+            <if test="createBy!=null">
+                AND recommend_create_by = #{createBy}
+            </if>
+        </where>
+    </select>
+    <select id="selectMonthCountByRecommend" parameterType="Recommend" resultType="java.lang.Integer">
+        SELECT COUNT(user_id) FROM t_recommend
+        <where>
+            1=1
+            <if test="userId!=null">
+                AND user_id = #{userId}
+            </if>
+            <if test="matchId!=null">
+                AND recommend_match_id = #{matchId}
+            </if>
+            <if test="leagueName!=null">
+                AND recommend_league_name = #{leagueName}
+            </if>
+            <if test="type!=null">
+                AND recommend_type = #{type}
+            </if>
+            <if test="value!=null">
+                AND recommend_value = #{value}
+            </if>
+            <if test="handicap!=null">
+                AND recommend_handicap = #{handicap}
+            </if>
+            <if test="handicapValue!=null">
+                AND recommend_handicap_value = #{handicapValue}
+            </if>
+            <if test="reason!=null">
+                AND recommend_reason = #{reason}
+            </if>
+            <if test="price!=null">
+                AND recommend_price = #{price}
+            </if>
+            <if test="matchResult!=null">
+                AND recommend_match_result = #{matchResult}
+            </if>
+            <if test="host!=null">
+                AND recommend_host = #{host}
+            </if>
+            <if test="visit!=null">
+                AND recommend_visit = #{visit}
+            </if>
+            <if test="matchTime!=null">
+                AND recommend_match_time = #{matchTime}
+            </if>
+            <if test="createBy!=null">
+                AND recommend_create_by = #{createBy}
+            </if>
+            AND DATE(recommend_create_time) >= DATE_ADD(curdate(),INTERVAL -30 DAY)
+        </where>
+    </select>
+    <select id="selectWeekCountByRecommend" parameterType="Recommend" resultType="java.lang.Integer">
+        SELECT COUNT(user_id) FROM t_recommend
+        <where>
+            1=1
+            <if test="userId!=null">
+                AND user_id = #{userId}
+            </if>
+            <if test="matchId!=null">
+                AND recommend_match_id = #{matchId}
+            </if>
+            <if test="leagueName!=null">
+                AND recommend_league_name = #{leagueName}
+            </if>
+            <if test="type!=null">
+                AND recommend_type = #{type}
+            </if>
+            <if test="value!=null">
+                AND recommend_value = #{value}
+            </if>
+            <if test="handicap!=null">
+                AND recommend_handicap = #{handicap}
+            </if>
+            <if test="handicapValue!=null">
+                AND recommend_handicap_value = #{handicapValue}
+            </if>
+            <if test="reason!=null">
+                AND recommend_reason = #{reason}
+            </if>
+            <if test="price!=null">
+                AND recommend_price = #{price}
+            </if>
+            <if test="matchResult!=null">
+                AND recommend_match_result = #{matchResult}
+            </if>
+            <if test="host!=null">
+                AND recommend_host = #{host}
+            </if>
+            <if test="visit!=null">
+                AND recommend_visit = #{visit}
+            </if>
+            <if test="matchTime!=null">
+                AND recommend_match_time = #{matchTime}
+            </if>
+            <if test="createBy!=null">
+                AND recommend_create_by = #{createBy}
+            </if>
+            AND DATE(recommend_create_time) >= DATE_ADD(curdate(),INTERVAL -7 DAY)
+        </where>
+    </select>
+    <select id="selectTopRecommend" parameterType="java.lang.Integer" resultMap="recommendResultMap">
+        SELECT * FROM t_recommend ORDER BY recommend_create_time DESC LIMIT #{topNum}
+    </select>
 </mapper>

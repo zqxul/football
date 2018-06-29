@@ -21,8 +21,6 @@ public interface BaseMapper<T> {
 
     T selectOne(T t);
 
-    T selectByPrimaryKey(Long id);
-
     T selectByPrimaryKey(Integer id);
 
     int selectCount();

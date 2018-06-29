@@ -12,6 +12,7 @@ import com.finance.lottery.result.FootballResult;
 import com.finance.lottery.result.ResponseEnum;
 import com.finance.lottery.service.RecommendService;
 import com.finance.lottery.service.ScoreLiveService;
+import com.finance.lottery.util.WebUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -23,6 +24,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.*;
 import java.util.*;
@@ -131,18 +133,7 @@ public class RecommendController {
             result.setResult(recommendMatchDetail);
             return result;
         }
-        String data = recommendDetailRequest.getParams().get("data");
-        Map<String, String> dataMap = new HashMap<>();
-        dataMap.put("data", String.format(data, matchId));
-        dataMap.put("sign", recommendDetailRequest.getParams().get("sign"));
-        String url = recommendDetailRequest.getUrl();
-        String responseJson = restTemplate.getForObject(url, String.class, dataMap);
-        JSONObject jsonObject = (JSONObject) JSONPath.read(responseJson, "$.data.odds");
-        if (jsonObject == null) {
-            result.setResult(new RecommendMatchDetail());
-            return result;
-        }
-        recommendMatchDetail = jsonObject.toJavaObject(RecommendMatchDetail.class);
+        recommendMatchDetail = recommendService.getRecommendMatchDetail(matchId);
         if (recommendMatchDetail != null) {
             redisTemplate.opsForValue().set(recommendDetailKey, recommendMatchDetail, 3, TimeUnit.MINUTES);
         } else {
@@ -199,6 +190,50 @@ public class RecommendController {
         //TODO
         List<HotMan> hotMans = recommendService.getHotMans();
         result.setResult(hotMans);
+        return result;
+    }
+
+    @GetMapping("/ranking/total")
+    public DeferredResult<List<HotMan>> getTotalRanking(){
+        DeferredResult<List<HotMan>> result = new DeferredResult<>();
+        List<HotMan> hotMans = recommendService.getTotalRankings();
+        result.setResult(hotMans);
+        return result;
+    }
+
+    @GetMapping("/ranking/month")
+    public DeferredResult<List<HotMan>> getMonthRanking(){
+        DeferredResult<List<HotMan>> result = new DeferredResult<>();
+        List<HotMan> hotMans = recommendService.getMonthRankings();
+        result.setResult(hotMans);
+        return result;
+    }
+
+    @GetMapping("/ranking/week")
+    public DeferredResult<List<HotMan>> getWeekRanking(){
+        DeferredResult<List<HotMan>> result = new DeferredResult<>();
+        List<HotMan> hotMans = recommendService.getWeekRankings();
+        result.setResult(hotMans);
+        return result;
+    }
+
+    @GetMapping("/pay")
+    public DeferredResult<FootballResult> payRecommend(Integer recommendId, HttpServletRequest request){
+        DeferredResult<FootballResult> result = new DeferredResult<>();
+        FootballResult footballResult = new FootballResult();
+        String token = WebUtil.getCookieValue(request,"token");
+        User user = (User)redisTemplate.opsForValue().get(token);
+        Recommend recommend = recommendService.payRecommend(recommendId,user);
+        footballResult.setResult(ResponseEnum.SUCCESS);
+        footballResult.setData(recommend);
+        result.setResult(footballResult);
+        return result;
+    }
+
+    @GetMapping("/view")
+    public DeferredResult<FootballResult> viewRecommend(String recommendId, HttpServletRequest request){
+        DeferredResult<FootballResult> result = new DeferredResult<>();
+        //TODO 处理查看请求，根据recommendId和userId查询不为null,则返回recommendId对应的Recommend
         return result;
     }
 }

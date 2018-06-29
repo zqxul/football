@@ -13,26 +13,25 @@ function initRecommendPanel() {
         clearRecommendMsg()//清空错误提示信息
     });
 
-    //初始化推荐发布按钮事件
-    $('#deployBtn').bind('click',function () {
-        $.ajax({
-            url: '/recommend/deploy',
-            method: 'get',
-            data: $('#recommendForm').serialize(),
-            success: function (data) {
-                var code = data.code;
-                var msg = data.msg;
-                if(code == 200){
-                    $('#recommendModal').modal('hide');
-                    $('#recommendSuccess').fadeIn(1000);
-                    $('#recommendSuccess').fadeOut(5000);
-                }else{
-                    $('#recommendMsg').text(msg);
-                }
+}
 
+//发布推荐
+function deployRecommend() {
+    $.ajax({
+        url: '/recommend/deploy',
+        method: 'get',
+        data: $('#recommendForm').serialize(),
+        success: function (data) {
+            var code = data.code;
+            var msg = data.msg;
+            if(code == 200){
+                $('#recommendModal').modal('hide');
+                $('#recommendSuccess').fadeIn(1000);
+                $('#recommendSuccess').fadeOut(5000);
+            }else{
+                $('#recommendMsg').text(msg);
             }
-        });
-
+        }
     });
 }
 
@@ -331,7 +330,7 @@ function clearOdds() {
     $('#sizeOddsRows').html("");
 }
 
-$(function () {
+function initRecommendModal() {
     $('#recommendModal').on('show.bs.modal', function (event) {
         //显示模态框时恢复teamVS按钮的内容
         $('#matchSelection').removeClass("dropdownPosition");
@@ -348,6 +347,32 @@ $(function () {
 
         clearRecommendMsg();//清空提示信息
     });
+}
+
+//点击确认支付按钮，发送ajax请求支付接口
+function initPayBtn() {
+    $('.payBtn').bind('click',function () {
+        var recommendId = $(this).attr("recommendId");
+        var confirmMoney = $(this).attr("confirmMoney");
+        $('#recommendId').val(recommendId);
+        $('#confirmMoney').val(confirmMoney);
+    });
+}
+
+function payRecommend() {
+    $.ajax({
+        url: '/recommend/pay',
+        method:'get',
+        data: 'recommendId='+$('#recommendId').val(),
+        success: function (data) {
+            //TODO 对支付返回的数据进行渲染
+        }
+    })
+}
+
+$(function () {
+    initRecommendModal();
+    initPayBtn();
 
     //赔率被选中时改变样式,在.html格式中才生效后面移除
     $('#europeOdds .europeOdd').click(function () {

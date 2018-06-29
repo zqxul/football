@@ -34,7 +34,7 @@
         limit 1;
     </select>
 
-    <insert id="insert" parameterType="User" useGeneratedKeys="true">
+    <insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
 		insert into
             t_user(
               user_name,
@@ -153,6 +153,9 @@
         <include refid="userColumns"/>
         FROM t_user
         <where>
+            <if test="id!=null">
+                user_id = #{id}
+            </if>
             <if test="username!=null">
                 user_name = #{username}
             </if>
