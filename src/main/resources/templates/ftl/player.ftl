@@ -22,7 +22,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand navbar-dark bg-dark" style="font-weight: 500">
-    <a class="navbar-brand" href="#">玩个球</a>
+    <a class="navbar-brand" href="#"><i class="fa fa-futbol-o">&nbsp;玩个球</i></a>
     <div class="collapse navbar-collapse justify-content-between">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">

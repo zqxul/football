@@ -28,10 +28,6 @@ public class User{
     private String realName;
     private Date createTime;
 
-    public User(String email) {
-        this.email = email;
-    }
-
     public User(Integer userId,String email){
         this.id = userId;
         this.email = email;

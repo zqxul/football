@@ -10,6 +10,7 @@
     </resultMap>
 
     <sql id="userAccountColumns">
+      user_account_id,
       user_id,
 	  account_id,
 	  user_account_create_time

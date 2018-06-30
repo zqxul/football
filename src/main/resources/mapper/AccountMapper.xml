@@ -109,7 +109,7 @@
 
     <update id="updateAmount">
         UPDATE t_account
-        SET amount = #{amount}
+        SET account_amount = #{amount}
         WHERE account_id = #{accountId}
     </update>
 </mapper>

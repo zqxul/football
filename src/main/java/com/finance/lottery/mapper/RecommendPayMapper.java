@@ -14,7 +14,7 @@ import java.util.List;
 @Mapper
 public interface RecommendPayMapper extends BaseMapper<RecommendPay>{
 
-    List<Integer> selectRecommendPayedUserIds();
+    List<Integer> selectRecommendedUserIds();
 
     Integer selectRecommendPayedCountByUserId(@Param("userId") Integer userId);
 }

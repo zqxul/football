@@ -18,7 +18,7 @@ public interface RecommendMapper extends BaseMapper<Recommend> {
 
     List<Recommend> selectRecommendNoMatchResult();
 
-    int updateMatchResult(@Param("recommendId") Integer recommendId,@Param("result") Integer result);
+    int updateMatchResult(@Param("recommendId") Integer recommendId, @Param("result") Integer result);
 
     List<Integer> selectRecommendUserIds();
 
@@ -28,5 +28,5 @@ public interface RecommendMapper extends BaseMapper<Recommend> {
 
     Integer selectWeekCountByRecommend(Recommend recommend);
 
-    List<Recommend> selectTopRecommend(@Param("topNum") Integer topNum);
+    List<Recommend> selectTopRecommendByUserId(@Param("userId") Integer userId, @Param("topNum") Integer topNum);
 }

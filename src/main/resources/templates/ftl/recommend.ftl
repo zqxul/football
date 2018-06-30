@@ -69,160 +69,34 @@
 <main class="container-fluid">
     <div class="p-3">
         <div class="row m-0 border">
-            <div class="col-1 p-2 m-auto">
-                <div class="row m-0">
-                    <span>红人榜<i class="fa fa-bookmark text-danger"></i></span>
+            <div class="col-1 p-0 border-right" style="background-color: #cdb470">
+                <div class="p-0 text-center">
+                    <i class="fa fa-bookmark text-danger" style="font-size: 6.5vw"></i>
                 </div>
-                <div class="row m-0">
-                    <span class="text-warning">Top50</span>
+                <div class="p-0 text-center">
+                    <span>红人榜</span>
+                </div>
+                <div class="p-0 text-center">
+                    <span class="text-warning">Top30</span>
                 </div>
             </div>
-            <div class="col-11">
+            <div class="col-11 p-0">
                 <div id="hotmanRow" class="row m-0 p-2 border d-inline-block">
-                    <div class="my-auto mx-1 py-1 border d-inline-block text-center hotman">
+                    <#list hotmans>
+                    <#items as hotman>
+                    <div class="my-auto mx-1 py-1 border d-inline-block text-center hotman" style="width: 150px;">
                         <div class="row m-0 mb-1 h-50">
-                    <span class="w-100">
-                    <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139">
-                    </span>
+                            <span class="w-100">
+                            <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139">
+                            </span>
                         </div>
-                        <div class="row m-0 h-25"><span class="w-100">快樂的小王子</span></div>
-                        <div class="row m-0 h-25"><span class="w-100">总勝率:80％&nbsp;近5中5</span></div>
-                    </div>
-                    <div class="my-auto mx-1 py-1 border d-inline-block text-center hotman">
-                        <div class="row m-0 mb-1 h-50">
-                    <span class="w-100">
-                    <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139">
-                    </span>
+                        <div class="row m-0 h-25"><span class="w-100">${hotman.username}</span></div>
+                        <div class="row m-0 h-25">
+                            <span class="w-100">总勝率:${hotman.totalRate}&nbsp;近10中${hotman.top10WinCount}</span>
                         </div>
-                        <div class="row m-0 h-25"><span class="w-100">快樂的小王子</span></div>
-                        <div class="row m-0 h-25"><span class="w-100">总勝率:80％&nbsp;近5中5</span></div>
                     </div>
-                    <div class="my-auto mx-1 py-1 border d-inline-block text-center hotman">
-                        <div class="row m-0 mb-1 h-50">
-                    <span class="w-100">
-                    <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139">
-                    </span>
-                        </div>
-                        <div class="row m-0 h-25"><span class="w-100">快樂的小王子</span></div>
-                        <div class="row m-0 h-25"><span class="w-100">总勝率:80％&nbsp;近5中5</span></div>
-                    </div>
-                    <div class="my-auto mx-1 py-1 border d-inline-block text-center hotman">
-                        <div class="row m-0 mb-1 h-50">
-                    <span class="w-100">
-                    <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139">
-                    </span>
-                        </div>
-                        <div class="row m-0 h-25"><span class="w-100">快樂的小王子</span></div>
-                        <div class="row m-0 h-25"><span class="w-100">总勝率:80％&nbsp;近5中5</span></div>
-                    </div>
-                    <div class="my-auto mx-1 py-1 border d-inline-block text-center hotman">
-                        <div class="row m-0 mb-1 h-50">
-                    <span class="w-100">
-                    <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139">
-                    </span>
-                        </div>
-                        <div class="row m-0 h-25"><span class="w-100">快樂的小王子</span></div>
-                        <div class="row m-0 h-25"><span class="w-100">总勝率:80％&nbsp;近5中5</span></div>
-                    </div>
-                    <div class="my-auto mx-1 py-1 border d-inline-block text-center hotman">
-                        <div class="row m-0 mb-1 h-50">
-                    <span class="w-100">
-                    <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139">
-                    </span>
-                        </div>
-                        <div class="row m-0 h-25"><span class="w-100">快樂的小王子</span></div>
-                        <div class="row m-0 h-25"><span class="w-100">总勝率:80％&nbsp;近5中5</span></div>
-                    </div>
-                    <div class="my-auto mx-1 py-1 border d-inline-block text-center hotman">
-                        <div class="row m-0 mb-1 h-50">
-                    <span class="w-100">
-                    <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139">
-                    </span>
-                        </div>
-                        <div class="row m-0 h-25"><span class="w-100">快樂的小王子</span></div>
-                        <div class="row m-0 h-25"><span class="w-100">总勝率:80％&nbsp;近5中5</span></div>
-                    </div>
-                    <div class="my-auto mx-1 py-1 border d-inline-block text-center hotman">
-                        <div class="row m-0 mb-1 h-50">
-                    <span class="w-100">
-                    <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139">
-                    </span>
-                        </div>
-                        <div class="row m-0 h-25"><span class="w-100">快樂的小王子</span></div>
-                        <div class="row m-0 h-25"><span class="w-100">总勝率:80％&nbsp;近5中5</span></div>
-                    </div>
-                    <div class="my-auto mx-1 py-1 border d-inline-block text-center hotman">
-                        <div class="row m-0 mb-1 h-50">
-                    <span class="w-100">
-                    <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139">
-                    </span>
-                        </div>
-                        <div class="row m-0 h-25"><span class="w-100">快樂的小王子</span></div>
-                        <div class="row m-0 h-25"><span class="w-100">总勝率:80％&nbsp;近5中5</span></div>
-                    </div>
-                    <div class="my-auto mx-1 py-1 border d-inline-block text-center hotman">
-                        <div class="row m-0 mb-1 h-50">
-                    <span class="w-100">
-                    <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139">
-                    </span>
-                        </div>
-                        <div class="row m-0 h-25"><span class="w-100">快樂的小王子</span></div>
-                        <div class="row m-0 h-25"><span class="w-100">总勝率:80％&nbsp;近5中5</span></div>
-                    </div>
-                    <div class="my-auto mx-1 py-1 border d-inline-block text-center hotman">
-                        <div class="row m-0 mb-1 h-50">
-                    <span class="w-100">
-                    <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139">
-                    </span>
-                        </div>
-                        <div class="row m-0 h-25"><span class="w-100">快樂的小王子</span></div>
-                        <div class="row m-0 h-25"><span class="w-100">总勝率:80％&nbsp;近5中5</span></div>
-                    </div>
-                    <div class="my-auto mx-1 py-1 border d-inline-block text-center hotman">
-                        <div class="row m-0 mb-1 h-50">
-                    <span class="w-100">
-                    <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139">
-                    </span>
-                        </div>
-                        <div class="row m-0 h-25"><span class="w-100">快樂的小王子</span></div>
-                        <div class="row m-0 h-25"><span class="w-100">总勝率:80％&nbsp;近5中5</span></div>
-                    </div>
-                    <div class="my-auto mx-1 py-1 border d-inline-block text-center hotman">
-                        <div class="row m-0 mb-1 h-50">
-                    <span class="w-100">
-                    <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139">
-                    </span>
-                        </div>
-                        <div class="row m-0 h-25"><span class="w-100">快樂的小王子</span></div>
-                        <div class="row m-0 h-25"><span class="w-100">总勝率:80％&nbsp;近5中5</span></div>
-                    </div>
-                    <div class="my-auto mx-1 py-1 border d-inline-block text-center hotman">
-                        <div class="row m-0 mb-1 h-50">
-                    <span class="w-100">
-                    <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139">
-                    </span>
-                        </div>
-                        <div class="row m-0 h-25"><span class="w-100">快樂的小王子</span></div>
-                        <div class="row m-0 h-25"><span class="w-100">总勝率:80％&nbsp;近5中5</span></div>
-                    </div>
-                    <div class="my-auto mx-1 py-1 border d-inline-block text-center hotman">
-                        <div class="row m-0 mb-1 h-50">
-                    <span class="w-100">
-                    <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139">
-                    </span>
-                        </div>
-                        <div class="row m-0 h-25"><span class="w-100">快樂的小王子</span></div>
-                        <div class="row m-0 h-25"><span class="w-100">总勝率:80％&nbsp;近5中5</span></div>
-                    </div>
-                    <div class="my-auto mx-1 py-1 border d-inline-block text-center hotman">
-                        <div class="row m-0 mb-1 h-50">
-                    <span class="w-100">
-                    <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139">
-                    </span>
-                        </div>
-                        <div class="row m-0 h-25"><span class="w-100">快樂的小王子</span></div>
-                        <div class="row m-0 h-25"><span class="w-100">总勝率:80％&nbsp;近5中5</span></div>
-                    </div>
+                    </#items>
+                    </#list>
                 </div>
             </div>
         </div>
@@ -313,9 +187,14 @@
                             <div class="row m-0 h-100 text-center">
                                 <div class="p-2 my-auto w-100">
                                     <#if recommend.price gt 0>
-                                        <span class="px-2">
-                                        ${recommend.price}&nbsp;<i class="fa fa-stop-circle-o text-warning"></i>
-                                        </span>
+
+                                            <#if recommend.payed>
+                                                <span class="px-2 text-success">已支付</span>
+                                            <#else>
+                                            <span class="px-2">
+                                                ${recommend.price}&nbsp;<i class="fa fa-stop-circle-o text-warning"></i>
+                                            </span>
+                                            </#if>
                                     <#else>
                                     <span class="px-2 text-success">免费</span>
                                     </#if>
@@ -333,11 +212,17 @@
                             </div>
                         </div>
                         <div class="col-1 p-0 my-auto">
+                            <#if recommend.payed>
+                                <button type="button" class="btn btn-info btn-sm viewBtn" recommendid="${recommend.id}"
+                                        data-toggle="modal" data-target="#viewModal">查看
+                                </button>
+                            <#else>
                             <button type="button" class="btn btn-primary btn-sm payBtn" recommendid="${recommend.id}"
                                     confirmMoney="${recommend.price}"
                                     data-toggle="modal"
-                                    data-target="#payModal" onclick="payRecommend()">支付
+                                    data-target="#payModal">支付
                             </button>
+                            </#if>
                         </div>
                     </div>
                         </#items>
@@ -352,50 +237,87 @@
                     <div class="col-6 p-0 recommend-panel">
                         <ul class="nav nav-tabs text-center" style="font-size: 15px">
                             <li class="col p-0 nav-item active">
-                                <a class="p-1 nav-link active" href="#totalRanking">总榜</a>
+                                <a class="p-1 nav-link active" href="#totalRanking" onclick="switchRanking(this)">总榜</a>
                             </li>
                             <li class="col p-0 nav-item">
-                                <a class="p-1 nav-link" href="#monthRanking">月榜</a>
+                                <a class="p-1 nav-link" href="#monthRanking" onclick="switchRanking(this)">月榜</a>
                             </li>
                             <li class="col p-0 nav-item">
-                                <a class="p-1 nav-link" href="#weekRanking">周榜</a>
+                                <a class="p-1 nav-link" href="#weekRanking" onclick="switchRanking(this)">周榜</a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="tab-content">
                     <div id="totalRanking" class="p-2 tab-pane active text-center" style="font-size: 1.2vw">
+                        <#list totalRankings>
+                            <#items as hotman>
                         <div class="row mx-0 my-2 p-2 border">
-                            <span class="col-2 px-0">1</span>
-                            <span class="col-4 px-0">追风少年q</span>
-                            <span class="col-3 px-0">胜率:<span class="mx-0">90%</span></span>
-                            <span class="col-2 px-0"><i class="fa fa-ship" style="color: #f0c231;"></i></span>
+                            <span class="col-2 px-0">${hotman_index+1}</span>
+                            <span class="col-4 px-0">${hotman.username}</span>
+                            <span class="col-3 px-0">胜率:<span class="mx-0">${hotman.totalRate}</span></span>
+                            <span class="col-2 px-0">
+                                <#if hotman_index == 0>
+                                    <i class="fa fa-ship" style="color: #f0c231;"></i>
+                                <#elseif hotman_index ==1 >
+                                    <i class="fa fa-ship" style="color: #cfceca"></i>
+                                <#elseif hotman_index ==2 >
+                                    <i class="fa fa-ship" style="color: #b4a683"></i>
+                                <#else>
+                                    <i class="fa fa-ship" style="color: #f3f3f3"></i>
+                                </#if>
+                            </span>
                             <span class="col-1"></span>
                         </div>
-                        <div class="row mx-0 my-2 p-2 border">
-                            <span class="col-2 px-0">2</span>
-                            <span class="col-4 px-0">追风少年2</span>
-                            <span class="col-3 px-0">胜率:<span class="mx-0">87%</span></span>
-                            <span class="col-2 px-0"><i class="fa fa-ship" style="color: #cfceca"></i></span>
-                            <span class="col-1"></span>
-                        </div>
-                        <div class="row mx-0 my-2 p-2 border">
-                            <span class="col-2 px-0">3</span>
-                            <span class="col-4 px-0">追风少年3</span>
-                            <span class="col-3 px-0">胜率:<span class="mx-0">80%</span></span>
-                            <span class="col-2 px-0"><i class="fa fa-ship" style="color: #b4a683"></i></span>
-                            <span class="col-1"></span>
-                        </div>
-                        <div class="row mx-0 my-2 p-2 border">
-                            <span class="col-2 px-0">4</span>
-                            <span class="col-4 px-0">追风少年4</span>
-                            <span class="col-3 px-0">胜率:<span class="mx-0">60%</span></span>
-                            <span class="col-2 px-0"><i class="fa fa-ship" style="color: #979e97"></i></span>
-                            <span class="col-1"></span>
-                        </div>
+                            </#items>
+                        </#list>
                     </div>
-                    <div id="monthRanking" class="tab-pane">月榜</div>
-                    <div id="weekRanking" class="tab-pane">周榜</div>
+                    <div id="monthRanking" class="p-2 tab-pane text-center" style="font-size: 1.2vw">
+                        <#list monthRankings>
+                            <#items as hotman>
+                        <div class="row mx-0 my-2 p-2 border">
+                            <span class="col-2 px-0">${hotman_index+1}</span>
+                            <span class="col-4 px-0">${hotman.username}</span>
+                            <span class="col-3 px-0">胜率:<span class="mx-0">${hotman.monthRate}</span></span>
+                            <span class="col-2 px-0">
+                                <#if hotman_index == 0>
+                                    <i class="fa fa-ship" style="color: #f0c231;"></i>
+                                <#elseif hotman_index ==1 >
+                                    <i class="fa fa-ship" style="color: #cfceca"></i>
+                                <#elseif hotman_index ==2 >
+                                    <i class="fa fa-ship" style="color: #b4a683"></i>
+                                <#else>
+                                    <i class="fa fa-ship" style="color: #f3f3f3"></i>
+                                </#if>
+                            </span>
+                            <span class="col-1"></span>
+                        </div>
+                            </#items>
+                        </#list>
+                    </div>
+                    <div id="weekRanking" class="p-2 tab-pane text-center" style="font-size: 1.2vw">
+                        <#list weekRankings>
+                            <#items as hotman>
+                        <div class="row mx-0 my-2 p-2 border">
+                            <span class="col-2 px-0">${hotman_index+1}</span>
+                            <span class="col-4 px-0">${hotman.username}</span>
+                            <span class="col-3 px-0">胜率:<span class="mx-0">${hotman.weekRate}</span></span>
+                            <span class="col-2 px-0">
+                                <#if hotman_index == 0>
+                                    <i class="fa fa-ship" style="color: #f0c231;"></i>
+                                <#elseif hotman_index ==1 >
+                                    <i class="fa fa-ship" style="color: #cfceca"></i>
+                                <#elseif hotman_index ==2 >
+                                    <i class="fa fa-ship" style="color: #b4a683"></i>
+                                <#else>
+                                    <i class="fa fa-ship" style="color: #f3f3f3"></i>
+                                </#if>
+                            </span>
+                            <span class="col-1"></span>
+                        </div>
+                            </#items>
+                        </#list>
+                    </div>
                 </div>
             </div>
         </div>
@@ -428,7 +350,9 @@
                     </div>
                     <div class="col p-0"></div>
                     <div class="col-3 p-0 m-auto">
-                        <button id="payBtn" type="button" class="btn btn-warning btn-sm w-100">确认支付</button>
+                        <button id="payBtn" type="button" class="btn btn-warning btn-sm w-100" onclick="payRecommend()">
+                            确认支付
+                        </button>
                     </div>
                     <div class="col p-0"></div>
                 </div>
@@ -564,7 +488,9 @@
                                 (0 - 1000)
                             </div>
                             <div class="col-5">
-                                <button id="deployBtn" type="button" onclick="deployRecommend()" class="btn btn-primary w-100">发布</button>
+                                <button id="deployBtn" type="button" onclick="deployRecommend()"
+                                        class="btn btn-primary w-100">发布
+                                </button>
                             </div>
                         </div>
                     </div>

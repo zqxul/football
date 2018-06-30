@@ -65,7 +65,7 @@ football:
           subject: 密码重置
           htmlTemplate: '<div style="padding: 10px;">
                         <div style="padding: 2px;font-size: 1.3vw">
-                            <p>尊敬的 %s 您好，您正在使用重置密码功能，请点击 <a href="%s">重置密码</a> 完成密码重置。</p>
+                            <p>尊敬的 %s 您好，您正在使用重置密码功能(<span style="color: rgb(169, 169, 189);font-size: 1.2vw">如果不是本人操作，请忽略此邮件</span>)，请点击 <a href="%s">重置密码</a> 完成密码重置。</p>
                         </div>
                         <div style="padding: 2px">
                             <ul style="color: rgb(169, 169, 189);font-size: 1.2vw">

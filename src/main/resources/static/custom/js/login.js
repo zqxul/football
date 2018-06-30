@@ -23,9 +23,11 @@ $('#submitBtn').on('click', function () {
 var countdown = 60;
 $("#resetBtn").click(function () {
     var email = $('#bindEmail').val();
-    if (checkEmail(email)) {
+    // if (checkEmail(email)) {
+        sendEmail();
         settime($(this));
-    }
+        $('#tip').text("");
+    // }
 });
 
 //ajax请求发送邮件
@@ -33,7 +35,7 @@ function sendEmail() {
     $.ajax({
         url: '/user/reset/send/email',
         method: 'get',
-        data: "email=" + $('#bindEmail').val(),
+        data: "sendUsername=" + $('#sendUsername').val(),
         success: function (data) {
             if (data.code == 200) {
                 $('#tip').text("邮件已发送，请注意查收");

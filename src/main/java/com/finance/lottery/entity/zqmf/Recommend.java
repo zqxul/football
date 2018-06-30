@@ -33,6 +33,7 @@ public class Recommend {
     private String matchTime;
     private Date createTime;
     private String createBy;
+    private boolean payed;
 
     public Recommend(RecommendDetail recommendDetail){
         this.userId = Integer.valueOf(recommendDetail.getUserId());

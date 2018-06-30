@@ -63,7 +63,7 @@
             </div>
             <div class="modal-body">
                 <div class="input-group mb-3">
-                    <input id="bindEmail" type="text" class="form-control" placeholder="请输入邮箱地址">
+                    <input id="sendUsername" type="text" class="form-control" placeholder="请输入用户名">
                     <div class="input-group-append">
                         <a href="#">
                         <button id="resetBtn" class="btn btn-outline-secondary" type="button">发送邮件</button>

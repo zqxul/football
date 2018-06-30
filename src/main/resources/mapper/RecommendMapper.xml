@@ -175,7 +175,7 @@
         date(recommend_create_time) = curdate()
     </select>
 
-    <insert id="insert" parameterType="Recommend" useGeneratedKeys="true">
+    <insert id="insert" parameterType="Recommend" useGeneratedKeys="true" keyProperty="id">
 		insert into
             t_recommend(
               user_id,
@@ -450,7 +450,7 @@
             AND DATE(recommend_create_time) >= DATE_ADD(curdate(),INTERVAL -7 DAY)
         </where>
     </select>
-    <select id="selectTopRecommend" parameterType="java.lang.Integer" resultMap="recommendResultMap">
-        SELECT * FROM t_recommend ORDER BY recommend_create_time DESC LIMIT #{topNum}
+    <select id="selectTopRecommendByUserId" resultMap="recommendResultMap">
+        SELECT * FROM t_recommend WHERE user_id = #{userId} ORDER BY recommend_create_time DESC LIMIT #{topNum}
     </select>
 </mapper>

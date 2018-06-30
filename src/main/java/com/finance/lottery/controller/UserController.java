@@ -144,16 +144,15 @@ public class UserController {
     }
 
     @GetMapping("/reset/send/email")
-    public FootballResult sendEmail(@RequestParam String email, HttpServletRequest request) {
-        String token = WebUtil.getCookieValue(request, "token");
-        User u = (User) redisTemplate.opsForValue().get(token);
+    public FootballResult sendEmail(@RequestParam String sendUsername) {
 
+        //TODO 修改发送邮件的逻辑，通过填写用户名，根据用户名查询到邮箱地址并发送邮件
         FootballResult result = new FootballResult();
-        if (StringUtils.isBlank(email)) {
+        if (StringUtils.isBlank(sendUsername)) {
             result.setResult(ResponseEnum.PARAM_NULL);
             return result;
         }
-        User user = userService.getUser(new User(u.getId(), email));
+        User user = userService.getUser(User.builder().username(sendUsername).build());
         if (user == null) {
             result.setResult(ResponseEnum.EMAIL_NOT_BIND);
             return result;

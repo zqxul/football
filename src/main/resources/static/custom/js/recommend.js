@@ -15,6 +15,10 @@ function initRecommendPanel() {
 
 }
 
+function switchRanking(element) {
+    $(element).tab('show');
+}
+
 //发布推荐
 function deployRecommend() {
     $.ajax({
@@ -24,11 +28,11 @@ function deployRecommend() {
         success: function (data) {
             var code = data.code;
             var msg = data.msg;
-            if(code == 200){
+            if (code == 200) {
                 $('#recommendModal').modal('hide');
                 $('#recommendSuccess').fadeIn(1000);
                 $('#recommendSuccess').fadeOut(5000);
-            }else{
+            } else {
                 $('#recommendMsg').text(msg);
             }
         }
@@ -234,6 +238,7 @@ function resetRecommendListDiv(element) {
         $('#recommendDiv .recommendRow[leaguename="' + val + '"]').hide();
     }
 }
+
 //推荐列表作者筛选框选中状态变化时，隐藏或者显示推荐列表中的推荐内容
 function resetAuthorListDiv(element) {
     var checked = $(element).prop("checked");
@@ -304,6 +309,7 @@ function clearRecommendFormTeamInfo() {
     $('#visitName').val("");
     $('#matchTime').val("");
 }
+
 //初始化表单数据，不清空matchId
 function clearRecommendFormDeployInfo() {
     $('#recommendType').val("1");
@@ -351,7 +357,7 @@ function initRecommendModal() {
 
 //点击确认支付按钮，发送ajax请求支付接口
 function initPayBtn() {
-    $('.payBtn').bind('click',function () {
+    $('.payBtn').bind('click', function () {
         var recommendId = $(this).attr("recommendId");
         var confirmMoney = $(this).attr("confirmMoney");
         $('#recommendId').val(recommendId);
@@ -362,8 +368,8 @@ function initPayBtn() {
 function payRecommend() {
     $.ajax({
         url: '/recommend/pay',
-        method:'get',
-        data: 'recommendId='+$('#recommendId').val(),
+        method: 'get',
+        data: 'recommendId=' + $('#recommendId').val(),
         success: function (data) {
             //TODO 对支付返回的数据进行渲染
         }

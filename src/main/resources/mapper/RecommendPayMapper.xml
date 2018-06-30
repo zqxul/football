@@ -112,8 +112,10 @@
         WHERE recommend_pay_id = #{id}
     </update>
 
-    <select id="selectRecommendPayedUserIds" resultType="java.lang.Integer">
-        SELECT user_id FROM t_recommend_pay GROUP BY user_id
+    <select id="selectRecommendedUserIds" resultType="java.lang.Integer">
+        SELECT r.user_id FROM t_recommend_pay rp
+        JOIN t_recommend r ON rp.recommend_id = r.recommend_id
+        GROUP BY r.user_id
     </select>
 
     <select id="selectRecommendPayedCountByUserId" resultType="java.lang.Integer" parameterType="java.lang.Integer">

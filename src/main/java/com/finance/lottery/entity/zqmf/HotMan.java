@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class HotMan {
     private String photo;
-    private String userId;
+    private Integer userId;
     private String username;
     private Integer winCount;
     private Integer loseCount;
@@ -27,4 +27,6 @@ public class HotMan {
     private String recentScore;
     private Integer viewTimes;
     private Integer recommendPayedCount;
+    private Integer top5Wincount;
+    private Integer top10WinCount;
 }

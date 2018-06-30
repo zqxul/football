@@ -153,9 +153,6 @@
         <include refid="userColumns"/>
         FROM t_user
         <where>
-            <if test="id!=null">
-                user_id = #{id}
-            </if>
             <if test="username!=null">
                 user_name = #{username}
             </if>

@@ -34,8 +34,8 @@ public class LotterySchedule {
         scheduleService.UpdateRecommendResult();
     }
 
-    @Scheduled(cron = "0 0/1 * * * ?")
-    public void UpdateRecommendResults(){
-        scheduleService.UpdateRecommendResult();
-    }
+//    @Scheduled(cron = "0 0/1 * * * ?")
+//    public void UpdateRecommendResults(){
+//        scheduleService.UpdateRecommendResult();
+//    }
 }

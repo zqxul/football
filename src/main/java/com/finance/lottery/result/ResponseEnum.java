@@ -17,7 +17,7 @@ public enum ResponseEnum {
     USER_EXIST(3005,"用户名已存在"),
     LOGIN_FAILURE(3006,"用户名或密码错误"),
     USER_AVAILABLE(3007,"用户名可以使用"),
-    EMAIL_NOT_BIND(3008,"该邮箱未绑定账户"),
+    EMAIL_NOT_BIND(3008,"该账户未绑定邮箱"),
     RESET_PASS_INVALID(3009,"密码重置链接已失效"),
     INVALID(3010,"报歉，你访问的页面失踪了"),
     INTERNAL_ERROR(3011,"内部错误"),
@@ -29,7 +29,8 @@ public enum ResponseEnum {
     ACCOUNT_WITHDRAW_SUCCESS(3017,"提现申请提交成功，等待确认"),
     ACCOUNT_WITHDRAW_FAILURE(3017,"账户提现失败"),
     ACCOUNT_AMOUNT_NOT_ENOUGH(3018,"可提现余额不足"),
-    ACCOUNT_CHARGE_AMOUNT_NULL(3019,"充值金额为空")
+    ACCOUNT_CHARGE_AMOUNT_NULL(3019,"充值金额为空"),
+    AMOUNT_NOT_ENOUGH(3020,"球币余额不足"),
     ;
 
     private int code;
