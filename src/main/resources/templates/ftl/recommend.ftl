@@ -421,7 +421,7 @@
                     <div class="col-10 p-0">
                         <div class="row m-0">
                             <div class="col-6 p-2"><span class="font-weight-bold">推荐类型：</span><span id="recommendTypeName">亚盘</span></div>
-                            <div class="col-6 p-2"><span class="font-weight-bold">推荐选项：</span><span><span id="recommendValue">俄罗斯-0.5</span></div>
+                            <div class="col-6 p-2"><span class="font-weight-bold">推荐选项：</span><span><span id="recommendValueName">俄罗斯-0.5</span></div>
                         </div>
                         <div class="p-2"><span class="font-weight-bold">推荐理由:</span><p id="recommendReason">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这位高手有点懒，不写理由还是可以原谅的。</p></div>
                     </div>

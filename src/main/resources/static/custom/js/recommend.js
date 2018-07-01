@@ -397,41 +397,41 @@ function initViewModal(recommendId) {
                 if (type == 1) {
                     switch (value) {
                         case 1:
-                            $('#recommendValue').text("胜");
+                            $('#recommendValueName').text("胜");
                         case 2:
-                            $('#recommendValue').text("平");
+                            $('#recommendValueName').text("平");
                         case 3:
-                            $('#recommendValue').text("负");
+                            $('#recommendValueName').text("负");
                     }
                 } else if (type == 2) {
 
                     if (value == 4) {
                         if (handicapValue.indexOf("-") != -1) {
-                            $('#recommendValue').text(recommend.host + handicapValue);
+                            $('#recommendValueName').text(recommend.host + handicapValue);
                         } else {
-                            $('#recommendValue').text(recommend.visit + "-" + handicapValue);
+                            $('#recommendValueName').text(recommend.visit + "-" + handicapValue);
                         }
                     } else {
                         if (handicapValue.contain("-")) {
-                            $('#recommendValue').text(recommend.visit + handicapValue);
+                            $('#recommendValueName').text(recommend.visit + handicapValue);
                         } else {
-                            $('#recommendValue').text(recommend.host + "-" + handicapValue);
+                            $('#recommendValueName').text(recommend.host + "-" + handicapValue);
                         }
                     }
 
                 } else {
                     if (value == 6) {
-                        $('#recommendValue').text("大" + handicapValue)
+                        $('#recommendValueName').text("大" + handicapValue)
                     } else {
-                        $('#recommendValue').text("小" + handicapValue)
+                        $('#recommendValueName').text("小" + handicapValue)
                     }
                 }
 
                 var reason = recommend.reason;
                 if (reason.length == 0) {
-                    $('#recommendReason').text("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这位高手有点懒，不写理由还是可以原谅的。");
+                    $('#recommendReason').html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这位高手有点懒，不写理由还是可以原谅的。");
                 } else {
-                    $('#recommendReason').text("        " + reason);
+                    $('#recommendReason').html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + reason);
                 }
             }
         }

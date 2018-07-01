@@ -147,7 +147,7 @@ public class RecommendController {
     }
 
     @GetMapping("/deploy")
-    public DeferredResult<FootballResult> deployRecommend(RecommendDetail recommendDetail) {
+    public DeferredResult<FootballResult> deployRecommend(RecommendDetail recommendDetail, @CookieValue("token") String token) {
         DeferredResult<FootballResult> result = new DeferredResult<>();
         FootballResult footballResult = new FootballResult();
         if (StringUtils.isBlank(recommendDetail.getMatchId())) {
@@ -180,7 +180,8 @@ public class RecommendController {
             result.setResult(footballResult);
             return result;
         }
-        String recommendsKey = "lottery_recommends";
+        User user = (User) redisTemplate.opsForValue().get(token);
+        String recommendsKey = "lottery_recommends_" + user.getId();
         redisTemplate.delete(recommendsKey);
         footballResult.setResult(ResponseEnum.SUCCESS);
         result.setResult(footballResult);
