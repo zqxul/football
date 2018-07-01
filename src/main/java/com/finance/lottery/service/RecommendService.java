@@ -140,7 +140,7 @@ public class RecommendService {
     }
 
     @Transactional
-    public Recommend payRecommend(Integer recommendId, User user) {
+    public boolean payRecommend(Integer recommendId, User user) {
         Recommend recommend = recommendMapper.selectByPrimaryKey(recommendId);
         Integer price = recommend.getPrice();
         Integer fromUserId = user.getId();
@@ -149,29 +149,31 @@ public class RecommendService {
         //TODO 在recommend_pay表中插入购买记录，用户间的球币余额扣减与添加
         RecommendPay recommendPay = recommendPayMapper.selectOne(new RecommendPay(fromUserId, recommendId));
         if (recommendPay != null) {
-            return recommend;
+            return true;
         }
-        int result = recommendPayMapper.insert(new RecommendPay(fromUserId, recommendId));
-        if (result > 0) {
-            //TODO 用户账户间的球币余额扣减与添加
-            UserAccount userAccountFrom = userAccountMapper.selectUserAccountByUserId(fromUserId);
-            UserAccount userAccountTo = userAccountMapper.selectUserAccountByUserId(toUserId);
-            Account fromAccount = accountMapper.selectByPrimaryKey(userAccountFrom.getAccountId());
-            Account toAccount = accountMapper.selectByPrimaryKey(userAccountTo.getAccountId());
-            Integer fromAmount = fromAccount.getAmount() - price;
-            if (fromAmount < 0) {
-                return null;
-            }
-            Integer toAmount = toAccount.getAmount() + price;
-            int fromResult = accountMapper.updateAmount(fromAccount.getId(), fromAmount);
-            int toResult = accountMapper.updateAmount(toAccount.getId(), toAmount);
-            if (!(fromResult > 0) || !(toResult > 0)) {
-                System.out.println("账户更新失败");
-            }
+
+        //TODO 用户账户间的球币余额扣减与添加
+        UserAccount userAccountFrom = userAccountMapper.selectUserAccountByUserId(fromUserId);
+        UserAccount userAccountTo = userAccountMapper.selectUserAccountByUserId(toUserId);
+        Account fromAccount = accountMapper.selectByPrimaryKey(userAccountFrom.getAccountId());
+        Account toAccount = accountMapper.selectByPrimaryKey(userAccountTo.getAccountId());
+        Integer fromAmount = fromAccount.getAmount() - price;
+        if (fromAmount < 0) {
+            return false;
+        }
+        Integer toAmount = toAccount.getAmount() + price;
+        int fromResult = accountMapper.updateAmount(fromAccount.getId(), fromAmount);
+        int toResult = accountMapper.updateAmount(toAccount.getId(), toAmount);
+        if (!(fromResult > 0) || !(toResult > 0)) {
+            System.out.println("账户更新失败");
         }
         String recommendsKey = "lottery_recommends_" + user.getId();
         redisTemplate.delete(recommendsKey);
-        return recommend;
+        int result = recommendPayMapper.insert(new RecommendPay(fromUserId, recommendId));
+        if (result > 0) {
+            return true;
+        }
+        return false;
     }
 
     public List<HotMan> getHotMans() {
@@ -202,6 +204,11 @@ public class RecommendService {
     }
 
     public List<HotMan> getTotalRankings() {
+        String totalRankingsKey = "lottery_recommend_totalRankings";
+        List<HotMan> rankingList = (List<HotMan>) redisTemplate.opsForValue().get(totalRankingsKey);
+        if (rankingList != null && rankingList.size() > 0) {
+            return rankingList;
+        }
         List<HotMan> rankings = new ArrayList<>();
         //TODO 计算并返回排行榜Top50总榜列表
         List<Integer> recommendUserIds = recommendMapper.selectRecommendUserIds();
@@ -218,10 +225,22 @@ public class RecommendService {
                 rankings.add(hotMan);
             }
         });
-        return rankings;
+        rankingList = rankings.stream().sorted(Comparator.comparingInt(HotMan::getWinCount).reversed().thenComparingInt(HotMan::getLoseCount).thenComparingInt(HotMan::getDrawCount)).limit(50).collect(Collectors.toList());
+        if (rankingList != null && rankingList.size() > 0) {
+            redisTemplate.opsForValue().set(totalRankingsKey, rankingList, 3, TimeUnit.HOURS);
+        } else {
+            redisTemplate.opsForValue().set(totalRankingsKey, rankingList, 3, TimeUnit.MINUTES);
+        }
+        return rankingList;
+
     }
 
     public List<HotMan> getMonthRankings() {
+        String monthRankingsKey = "lottery_recommend_monthRankings";
+        List<HotMan> rankingList = (List<HotMan>) redisTemplate.opsForValue().get(monthRankingsKey);
+        if (rankingList != null && rankingList.size() > 0) {
+            return rankingList;
+        }
         List<HotMan> rankings = new ArrayList<>();
         //TODO 计算并返回排行榜Top50月榜列表
         List<Integer> recommendUserIds = recommendMapper.selectRecommendUserIds();
@@ -238,10 +257,21 @@ public class RecommendService {
                 rankings.add(hotMan);
             }
         });
-        return rankings;
+        rankingList = rankings.stream().sorted(Comparator.comparingInt(HotMan::getWinCount).reversed().thenComparingInt(HotMan::getLoseCount).thenComparingInt(HotMan::getDrawCount)).limit(50).collect(Collectors.toList());
+        if (rankingList != null && rankingList.size() > 0) {
+            redisTemplate.opsForValue().set(monthRankingsKey, rankingList, 3, TimeUnit.HOURS);
+        } else {
+            redisTemplate.opsForValue().set(monthRankingsKey, rankingList, 3, TimeUnit.MINUTES);
+        }
+        return rankingList;
     }
 
     public List<HotMan> getWeekRankings() {
+        String weekRankingsKey = "lottery_recommend_weekRankings";
+        List<HotMan> rankingList = (List<HotMan>) redisTemplate.opsForValue().get(weekRankingsKey);
+        if (rankingList != null && rankingList.size() > 0) {
+            return rankingList;
+        }
         List<HotMan> rankings = new ArrayList<>();
         //TODO 计算并返回排行榜Top50周榜列表
         List<Integer> recommendUserIds = recommendMapper.selectRecommendUserIds();
@@ -258,7 +288,23 @@ public class RecommendService {
                 rankings.add(hotMan);
             }
         });
-        return rankings;
+        rankingList = rankings.stream().sorted(Comparator.comparingInt(HotMan::getWinCount).reversed().thenComparingInt(HotMan::getLoseCount).thenComparingInt(HotMan::getDrawCount)).limit(50).collect(Collectors.toList());
+        if (rankingList != null && rankingList.size() > 0) {
+            redisTemplate.opsForValue().set(weekRankingsKey, rankingList, 3, TimeUnit.HOURS);
+        } else {
+            redisTemplate.opsForValue().set(weekRankingsKey, rankingList, 3, TimeUnit.MINUTES);
+        }
+        return rankingList;
+    }
+
+    public boolean checkRecommendPayed(Integer recommendId, Integer userId) {
+        RecommendPay recommendPay = recommendPayMapper.selectOne(RecommendPay.builder().recommendId(recommendId).userId(userId).build());
+        return recommendPay != null;
+    }
+
+    public Recommend getRecommend(Integer recommendId) {
+        Recommend recommend = recommendMapper.selectByPrimaryKey(recommendId);
+        return recommend;
     }
 
 

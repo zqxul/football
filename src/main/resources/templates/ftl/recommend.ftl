@@ -67,27 +67,18 @@
     </div>
 </nav>
 <main class="container-fluid">
-    <div class="p-3">
-        <div class="row m-0 border">
-            <div class="col-1 p-0 border-right" style="background-color: #cdb470">
-                <div class="p-0 text-center">
-                    <i class="fa fa-bookmark text-danger" style="font-size: 6.5vw"></i>
-                </div>
-                <div class="p-0 text-center">
-                    <span>红人榜</span>
-                </div>
-                <div class="p-0 text-center">
-                    <span class="text-warning">Top30</span>
-                </div>
-            </div>
-            <div class="col-11 p-0">
-                <div id="hotmanRow" class="row m-0 p-2 border d-inline-block">
+    <div class="p-2">
+        <div class="row m-0">
+            <div class="col-12 p-0">
+                <div id="hotmanRow" class="row m-0 p-2 d-inline-block">
                     <#list hotmans>
                     <#items as hotman>
-                    <div class="my-auto mx-1 py-1 border d-inline-block text-center hotman" style="width: 150px;">
+                    <div class="my-auto mx-1 py-2 border d-inline-block text-center hotman"
+                         style="width: 150px;border-radius: 20px;background-color: #f3f3f3">
                         <div class="row m-0 mb-1 h-50">
                             <span class="w-100">
-                            <img src="http://pimg1.126.net/caipiao_info/images/team/25/2280.png?201806122139">
+                            <img style="border-radius: 50%"
+                                 src="http://pimg1.126.net/caipiao_info/images/team/25/2201.png?201806301521">
                             </span>
                         </div>
                         <div class="row m-0 h-25"><span class="w-100">${hotman.username}</span></div>
@@ -160,19 +151,43 @@
                         </div>
                     </div>
                 </div>
-                <div id="recommendDiv" class="p-3" style="height: 600px;overflow: auto">
+                <div id="recommendDiv" class="px-3 pt-3" style="height: 600px;overflow: auto">
                     <#list recommends>
                         <#items as recommend>
-                    <div class="row m-2 border recommendRow" leaguename="${recommend.leagueName}"
-                         authorname="${recommend.createBy!""}">
+                    <div class="row mx-2 mb-3 border recommendRow" leaguename="${recommend.leagueName}"
+                         authorname="${recommend.createBy!""}"
+                         style="border-radius: 15px;<#if recommend_index%2==0>background-color:#f3f3f3</#if>">
                         <div class="col-6 p-2 my-auto">
                             <div class="row m-0 text-center" style="font-size: .6vw">
+                                <div class="col p-1">
+                                    <#if recommend.matchResult == 1>
+                                        <div class="m-auto text-danger"
+                                             style="width: 50px;height: 50px;border-radius: 50%;font-size: 1.8vw;border: 1px solid;">
+                                            <span style="line-height: 45px">输</span>
+                                        </div>
+                                    <#elseif recommend.matchResult == 2>
+                                    <div class="m-auto text-success"
+                                         style="width: 50px;height: 50px;border-radius: 50%;font-size: 1.8vw;border: 1px solid;">
+                                        <span style="line-height: 45px">赢</span>
+                                    </div>
+                                    <#elseif  recommend.matchResult == 3>
+                                    <div class="m-auto text-primary"
+                                         style="width: 50px;height: 50px;border-radius: 50%;font-size: 1.8vw;border: 1px solid;">
+                                        <span style="line-height: 45px">走</span>
+                                    </div>
+                                    <#else>
+                                    <div class="m-auto text-secondary"
+                                         style="width: 50px;height: 50px;border-radius: 50%;font-size: 1.8vw;border: 1px solid;">
+                                        <span style="line-height: 45px">?</span>
+                                    </div>
+                                    </#if>
+                                </div>
                                 <div class="col p-1">
                                     <div class="row m-0 h-100">
                                         <div class="p-0 m-auto">${recommend.host}</div>
                                     </div>
                                 </div>
-                                <div class="col-6 p-1 m-auto">
+                                <div class="col-5 p-1 m-auto">
                                     <div class="col p-0 my-1">${recommend.leagueName}</div>
                                     <div class="col p-0 my-1">${recommend.matchTime?datetime('yyyy-MM-dd HH:mm:ss')?string('MM-dd HH:mm')}</div>
                                 </div>
@@ -183,13 +198,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-2 p-0 border-left" style="font-size: 1.2vw">
+                        <div class="col-2 p-0 border-left" style="font-size: 1.1vw">
                             <div class="row m-0 h-100 text-center">
                                 <div class="p-2 my-auto w-100">
                                     <#if recommend.price gt 0>
 
                                             <#if recommend.payed>
-                                                <span class="px-2 text-success">已支付</span>
+                                                <span class="px-2 text-success">已支付&nbsp;<i
+                                                        class="fa fa-check"></i></span>
                                             <#else>
                                             <span class="px-2">
                                                 ${recommend.price}&nbsp;<i class="fa fa-stop-circle-o text-warning"></i>
@@ -211,16 +227,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-1 p-0 my-auto">
-                            <#if recommend.payed>
-                                <button type="button" class="btn btn-info btn-sm viewBtn" recommendid="${recommend.id}"
-                                        data-toggle="modal" data-target="#viewModal">查看
+                        <div id="payViewDiv-${recommend_index}" class="col-1 p-0 my-auto">
+                            <#if recommend.payed || recommend.matchResult!=0>
+                                <button id="viewBtn" type="button" class="btn btn-info btn-sm viewBtn"
+                                        recommendid="${recommend.id}"
+                                        data-toggle="modal" data-target="#viewModal"
+                                        onclick="initViewModal(${recommend.id})" style="font-size: 1vw">查看
                                 </button>
                             <#else>
                             <button type="button" class="btn btn-primary btn-sm payBtn" recommendid="${recommend.id}"
                                     confirmMoney="${recommend.price}"
                                     data-toggle="modal"
-                                    data-target="#payModal">支付
+                                    data-target="#payModal" style="font-size: 1vw">支付
                             </button>
                             </#if>
                         </div>
@@ -252,8 +270,11 @@
                     <div id="totalRanking" class="p-2 tab-pane active text-center" style="font-size: 1.2vw">
                         <#list totalRankings>
                             <#items as hotman>
-                        <div class="row mx-0 my-2 p-2 border">
-                            <span class="col-2 px-0">${hotman_index+1}</span>
+                        <div class="row mx-0 my-2 p-2 border" style="border-radius: 20px">
+                            <div class="col-2 px-0">
+                                <div class="p-0 m-auto"
+                                     style="color: <#if hotman_index == 0>#f0c231<#elseif  hotman_index == 1>#cfceca<#elseif  hotman_index == 2>#b4a683<#else>#6c757d</#if>;width: 20px;height: 20px;line-height: 18px;border: 1px solid;border-radius: 50%;font-size: 1vw">${hotman_index+1}</div>
+                            </div>
                             <span class="col-4 px-0">${hotman.username}</span>
                             <span class="col-3 px-0">胜率:<span class="mx-0">${hotman.totalRate}</span></span>
                             <span class="col-2 px-0">
@@ -275,8 +296,11 @@
                     <div id="monthRanking" class="p-2 tab-pane text-center" style="font-size: 1.2vw">
                         <#list monthRankings>
                             <#items as hotman>
-                        <div class="row mx-0 my-2 p-2 border">
-                            <span class="col-2 px-0">${hotman_index+1}</span>
+                        <div class="row mx-0 my-2 p-2 border" style="border-radius: 20px">
+                            <div class="col-2 px-0">
+                                <div class="p-0 m-auto"
+                                     style="color: <#if hotman_index == 0>#f0c231<#elseif  hotman_index == 1>#cfceca<#elseif  hotman_index == 2>#b4a683<#else>#6c757d</#if>;width: 20px;height: 20px;line-height: 18px;border: 1px solid;border-radius: 50%;font-size: 1vw">${hotman_index+1}</div>
+                            </div>
                             <span class="col-4 px-0">${hotman.username}</span>
                             <span class="col-3 px-0">胜率:<span class="mx-0">${hotman.monthRate}</span></span>
                             <span class="col-2 px-0">
@@ -298,8 +322,11 @@
                     <div id="weekRanking" class="p-2 tab-pane text-center" style="font-size: 1.2vw">
                         <#list weekRankings>
                             <#items as hotman>
-                        <div class="row mx-0 my-2 p-2 border">
-                            <span class="col-2 px-0">${hotman_index+1}</span>
+                        <div class="row mx-0 my-2 p-2 border" style="border-radius: 20px">
+                            <div class="col-2 px-0">
+                                <div class="p-0 m-auto"
+                                     style="color: <#if hotman_index == 0>#f0c231<#elseif  hotman_index == 1>#cfceca<#elseif  hotman_index == 2>#b4a683<#else>#6c757d</#if>;width: 20px;height: 20px;line-height: 18px;border: 1px solid;border-radius: 50%;font-size: 1vw">${hotman_index+1}</div>
+                            </div>
                             <span class="col-4 px-0">${hotman.username}</span>
                             <span class="col-3 px-0">胜率:<span class="mx-0">${hotman.weekRate}</span></span>
                             <span class="col-2 px-0">
@@ -324,7 +351,7 @@
     </div>
 
 </main>
-<div class="modal fade" id="payModal" tabindex="-1" role="dialog" aria-labelledby="payModalTitle" aria-hidden="true">
+<div class="modal" id="payModal" tabindex="-1" role="dialog" aria-labelledby="payModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -360,17 +387,46 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalTitle" aria-hidden="true">
+<div class="modal" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="viewModalTitle">推荐信息</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div class="modal-header p-0">
+                <div class="col p-0"></div>
+                <div class="col-9 p-0 my-auto">
+                    <div class="row m-0 text-center text-muted" style="font-size: 1.2vw">
+                        <div class="col p-1">
+                            <div class="row m-0 h-100">
+                                <div id="viewHostName" class="p-0 m-auto">沼津青蓝</div>
+                            </div>
+                        </div>
+                        <div class="col-6 p-1 m-auto">
+                            <div id="viewLeagueName" class="col p-0 my-1">J3</div>
+                            <div id="viewMatchTime" class="col p-0 my-1">07-01 14:00</div>
+                        </div>
+                        <div class="col p-1">
+                            <div class="row m-0 h-100">
+                                <div id="viewVisitName" class="p-0 m-auto">大阪樱花U23</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-0"></div>
+                <button type="button" class="close p-1 m-1" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                推荐内容
+            <div class="modal-body p-2" style="font-size: 1.2vw">
+                <div class="row m-0">
+                    <div class="col p-0"></div>
+                    <div class="col-10 p-0">
+                        <div class="row m-0">
+                            <div class="col-6 p-2"><span class="font-weight-bold">推荐类型：</span><span id="recommendTypeName">亚盘</span></div>
+                            <div class="col-6 p-2"><span class="font-weight-bold">推荐选项：</span><span><span id="recommendValue">俄罗斯-0.5</span></div>
+                        </div>
+                        <div class="p-2"><span class="font-weight-bold">推荐理由:</span><p id="recommendReason">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这位高手有点懒，不写理由还是可以原谅的。</p></div>
+                    </div>
+                    <div class="col p-0"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -464,7 +520,7 @@
                     <div class="card-header py-1 text-center" style="font-size: 1.2vw">推荐理由</div>
                     <div class="card-body p-2 text-center bg-white border-bottom" style="font-size: 10px;">
                         <textarea id="reason" name="reason" onchange="setReasonInfo(this)"
-                                  style="width: 100%;height: 80px"></textarea>
+                                  style="width: 100%;height: 80px" placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;亲，就写点吧，充分的理由可以提高内容被查看的可能性哦"></textarea>
                     </div>
                     <div class="p-1 m-auto border-bottom text-center" style="font-size: 1vw">
                         <span id="recommendMsg" class="text-danger"></span>
@@ -503,6 +559,9 @@
     <div class="card p-3 m-auto text-center text-success" style="width: 150px;font-size: 1.2vw">
         <span>推荐成功&nbsp;<i class="fa fa-check"></i></span>
     </div>
+</div>
+<div id="payMsgDiv" class="row text-center w-100" style="top: 50%;position: absolute;display: none">
+    <div id="payCard" class="card p-3 m-auto text-center" style="width: 150px;font-size: 1.2vw"></div>
 </div>
 </body>
 <script src="/production/bootstrap/js/popper.min.js"></script>

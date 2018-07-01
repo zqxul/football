@@ -52,6 +52,7 @@
         select
         <include refid="recommendColumns"/>
         from t_recommend
+        ORDER BY recommend_create_time DESC
     </select>
 
     <select id="select" resultMap="recommendResultMap" parameterType="Recommend">

@@ -72,7 +72,7 @@
     <#list footballNews>
         <#items as footballNew>
         <div class="p-2 col-4" style="float: left">
-            <div class="media p-2" style="border: 1px solid #e0e0e0;" index="${footballNew_index}" data-toggle="modal" data-target="#newsDetailModal">
+            <div class="media p-2" style="border: 1px solid #e0e0e0;border-radius: 12px" index="${footballNew_index}" data-toggle="modal" data-target="#newsDetailModal">
                 <img class="mr-1 p-2"
                      src="${footballNew.thumb}"
                      alt="Image" style="width: 120px;height: 120px">

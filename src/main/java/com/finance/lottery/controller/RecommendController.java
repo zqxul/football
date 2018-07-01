@@ -68,21 +68,14 @@ public class RecommendController {
             List<HotMan> hotMans = hotManList.stream().sorted(Comparator.comparingInt(HotMan::getRecommendPayedCount).reversed()).limit(30).collect(Collectors.toList());
             mav.addObject("hotmans", hotMans);
         }
-        List<HotMan> totalRankingList = recommendService.getTotalRankings();
-        if (totalRankingList != null && totalRankingList.size() > 0) {
-            List<HotMan> totalRankings = totalRankingList.stream().sorted(Comparator.comparingInt(HotMan::getWinCount).reversed().thenComparingInt(HotMan::getLoseCount).thenComparingInt(HotMan::getDrawCount)).limit(50).collect(Collectors.toList());
-            mav.addObject("totalRankings", totalRankings);
-        }
-        List<HotMan> monthRankingList = recommendService.getMonthRankings();
-        if (totalRankingList != null && monthRankingList.size() > 0) {
-            List<HotMan> monthRankings = monthRankingList.stream().sorted(Comparator.comparingInt(HotMan::getWinCount).reversed().thenComparingInt(HotMan::getLoseCount).thenComparingInt(HotMan::getDrawCount)).limit(50).collect(Collectors.toList());
-            mav.addObject("monthRankings", monthRankings);
-        }
-        List<HotMan> weekRankingList = recommendService.getWeekRankings();
-        if (totalRankingList != null && weekRankingList.size() > 0) {
-            List<HotMan> weekRankings = weekRankingList.stream().sorted(Comparator.comparingInt(HotMan::getWinCount).reversed().thenComparingInt(HotMan::getLoseCount).thenComparingInt(HotMan::getDrawCount)).limit(50).collect(Collectors.toList());
-            mav.addObject("weekRankings", weekRankings);
-        }
+        List<HotMan> totalRankings = recommendService.getTotalRankings();
+        mav.addObject("totalRankings", totalRankings);
+
+        List<HotMan> monthRankings = recommendService.getMonthRankings();
+        mav.addObject("monthRankings", monthRankings);
+
+        List<HotMan> weekRankings = recommendService.getWeekRankings();
+        mav.addObject("weekRankings", weekRankings);
 
         List<Recommend> recommends = recommendService.getRecommendList(user.getId());
         if (recommends != null) {
@@ -174,7 +167,7 @@ public class RecommendController {
             return result;
         }
         String price = recommendDetail.getRecommendPrice();
-        if (price != null && !price.matches("\\d{1,3}")) {
+        if (price != null && !price.matches("\\d{1,4}")) {
             footballResult.setResult(ResponseEnum.DATA_FORMAT_ERROR);
             result.setResult(footballResult);
             return result;
@@ -204,53 +197,38 @@ public class RecommendController {
         return result;
     }
 
-    @GetMapping("/ranking/total")
-    public DeferredResult<List<HotMan>> getTotalRanking() {
-        DeferredResult<List<HotMan>> result = new DeferredResult<>();
-        List<HotMan> hotMans = recommendService.getTotalRankings();
-        result.setResult(hotMans);
-        return result;
-    }
-
-    @GetMapping("/ranking/month")
-    public DeferredResult<List<HotMan>> getMonthRanking() {
-        DeferredResult<List<HotMan>> result = new DeferredResult<>();
-        List<HotMan> hotMans = recommendService.getMonthRankings();
-        result.setResult(hotMans);
-        return result;
-    }
-
-    @GetMapping("/ranking/week")
-    public DeferredResult<List<HotMan>> getWeekRanking() {
-        DeferredResult<List<HotMan>> result = new DeferredResult<>();
-        List<HotMan> hotMans = recommendService.getWeekRankings();
-        result.setResult(hotMans);
-        return result;
-    }
-
     @GetMapping("/pay")
     public DeferredResult<FootballResult> payRecommend(Integer recommendId, HttpServletRequest request) {
         DeferredResult<FootballResult> result = new DeferredResult<>();
         FootballResult footballResult = new FootballResult();
         String token = WebUtil.getCookieValue(request, "token");
         User user = (User) redisTemplate.opsForValue().get(token);
-        Recommend recommend = recommendService.payRecommend(recommendId, user);
-        if (recommend == null) {
+        if (!recommendService.payRecommend(recommendId, user)) {
             footballResult.setResult(ResponseEnum.AMOUNT_NOT_ENOUGH);
-            footballResult.setData(recommend);
             result.setResult(footballResult);
             return result;
         }
         footballResult.setResult(ResponseEnum.SUCCESS);
-        footballResult.setData(recommend);
         result.setResult(footballResult);
         return result;
     }
 
     @GetMapping("/view")
-    public DeferredResult<FootballResult> viewRecommend(String recommendId, HttpServletRequest request) {
-        DeferredResult<FootballResult> result = new DeferredResult<>();
+    public DeferredResult<FootballResult> viewRecommend(Integer recommendId, @CookieValue("token") String token) {
         //TODO 处理查看请求，根据recommendId和userId查询不为null,则返回recommendId对应的Recommend
+
+        DeferredResult<FootballResult> result = new DeferredResult<>();
+        FootballResult footballResult = new FootballResult();
+        User user = (User) redisTemplate.opsForValue().get(token);
+        if (!recommendService.checkRecommendPayed(recommendId, user.getId())) {
+            footballResult.setResult(ResponseEnum.RECOMMEND_NOT_PAYED);
+            result.setResult(footballResult);
+            return result;
+        }
+        Recommend recommend = recommendService.getRecommend(recommendId);
+        footballResult.setData(recommend);
+        footballResult.setResult(ResponseEnum.SUCCESS);
+        result.setResult(footballResult);
         return result;
     }
 }

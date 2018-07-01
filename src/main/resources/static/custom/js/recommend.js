@@ -365,13 +365,108 @@ function initPayBtn() {
     });
 }
 
+//初始化推荐内容查看模态框
+function initViewModal(recommendId) {
+    $('#recommendType').text("");
+    $('#recommendValue').text("");
+    $('#recommendReason').text("");
+    $.ajax({
+        url: '/recommend/view',
+        method: 'get',
+        data: 'recommendId=' + recommendId,
+        success: function (data) {
+            var code = data.code;
+            var msg = data.msg;
+            if (code == 200) {
+                var recommend = data.data;
+                $('#viewHostName').text(recommend.host);
+                $('#viewLeagueName').text(recommend.leagueName);
+                $('#viewMatchTime').text(recommend.matchTime);
+                $('#viewVisitName').text(recommend.visit);
+                var type = recommend.type;
+                if (type == 1) {
+                    $('#recommendTypeName').text("欧赔")
+                } else if (type == 2) {
+                    $('#recommendTypeName').text("亚盘")
+                } else {
+                    $('#recommendTypeName').text("大小球")
+                }
+                var value = recommend.value;
+                var handicap = recommend.handicap;
+                var handicapValue = recommend.handicapValue;
+                if (type == 1) {
+                    switch (value) {
+                        case 1:
+                            $('#recommendValue').text("胜");
+                        case 2:
+                            $('#recommendValue').text("平");
+                        case 3:
+                            $('#recommendValue').text("负");
+                    }
+                } else if (type == 2) {
+
+                    if (value == 4) {
+                        if (handicapValue.indexOf("-") != -1) {
+                            $('#recommendValue').text(recommend.host + handicapValue);
+                        } else {
+                            $('#recommendValue').text(recommend.visit + "-" + handicapValue);
+                        }
+                    } else {
+                        if (handicapValue.contain("-")) {
+                            $('#recommendValue').text(recommend.visit + handicapValue);
+                        } else {
+                            $('#recommendValue').text(recommend.host + "-" + handicapValue);
+                        }
+                    }
+
+                } else {
+                    if (value == 6) {
+                        $('#recommendValue').text("大" + handicapValue)
+                    } else {
+                        $('#recommendValue').text("小" + handicapValue)
+                    }
+                }
+
+                var reason = recommend.reason;
+                if (reason.length == 0) {
+                    $('#recommendReason').text("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这位高手有点懒，不写理由还是可以原谅的。");
+                } else {
+                    $('#recommendReason').text("        " + reason);
+                }
+            }
+        }
+    })
+}
+
+//支付推荐内容
 function payRecommend() {
     $.ajax({
         url: '/recommend/pay',
         method: 'get',
         data: 'recommendId=' + $('#recommendId').val(),
         success: function (data) {
-            //TODO 对支付返回的数据进行渲染
+            var payCard = $('#payCard');
+            var code = data.code;
+            var msg = data.msg;
+            if (code == 200) {
+                $('#payModal').modal('hide');
+                var paySpan = $('<span class="text-success">支付成功&nbsp;<i class="fa fa-check"></i></span>');
+                payCard.html("");
+                payCard.append(paySpan);
+                $('#payMsgDiv').fadeIn(1000);
+                $('#payMsgDiv').fadeOut(3000);
+                setTimeout(function () {
+                    location.reload();
+                }, 3000)
+
+            } else {
+                $('#payModal').modal('hide');
+                var paySpan = $('<span class="text-danger">' + msg + '&nbsp;<i class="fa fa-close"></i></span>');
+                payCard.html("");
+                payCard.append(paySpan);
+                $('#payMsgDiv').fadeIn(1000);
+                $('#payMsgDiv').fadeOut(5000);
+            }
         }
     })
 }
