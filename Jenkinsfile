@@ -5,7 +5,6 @@ pipeline {
       steps {
         sh 'mvn -B -DskipTests clean package'
         sh 'echo "ssh start"'
-        sh 'sshpass -p w123456w ssh root@118.24.99.216'
         sh 'echo "ssh end"'
       }
     }
