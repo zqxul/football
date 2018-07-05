@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>News</title>
+    <title>Player</title>
     <link rel="stylesheet" href="/custom/css/bigdata.css">
     <link rel="stylesheet" href="/custom/css/player.css">
     <link href="/production/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -93,7 +93,7 @@
             </div>
             <div class="modal-body">
                 <div class="input-group mb-3">
-                    <input id="bindEmail" type="text" class="form-control" placeholder="请输入邮箱地址">
+                    <input id="bindEmail" type="text" class="form-control" placeholder="请输入用户名">
                     <div class="input-group-append">
                         <a href="#">
                             <button id="resetBtn" class="btn btn-outline-secondary" type="button">发送邮件</button>
