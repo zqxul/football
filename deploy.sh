@@ -2,7 +2,7 @@
 echo "=========== start deploy ==========="
 
 echo "=========== login ==========="
-sshpass -p w123456w ssh -t -t root@118.24.99.216
+sshpass -p w123456w ssh -t -t root@118.24.99.216 > /dev/null 2>&1 << eeooff
 echo "=========== login success ==========="
 
 echo "===========stop football-1.0.jar==========="
@@ -21,3 +21,6 @@ echo "===========upload football-1.0.jar success==========="
 echo "===========start football-1.0.jar==========="
 ./start.sh
 echo "===========football-1.0.jar started==========="
+exit
+eeooff
+echo done!
