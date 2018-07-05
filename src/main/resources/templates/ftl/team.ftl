@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>News</title>
+    <title>Team</title>
     <link rel="stylesheet" href="/custom/css/bigdata.css">
     <link rel="stylesheet" href="/custom/css/team.css">
     <link href="/production/bootstrap/css/bootstrap.min.css" rel="stylesheet">

@@ -249,7 +249,7 @@
             </div>
             <div class="col-4 pl-2 py-2 pr-0 border">
                 <div class="row m-0 justify-content-between">
-                    <div class="col-6 p-0 border-bottom text-center"><span class="m-auto"><i class="fa fa-mortar-board">&nbsp;風雲榜<sub
+                    <div class="col-6 p-0 border-bottom text-center"><span class="m-auto"><i class="fa fa-mortar-board">&nbsp;封神榜<sub
                             class="p-0 font-weight-bold"
                             style="font-size: .1vw;color: #af8814a1 !important;">Top50</sub></i></span></div>
                     <div class="col-6 p-0 recommend-panel">
