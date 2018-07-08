@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.finance.lottery.mapper.AchievementMapper">
+
+    <resultMap id="recommendResultMap" type="Recommend">
+        <id column="recommend_id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="recommend_match_id" property="matchId"/>
+        <result column="recommend_league_name" property="leagueName"/>
+        <result column="recommend_type" property="type"/>
+        <result column="recommend_value" property="value"/>
+        <result column="recommend_handicap" property="handicap"/>
+        <result column="recommend_handicap_value" property="handicapValue"/>
+        <result column="recommend_reason" property="reason"/>
+        <result column="recommend_price" property="price"/>
+        <result column="recommend_match_result" property="matchResult"/>
+        <result column="recommend_host" property="host"/>
+        <result column="recommend_visit" property="visit"/>
+        <result column="recommend_match_time" property="matchTime"/>
+        <result column="recommend_create_time" property="createTime"/>
+        <result column="recommend_create_by" property="createBy"/>
+    </resultMap>
+
+    <sql id="recommendColumns">
+	  recommend_id,
+	  user_id,
+	  recommend_match_id,
+	  recommend_league_name,
+	  recommend_type,
+	  recommend_value,
+	  recommend_handicap,
+	  recommend_handicap_value,
+	  recommend_reason,
+	  recommend_price,
+	  recommend_match_result,
+	  recommend_host,
+	  recommend_visit,
+	  recommend_match_time,
+	  recommend_create_time,
+	  recommend_create_by
+    </sql>
+
+    <resultMap id="recommendPayResultMap" type="RecommendPay">
+        <id column="recommend_pay_id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="recommend_id" property="recommendId"/>
+        <result column="recommend_pay_create_time" property="createTime"/>
+    </resultMap>
+
+    <sql id="recommendPayColumns">
+	  recommend_pay_id,
+	  user_id,
+	  recommend_id,
+	  recommend_pay_create_time
+    </sql>
+
+    <select id="selectLastSeven" resultMap="recommendResultMap">
+        SELECT
+        <include refid="recommendColumns"/>
+        FROM t_recommend WHERE user_id = #{userId} ORDER BY recommend_create_time DESC LIMIT 7
+    </select>
+
+    <select id="selectRecommendStartTime" resultType="java.util.Date">
+        SELECT recommend_create_time FROM t_recommend WHERE user_id = #{userId} ORDER BY recommend_create_time ASC LIMIT 1
+    </select>
+
+    <select id="selectRecommendEndTime" resultType="java.util.Date">
+        SELECT recommend_create_time FROM t_recommend WHERE user_id = #{userId} ORDER BY recommend_create_time DESC LIMIT 1
+    </select>
+
+    <select id="selectLastTenByRecommendType" resultMap="recommendResultMap">
+        SELECT
+        <include refid="recommendColumns"/>
+        FROM t_recommend WHERE user_id = #{userId} AND recommend_type = #{type} ORDER BY recommend_create_time DESC LIMIT 10
+    </select>
+
+    <select id="selectNearlyRecommendPayCountByUserId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT count(1)  FROM t_recommend_pay WHERE user_id = #{userId} <![CDATA[ AND DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(recommend_pay_create_time)
+        ]]>
+    </select>
+
+    <select id="selectNearlyRecommendPayCountByUserIdAndRecommendType" resultType="java.lang.Integer">
+        SELECT count(1)  FROM t_recommend_pay rp
+        JOIN t_recommend r ON rp.recommend_id = r.recommend_id
+        WHERE r.user_id = #{userId}
+        AND r.recommend_type = #{recommendType}
+        <![CDATA[ AND DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(recommend_pay_create_time) ]]>
+    </select>
+
+    <select id="selectNearlyRecommendPayCount" resultType="java.lang.Integer">
+        SELECT count(1)  FROM t_recommend_pay WHERE <![CDATA[ DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(recommend_pay_create_time)
+        ]]>
+    </select>
+
+    <select id="selectNearlyRecommendPayCountByRecommendType" resultType="java.lang.Integer">
+        SELECT count(1)  FROM t_recommend_pay rp
+        JOIN t_recommend r ON rp.recommend_id = r.recommend_id
+        WHERE <![CDATA[ DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(recommend_pay_create_time)
+        ]]>
+    </select>
+</mapper>
