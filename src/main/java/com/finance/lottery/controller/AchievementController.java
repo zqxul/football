@@ -37,19 +37,22 @@ public class AchievementController {
     private AchievementService achievementService;
 
     @GetMapping("/{userId}")
-    public DeferredResult<ModelAndView> achievement(@PathVariable Integer userId){
+    public DeferredResult<ModelAndView> achievement(@PathVariable Integer userId) {
         DeferredResult<ModelAndView> result = new DeferredResult<>();
         ModelAndView mav = new ModelAndView("achievement");
         String photoUrl = "localhost:5555/custom/";
-        List<Recommend> recommends = recommendService.getRecommendList(userId);
+        List<Recommend> recommends = achievementService.getRecommends(userId);
         if (recommends != null) {
             List<String> leagues = recommends.parallelStream().map(recommend -> recommend.getLeagueName()).collect(Collectors.toSet()).stream().collect(Collectors.toList());
-            List<String> authors = recommends.parallelStream().map(recommend -> recommend.getCreateBy()).collect(Collectors.toSet()).stream().collect(Collectors.toList());
             mav.addObject("leagues", leagues);
-            mav.addObject("authors", authors);
             mav.addObject("recommends", recommends);
         }
-
+        mav.addObject("status", achievementService.estimateStatus(userId));
+        mav.addObject("experience", achievementService.estimateExperience(userId));
+        mav.addObject("popularity", achievementService.estimatePopularity(userId));
+        mav.addObject("ability", achievementService.estimateAbility(userId));
+        mav.addObject("stability", achievementService.estimateStability(userId));
+        mav.addObject("recommendScatters",achievementService.countLeagues(userId));
         result.setResult(mav);
         return result;
     }

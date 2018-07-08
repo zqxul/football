@@ -12,7 +12,7 @@ var recommendOption = {
     },
     series: [
         {
-            name: '联赛分布',
+            name: '输赢分布',
             type: 'pie',
             selectedMode: 'single',
             radius: [0, '30%'],
@@ -35,7 +35,7 @@ var recommendOption = {
             ]
         },
         {
-            name: '输赢分布',
+            name: '联赛分布',
             type: 'pie',
             radius: ['40%', '55%'],
             center: ['35%', '50%'],
@@ -77,8 +77,8 @@ var qualityOption = {
                 {text: '状态', max: 100},
                 {text: '稳定', max: 100},
                 {text: '实力', max: 100},
-                {text: '声望', max: 100},
-                {text: '经验', max: 100}
+                {text: '人气', max: 100},
+                {text: '经验', max: 1825}
             ],
             radius: 80,
             center: ['50%', '60%']
@@ -90,15 +90,15 @@ var qualityOption = {
             radarIndex: 0,
             data: [
                 {
-                    value: [85, 90, 90, 95, 95],
+                    value: ['${status}', 90, 90, 95, 950],
                     name: '欧赔'
                 },
                 {
-                    value: [95, 80, 95, 90, 93],
+                    value: ['{status}', 80, 95, 90, 930],
                     name: '亚盘'
                 },
                 {
-                    value: [75, 50, 35, 60, 83],
+                    value: ['${status}', 50, 35, 60, 830],
                     name: '大小球'
                 }
             ]

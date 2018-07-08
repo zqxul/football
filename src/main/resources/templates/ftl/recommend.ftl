@@ -81,7 +81,8 @@
                                  src="http://pimg1.126.net/caipiao_info/images/team/25/2201.png?201806301521">
                             </span>
                         </div>
-                        <div class="row m-0 h-25"><span class="w-100">${hotman.username}</span></div>
+                        <div class="row m-0 h-25"><a href="/achievement/${hotman.userId}" target="_blank"
+                                                     class="m-auto">${hotman.username}</a></div>
                         <div class="row m-0 h-25">
                             <span class="w-100">总勝率:${hotman.totalRate}&nbsp;近10中${hotman.top10WinCount}</span>
                         </div>
@@ -420,10 +421,14 @@
                     <div class="col p-0"></div>
                     <div class="col-10 p-0">
                         <div class="row m-0">
-                            <div class="col-6 p-2"><span class="font-weight-bold">推荐类型：</span><span id="recommendTypeName">亚盘</span></div>
-                            <div class="col-6 p-2"><span class="font-weight-bold">推荐选项：</span><span><span id="recommendValueName">俄罗斯-0.5</span></div>
+                            <div class="col-6 p-2"><span class="font-weight-bold">推荐类型：</span><span
+                                    id="recommendTypeName">亚盘</span></div>
+                            <div class="col-6 p-2"><span class="font-weight-bold">推荐选项：</span><span><span
+                                    id="recommendValueName">俄罗斯-0.5</span></div>
                         </div>
-                        <div class="p-2"><span class="font-weight-bold">推荐理由:</span><p id="recommendReason">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这位高手有点懒，不写理由还是可以原谅的。</p></div>
+                        <div class="p-2"><span class="font-weight-bold">推荐理由:</span>
+                            <p id="recommendReason">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这位高手有点懒，不写理由还是可以原谅的。</p></div>
                     </div>
                     <div class="col p-0"></div>
                 </div>
@@ -520,7 +525,8 @@
                     <div class="card-header py-1 text-center" style="font-size: 1.2vw">推荐理由</div>
                     <div class="card-body p-2 text-center bg-white border-bottom" style="font-size: 10px;">
                         <textarea id="reason" name="reason" onchange="setReasonInfo(this)"
-                                  style="width: 100%;height: 80px" placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;亲，就写点吧，充分的理由可以提高内容被查看的可能性哦"></textarea>
+                                  style="width: 100%;height: 80px"
+                                  placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;亲，就写点吧，充分的理由可以提高内容被查看的可能性哦"></textarea>
                     </div>
                     <div class="p-1 m-auto border-bottom text-center" style="font-size: 1vw">
                         <span id="recommendMsg" class="text-danger"></span>

@@ -184,6 +184,7 @@ public class RecommendService {
             Integer recommendPayedCount = recommendPayMapper.selectRecommendPayedCountByUserId(hotManId);
             User user = userMapper.selectByPrimaryKey(hotManId);
             String username = user.getUsername();
+            Integer userId = user.getId();
             List<Recommend> top5Recommends = getTopRecommentByUserId(5, user.getId());
             Integer top5WinCount = (int) top5Recommends.stream().filter(top5Recommend -> top5Recommend.getMatchResult().equals(1)).count();
             List<Recommend> top10Recommends = getTopRecommentByUserId(10, user.getId());
@@ -191,7 +192,7 @@ public class RecommendService {
             Optional<HotMan> optionalHotMan = totalRankings.stream().filter(hotMan -> hotManId.intValue() == hotMan.getUserId().intValue()).findFirst();
             if (optionalHotMan.isPresent()) {
                 String totalRate = optionalHotMan.get().getTotalRate();
-                hotMans.add(HotMan.builder().recommendPayedCount(recommendPayedCount).username(username).totalRate(totalRate).top5Wincount(top5WinCount).top10WinCount(top10WinCount).build());
+                hotMans.add(HotMan.builder().recommendPayedCount(recommendPayedCount).username(username).userId(userId).totalRate(totalRate).top5Wincount(top5WinCount).top10WinCount(top10WinCount).build());
             }
         });
         //TODO 计算并返回红人榜列表
