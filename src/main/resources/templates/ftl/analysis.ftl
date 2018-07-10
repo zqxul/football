@@ -134,7 +134,7 @@
                     <div id="card-content-${matchTeamInfo_index}" class="collapse hide"
                          aria-labelledby="btn-toggle-${matchTeamInfo_index}">
                         <div class="card-body p-0 information-content">
-                            <ul class="nav nav-tabs text-center" style="font-size: 15px">
+                            <ul class="nav nav-tabs text-center" style="font-size: 1.2vw">
                                 <li class="col p-0 nav-item active">
                                     <a class="nav-link active" href="#timelineEvents-${matchTeamInfo_index}">赛事</a>
                                 </li>
