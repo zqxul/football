@@ -1,1 +1,1 @@
-nohup java -jar target/football-1.0.jar
+java -jar target/football-1.0.jar
