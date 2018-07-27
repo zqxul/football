@@ -1,6 +1,7 @@
 package com.finance.lottery.mapper;
 
 import com.finance.lottery.entity.zqmf.Recommend;
+import com.finance.lottery.vo.ReviewRecommend;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -29,4 +30,8 @@ public interface RecommendMapper extends BaseMapper<Recommend> {
     Integer selectWeekCountByRecommend(Recommend recommend);
 
     List<Recommend> selectTopRecommendByUserId(@Param("userId") Integer userId, @Param("topNum") Integer topNum);
+
+    List<ReviewRecommend> selectRecommendUnReviewed();
+
+    List<ReviewRecommend> selectRecommendReviewed();
 }

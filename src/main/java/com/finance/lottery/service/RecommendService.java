@@ -10,6 +10,7 @@ import com.finance.lottery.entity.zqmf.*;
 import com.finance.lottery.mapper.*;
 import com.finance.lottery.request.RecommendDetailRequest;
 import com.finance.lottery.request.RecommendMatchRequest;
+import com.finance.lottery.vo.ReviewRecommend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -306,6 +307,18 @@ public class RecommendService {
     public Recommend getRecommend(Integer recommendId) {
         Recommend recommend = recommendMapper.selectByPrimaryKey(recommendId);
         return recommend;
+    }
+
+    public List<ReviewRecommend> getUnReviewedRecommend(){
+        return recommendMapper.selectRecommendUnReviewed();
+    }
+
+    public List<ReviewRecommend> getReviewedRecommend(){
+        return recommendMapper.selectRecommendReviewed();
+    }
+
+    public boolean modifyRecommendStatus(Integer recommendId, Integer status) {
+        return recommendMapper.updateMatchResult(recommendId, status) > 0;
     }
 
 

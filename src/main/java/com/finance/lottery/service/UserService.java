@@ -11,6 +11,8 @@ import com.finance.lottery.mapper.AccountMapper;
 import com.finance.lottery.mapper.RechargeMapper;
 import com.finance.lottery.mapper.UserMapper;
 import com.finance.lottery.mapper.WithdrawMapper;
+import com.finance.lottery.util.WebUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -29,14 +31,15 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Calendar;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @Auther: xuzhiqing
+ * @Author: xuzhiqing
  * @Date: 2018/5/24 17:42
- * @Description:
+ * @Description: 用户Service
  */
 @Service
 public class UserService {
@@ -86,6 +89,13 @@ public class UserService {
     @Autowired
     private WithdrawMapper withdrawMapper;
 
+    /**
+     * MethodName: userExist
+     * Description: 判断用户是否存在
+     *
+     * @param username 用户名
+     * @Return boolean
+     */
     public boolean userExist(String username) {
         User user = userMapper.selectByUsername(username);
         if (user != null) {
@@ -94,25 +104,52 @@ public class UserService {
         return false;
     }
 
+    /**
+     * MethodName: getUser
+     * Description: 查询用户信息
+     *
+     * @param user 用户
+     * @Return com.finance.lottery.entity.user.User
+     */
     public User getUser(User user) {
         return userMapper.selectOne(user);
     }
 
+    /**
+     * MethodName: loginUser
+     * Description: 登录用户
+     *
+     * @param username 用户名
+     * @param password 密码
+     * @Return com.finance.lottery.entity.user.User
+     */
     public User loginUser(String username, String password) {
         password = DigestUtils.md5DigestAsHex(password.getBytes());
         User user = new User(username, password);
         return userMapper.selectOne(user);
     }
 
+    /**
+     * MethodName: getUserCount
+     * Description: 查询用户数量
+     *
+     * @Return int
+     */
     public int getUserCount() {
         return userMapper.selectCount();
     }
 
+    /**
+     * MethodName: registerUser
+     * Description: 注册用户(事务操作：1、生成用户, 2、生成账户, 3、关联用户和账户)
+     *
+     * @param user 用户
+     * @Return boolean
+     */
     @Transactional
     public boolean registerUser(User user) {
         int result = userMapper.insert(user);
         if (result > 0) {
-            //TODO 为用户生成一个账户，并初始化用户账户
             Account account = accountService.createAccount();
             if (account != null) {
                 UserAccount userAccount = userAccountService.bindUserAccount(user.getId(), account.getId());
@@ -124,6 +161,14 @@ public class UserService {
         return false;
     }
 
+    /**
+     * MethodName: resetPassword
+     * Description: 重置密码
+     *
+     * @param token
+     * @param password
+     * @Return boolean
+     */
     public boolean resetPassword(String token, String password) {
         User u = JSONObject.parseObject(stringRedisTemplate.opsForValue().get(resetpass_prefix + token), User.class);
         User user = new User();
@@ -137,6 +182,13 @@ public class UserService {
         return true;
     }
 
+    /**
+     * MethodName: sendEmail
+     * Description: 给用户发送邮件
+     *
+     * @param user 用户
+     * @Return boolean
+     */
     public boolean sendEmail(User user) throws MessagingException {
         String token = UUID.randomUUID().toString();
         StringBuilder url = new StringBuilder("http://");
@@ -149,6 +201,14 @@ public class UserService {
         return true;
     }
 
+    /**
+     * MethodName: sendSimpleEmail
+     * Description: 发送普通邮件
+     *
+     * @param text   邮件内容
+     * @param sendTo 收件人
+     * @Return void
+     */
     public void sendSimpleEmail(String text, String sendTo) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(username);
@@ -158,6 +218,14 @@ public class UserService {
         mailSender.send(message);
     }
 
+    /**
+     * MethodName: sendHtmlEmail
+     * Description: 发送网页邮件
+     *
+     * @param html   网页内容
+     * @param sendTo 收件人
+     * @Return void
+     */
     public void sendHtmlEmail(String html, String sendTo) throws MessagingException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         mimeMessage.setFrom(username);
@@ -171,6 +239,14 @@ public class UserService {
         mailSender.send(mimeMessage);
     }
 
+    /**
+     * MethodName: recharge
+     * Description: 账户充值
+     *
+     * @param userId         用户ID
+     * @param rechargeAmount 充值数量
+     * @Return boolean
+     */
     public boolean recharge(Integer userId, Integer rechargeAmount) {
         User user = userMapper.selectByPrimaryKey(userId);
         if (user != null) {
@@ -183,6 +259,14 @@ public class UserService {
         return false;
     }
 
+    /**
+     * MethodName: withdraw
+     * Description: 账户提现
+     *
+     * @param userId         用户ID
+     * @param withdrawAmount 提现数量
+     * @Return boolean
+     */
     public boolean withdraw(Integer userId, Integer withdrawAmount) {
         User user = userMapper.selectByPrimaryKey(userId);
         if (user != null) {
@@ -193,6 +277,35 @@ public class UserService {
             }
         }
         return false;
+    }
+
+    /**
+     * MethodName: getUser
+     * Description: 从请求中获取用户
+     *
+     * @param request 请求对象
+     * @Return com.finance.lottery.entity.user.User
+     */
+    public User getUser(HttpServletRequest request) {
+        String token = WebUtil.getCookieValue(request, "token");
+        if (StringUtils.isNotBlank(token)) {
+            Object obj = redisTemplate.opsForValue().get(token);
+            if (obj != null) {
+                return (User) obj;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * MethodName: fullInfo
+     * Description: 完善用户信息
+     *
+     * @param user 用户
+     * @Return boolean
+     */
+    public boolean fillInfo(User user) {
+        return userMapper.update(user) > 0;
     }
 
 }

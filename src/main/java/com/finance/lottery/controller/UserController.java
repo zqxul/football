@@ -9,6 +9,7 @@ import com.finance.lottery.service.AccountService;
 import com.finance.lottery.service.UserAccountService;
 import com.finance.lottery.service.UserService;
 import com.finance.lottery.util.WebUtil;
+import com.sun.org.apache.regexp.internal.RE;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -143,10 +144,17 @@ public class UserController {
         return mav;
     }
 
+    /**
+     * MethodName: sendEmail
+     * Description: 向指定用户发送邮件
+     *
+     * @param sendUsername 收件人
+     * @Return com.finance.lottery.result.FootballResult
+     */
     @GetMapping("/reset/send/email")
     public FootballResult sendEmail(@RequestParam String sendUsername) {
 
-        //TODO 修改发送邮件的逻辑，通过填写用户名，根据用户名查询到邮箱地址并发送邮件
+        //修改发送邮件的逻辑，通过填写用户名，根据用户名查询到邮箱地址并发送邮件
         FootballResult result = new FootballResult();
         if (StringUtils.isBlank(sendUsername)) {
             result.setResult(ResponseEnum.PARAM_NULL);
@@ -161,6 +169,39 @@ public class UserController {
             userService.sendEmail(user);
         } catch (MessagingException e) {
             result.setResult(ResponseEnum.SERVER_ERROR);
+            return result;
+        }
+        result.setResult(ResponseEnum.SUCCESS);
+        return result;
+    }
+
+    /**
+     * MethodName: fillInfo
+     * Description: 完善用户信息页面
+     *
+     * @param request
+     * @Return org.springframework.web.servlet.ModelAndView
+     */
+    @GetMapping("/fill/info")
+    public ModelAndView fillInfo(HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("information");
+        User user = userService.getUser(request);
+        mav.addObject("user", user);
+        return mav;
+    }
+
+    /**
+     * MethodName: fullInfo
+     * Description: 完善用户信息
+     *
+     * @param user 用户
+     * @Return com.finance.lottery.result.FootballResult
+     */
+    @GetMapping("/fill")
+    public FootballResult fillInfo(User user) {
+        FootballResult result = new FootballResult();
+        if (!userService.fillInfo(user)) {
+            result.setResult(ResponseEnum.FAILED);
             return result;
         }
         result.setResult(ResponseEnum.SUCCESS);

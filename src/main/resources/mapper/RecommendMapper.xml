@@ -21,6 +21,26 @@
         <result column="recommend_create_by" property="createBy"/>
     </resultMap>
 
+    <resultMap id="reviewRecommendResultMap" type="com.finance.lottery.vo.ReviewRecommend">
+        <id column="recommend_id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="recommend_match_id" property="matchId"/>
+        <result column="recommend_league_name" property="leagueName"/>
+        <result column="recommend_type" property="type"/>
+        <result column="recommend_value" property="value"/>
+        <result column="recommend_handicap" property="handicap"/>
+        <result column="recommend_handicap_value" property="handicapValue"/>
+        <result column="recommend_reason" property="reason"/>
+        <result column="recommend_price" property="price"/>
+        <result column="recommend_match_result" property="matchResult"/>
+        <result column="recommend_host" property="host"/>
+        <result column="recommend_visit" property="visit"/>
+        <result column="recommend_match_time" property="matchTime"/>
+        <result column="recommend_create_time" property="createTime"/>
+        <result column="recommend_create_by" property="createBy"/>
+        <result column="user_name" property="author"/>
+    </resultMap>
+
     <sql id="recommendColumns">
 	  recommend_id,
 	  user_id,
@@ -453,5 +473,17 @@
     </select>
     <select id="selectTopRecommendByUserId" resultMap="recommendResultMap">
         SELECT * FROM t_recommend WHERE user_id = #{userId} ORDER BY recommend_create_time DESC LIMIT #{topNum}
+    </select>
+
+    <select id="selectRecommendUnReviewed" resultMap="reviewRecommendResultMap">
+        SELECT r.*,u.user_name FROM (SELECT * FROM t_recommend WHERE recommend_match_result=0 <![CDATA[ AND DATE_ADD(CURDATE(),INTERVAL -3 HOUR) > recommend_match_time ]]> ) r
+        JOIN t_user u
+        ON u.user_id = r.user_id
+    </select>
+
+    <select id="selectRecommendReviewed" resultMap="reviewRecommendResultMap">
+        SELECT r.*,u.user_name FROM (SELECT * FROM t_recommend WHERE recommend_match_result!=0 <![CDATA[ AND DATE_ADD(CURDATE(),INTERVAL -3 HOUR) > recommend_match_time ]]> ) r
+        JOIN t_user u
+        ON u.user_id = r.user_id
     </select>
 </mapper>

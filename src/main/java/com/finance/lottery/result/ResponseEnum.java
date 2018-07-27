@@ -32,6 +32,8 @@ public enum ResponseEnum {
     ACCOUNT_CHARGE_AMOUNT_NULL(3019,"充值金额为空"),
     AMOUNT_NOT_ENOUGH(3020,"球币余额不足"),
     RECOMMEND_NOT_PAYED(3021,"对不起，支付后才能查看当前推荐内容"),
+    LOGIN_EXPIRED(3022,"登录过期"),
+    FAILED(400,"FAILED"),
     ;
 
     private int code;

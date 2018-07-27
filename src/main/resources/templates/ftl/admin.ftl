@@ -44,7 +44,7 @@
                     </a>
                 </li>
                 <li class="nav-item my-1">
-                    <a class="nav-link p-2" href="/recharge/">
+                    <a class="nav-link p-2" href="/admin/recharge">
                         <div class="row m-0">
                             <span class="col-4 p-0 text-center" style="width: 50px;">
                                 <i class="fa fa-cny"></i>
@@ -54,12 +54,22 @@
                     </a>
                 </li>
                 <li class="nav-item my-1">
-                    <a class="nav-link p-2" href="/withdraw/">
+                    <a class="nav-link p-2" href="/admin/withdraw">
                         <div class="row m-0">
                             <span class="col-4 p-0 text-center" style="width: 50px;">
                                 <i class="fa fa-money"></i>
                             </span>
                             <span class="col-8 p-0">提现管理</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item my-1">
+                    <a class="nav-link p-2" href="/admin/review/recommend">
+                        <div class="row m-0">
+                            <span class="col-4 p-0 text-center" style="width: 50px;">
+                                <i class="fa fa-money"></i>
+                            </span>
+                            <span class="col-8 p-0">推荐审核</span>
                         </div>
                     </a>
                 </li>

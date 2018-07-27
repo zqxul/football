@@ -49,13 +49,13 @@ public class AccountController {
     }
 
     /**
-      * MethodName: charge
-      * Description:
-      *
-      * @param request
-  * @param rechargeAmount
-      * @Return org.springframework.web.context.request.async.DeferredResult<com.finance.lottery.result.FootballResult>
-      */
+     * MethodName: charge
+     * Description:
+     *
+     * @param request
+     * @param rechargeAmount
+     * @Return org.springframework.web.context.request.async.DeferredResult<com.finance.lottery.result.FootballResult>
+     */
     @GetMapping("/recharge")
     public DeferredResult<FootballResult> charge(HttpServletRequest request, Integer rechargeAmount) {
         DeferredResult<FootballResult> result = new DeferredResult<>();
