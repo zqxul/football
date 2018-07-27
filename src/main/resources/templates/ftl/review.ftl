@@ -70,7 +70,7 @@
                     <a class="nav-link p-2" href="/admin/review/recommend">
                         <div class="row m-0">
                             <span class="col-4 p-0 text-center" style="width: 50px;">
-                                <i class="fa fa-money"></i>
+                                <i class="fa fa-eye"></i>
                             </span>
                             <span class="col-8 p-0">推荐审核</span>
                         </div>
