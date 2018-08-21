@@ -7,10 +7,7 @@ import com.finance.lottery.entity.Withdraw;
 import com.finance.lottery.entity.user.Account;
 import com.finance.lottery.entity.user.User;
 import com.finance.lottery.entity.user.UserAccount;
-import com.finance.lottery.mapper.AccountMapper;
-import com.finance.lottery.mapper.RechargeMapper;
-import com.finance.lottery.mapper.UserMapper;
-import com.finance.lottery.mapper.WithdrawMapper;
+import com.finance.lottery.mapper.*;
 import com.finance.lottery.util.WebUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +85,12 @@ public class UserService {
 
     @Autowired
     private WithdrawMapper withdrawMapper;
+
+    @Autowired
+    private AccountMapper accountMapper;
+
+    @Autowired
+    private UserAccountMapper userAccountMapper;
 
     /**
      * MethodName: userExist
@@ -267,14 +270,27 @@ public class UserService {
      * @param withdrawAmount 提现数量
      * @Return boolean
      */
+    @Transactional
     public boolean withdraw(Integer userId, Integer withdrawAmount) {
         User user = userMapper.selectByPrimaryKey(userId);
-        if (user != null) {
-            Withdraw withdraw = Withdraw.builder().userId(userId).amount(withdrawAmount).createBy(user.getUsername()).createTime(Calendar.getInstance().getTime()).status(0).isActive(1).build();
-            int result = withdrawMapper.insert(withdraw);
-            if (result > 0) {
-                return true;
-            }
+        if (user == null) {
+            return false;
+        }
+        UserAccount userAccount = userAccountMapper.selectUserAccountByUserId(userId);
+        Account account = accountMapper.selectByPrimaryKeyForUpdate(userAccount.getId());
+        Integer amount = account.getAmount() - withdrawAmount;
+        if (amount < 0) {
+            return false;
+        }
+        int accountResult = accountMapper.updateSelective(Account.builder().amount(amount).freezedAmount(withdrawAmount).build());
+        if (accountResult < 0) {
+            return false;
+        }
+
+        Withdraw withdraw = Withdraw.builder().userId(userId).amount(withdrawAmount).createBy(user.getUsername()).createTime(Calendar.getInstance().getTime()).status(0).isActive(1).build();
+        int withdrawResult = withdrawMapper.insert(withdraw);
+        if (withdrawResult > 0) {
+            return true;
         }
         return false;
     }

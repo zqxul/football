@@ -156,8 +156,8 @@ public class RecommendService {
         //TODO 用户账户间的球币余额扣减与添加
         UserAccount userAccountFrom = userAccountMapper.selectUserAccountByUserId(fromUserId);
         UserAccount userAccountTo = userAccountMapper.selectUserAccountByUserId(toUserId);
-        Account fromAccount = accountMapper.selectByPrimaryKey(userAccountFrom.getAccountId());
-        Account toAccount = accountMapper.selectByPrimaryKey(userAccountTo.getAccountId());
+        Account fromAccount = accountMapper.selectByPrimaryKeyForUpdate(userAccountFrom.getAccountId());
+        Account toAccount = accountMapper.selectByPrimaryKeyForUpdate(userAccountTo.getAccountId());
         Integer fromAmount = fromAccount.getAmount() - price;
         if (fromAmount < 0) {
             return false;

@@ -4,6 +4,8 @@ import com.finance.lottery.entity.Recharge;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @Author: xuzhiqing
  * @Description:
@@ -12,4 +14,10 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface RechargeMapper extends BaseMapper<Recharge> {
     int updateStatus(@Param("rechargeId") Integer rechargeId, @Param("status") Integer status);
+
+    List<Recharge> selectWaitingRecharges();
+
+    List<Recharge> selectProcessedRecharges();
+
+    List<Recharge> selectAbandonedRecharges();
 }

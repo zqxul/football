@@ -45,7 +45,7 @@
                     </a>
                 </li>
                 <li class="nav-item my-1">
-                    <a class="nav-link p-2" href="/admin/recharge">
+                    <a class="nav-link p-2" href="/admin/list/recharge">
                         <div class="row m-0">
                             <span class="col-4 p-0 text-center" style="width: 50px;">
                                 <i class="fa fa-cny"></i>
@@ -55,7 +55,7 @@
                     </a>
                 </li>
                 <li class="nav-item active my-1">
-                    <a class="nav-link p-2" href="/admin/withdraw">
+                    <a class="nav-link p-2" href="/admin/list/withdraw">
                         <div class="row m-0">
                             <span class="col-4 p-0 text-center" style="width: 50px;">
                                 <i class="fa fa-money"></i>
@@ -129,13 +129,15 @@
                             <div class="tab-content">
                                 <div id="waiting" class="tab-pane active">
                                     <div class="card-body p-0 px-2">
+                                        <#list waitingWithdraws>
+                                            <#items as withdraw>
                                         <div class="row m-0 my-2" style="height: 100px;border: 1px solid #e0e0e0;">
                                             <div class="col-9 py-2 px-0">
                                                 <div class="row m-0 h-100 text-center" style="font-size: 1.3vw">
                                                     <div class="col">
                                                         <div class="row h-10"></div>
                                                         <div class="row h-50">
-                                                            <div class="col"><i class="fa fa-user">&nbsp;</i>用户：<span style="font-size: 1.2vw">张三</span></div>
+                                                            <div class="col"><i class="fa fa-user">&nbsp;</i>用户：<span style="font-size: 1.2vw">${withdraw.createBy}</span></div>
                                                         </div>
                                                         <div class="row h-50">
                                                             <div class="col"><i class="fa fa-level-up">&nbsp;</i>等级：<span style="font-size: 1.2vw">普通会员</span></div>
@@ -144,10 +146,10 @@
                                                     <div class="col">
                                                         <div class="row h-10"></div>
                                                         <div class="row h-45">
-                                                            <div class="col"><i class="fa fa-cny text-danger">&nbsp;</i>提现金额：<span>100</span></div>
+                                                            <div class="col"><i class="fa fa-cny text-danger">&nbsp;</i>提现金额：<span>${withdraw.amount}</span></div>
                                                         </div>
                                                         <div class="row h-45">
-                                                            <div class="col"><i class="fa fa-stop-circle-o text-warning">&nbsp;</i>球币数量：<span>1000</span></div>
+                                                            <div class="col"><i class="fa fa-stop-circle-o text-warning">&nbsp;</i>球币数量：<span>${withdraw.amount*10}</span></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-5 px-4 text-center">
@@ -165,7 +167,7 @@
                                                             <div class="col p-0"></div>
                                                         </div>
                                                         <div class="row h-30 m-0" style="font-size: 1vw">
-                                                            <div class="col p-0">创建时间:&nbsp;<span>2018-06-02 16:34:27</span></div>
+                                                            <div class="col p-0">创建时间:&nbsp;<span>${withdraw.createTime?string("yyyy-MM-dd HH:ss:mm")}</span></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -179,17 +181,21 @@
                                                 </div>
                                             </div>
                                         </div>
+                                            </#items>
+                                        </#list>
                                     </div>
                                 </div>
                                 <div id="processed" class="tab-pane">
                                     <div class="card-body p-0 px-2">
+                                        <#list processedWithdraws>
+                                            <#items as withdraw>
                                         <div class="row m-0 my-2" style="height: 100px;border: 1px solid #e0e0e0;">
                                             <div class="col-12 py-2 px-0">
                                                 <div class="row m-0 h-100 text-center" style="font-size: 1.3vw">
                                                     <div class="col">
                                                         <div class="row h-10"></div>
                                                         <div class="row h-45">
-                                                            <div class="col"><i class="fa fa-user">&nbsp;</i>用户：<span style="font-size: 1.2vw">张三</span></div>
+                                                            <div class="col"><i class="fa fa-user">&nbsp;</i>用户：<span style="font-size: 1.2vw">${withdraw.createBy}</span></div>
                                                         </div>
                                                         <div class="row h-45">
                                                             <div class="col"><i class="fa fa-level-up">&nbsp;</i>等级：<span style="font-size: 1.2vw">普通会员</span></div>
@@ -198,10 +204,10 @@
                                                     <div class="col">
                                                         <div class="row h-10"></div>
                                                         <div class="row h-45">
-                                                            <div class="col"><i class="fa fa-cny text-danger">&nbsp;</i>提现金额：<span>100</span></div>
+                                                            <div class="col"><i class="fa fa-cny text-danger">&nbsp;</i>提现金额：<span>${withdraw.amount}</span></div>
                                                         </div>
                                                         <div class="row h-45">
-                                                            <div class="col"><i class="fa fa-stop-circle-o text-warning">&nbsp;</i>球币数量：<span>1000</span></div>
+                                                            <div class="col"><i class="fa fa-stop-circle-o text-warning">&nbsp;</i>球币数量：<span>${withdraw.amount*10}</span></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-3"></div>
@@ -218,23 +224,27 @@
                                                             <div class="col p-0"></div>
                                                         </div>
                                                         <div class="row h-30 m-0" style="font-size: 1vw">
-                                                            <div class="col p-0">创建时间:&nbsp;<span>2018-06-02 16:34:27</span></div>
+                                                            <div class="col p-0">创建时间:&nbsp;<span>${withdraw.createTime?string("yyyy-MM-dd HH:ss:mm")}</span></div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                            </#items>
+                                        </#list>
                                     </div>
                                 </div>
                                 <div id="invalid" class="tab-pane">
                                     <div class="card-body p-0 px-2">
+                                        <#list abandonedWithdraws>
+                                            <#items as withdraw>
                                         <div class="row m-0 my-2" style="height: 100px;border: 1px solid #e0e0e0;">
                                             <div class="col-12 py-2 px-0">
                                                 <div class="row m-0 h-100 text-center" style="font-size: 1.3vw">
                                                     <div class="col">
                                                         <div class="row h-10"></div>
                                                         <div class="row h-45">
-                                                            <div class="col"><i class="fa fa-user">&nbsp;</i>用户：<span style="font-size: 1.2vw">张三</span></div>
+                                                            <div class="col"><i class="fa fa-user">&nbsp;</i>用户：<span style="font-size: 1.2vw">${withdraw.createBy}</span></div>
                                                         </div>
                                                         <div class="row h-45">
                                                             <div class="col"><i class="fa fa-level-up">&nbsp;</i>等级：<span style="font-size: 1.2vw">普通会员</span></div>
@@ -243,10 +253,10 @@
                                                     <div class="col">
                                                         <div class="row h-10"></div>
                                                         <div class="row h-45">
-                                                            <div class="col"><i class="fa fa-cny text-danger">&nbsp;</i>提现金额：<span>100</span></div>
+                                                            <div class="col"><i class="fa fa-cny text-danger">&nbsp;</i>提现金额：<span>${withdraw.amount}</span></div>
                                                         </div>
                                                         <div class="row h-45">
-                                                            <div class="col"><i class="fa fa-stop-circle-o text-warning">&nbsp;</i>球币数量：<span>1000</span></div>
+                                                            <div class="col"><i class="fa fa-stop-circle-o text-warning">&nbsp;</i>球币数量：<span>${withdraw.amount*10}</span></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-3"></div>
@@ -263,12 +273,14 @@
                                                             <div class="col p-0"></div>
                                                         </div>
                                                         <div class="row h-30 m-0" style="font-size: 1vw">
-                                                            <div class="col p-0">创建时间:&nbsp;<span>2018-06-02 16:34:27</span></div>
+                                                            <div class="col p-0">创建时间:&nbsp;<span>${withdraw.createTime?string("yyyy-MM-dd HH:ss:mm")}</span></div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                            </#items>
+                                        </#list>
                                     </div>
                                 </div>
                             </div>
@@ -281,9 +293,9 @@
 </div>
 
 </body>
-<script src="../production/bootstrap/js/popper.min.js"></script>
-<script src="../production/jquery/jquery.min.js"></script>
-<script src="../production/bootstrap/js/bootstrap.min.js"></script>
+<script src="/production/bootstrap/js/popper.min.js"></script>
+<script src="/production/jquery/jquery.min.js"></script>
+<script src="/production/bootstrap/js/bootstrap.min.js"></script>
 <script>
     $('.card-header a').click(function (e) {
         e.preventDefault();

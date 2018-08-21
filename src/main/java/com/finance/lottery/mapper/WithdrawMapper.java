@@ -5,6 +5,8 @@ import com.finance.lottery.entity.Withdraw;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @Author: xuzhiqing
  * @Description:
@@ -12,5 +14,11 @@ import org.apache.ibatis.annotations.Param;
  */
 @Mapper
 public interface WithdrawMapper extends BaseMapper<Withdraw> {
-    int updateStatus(@Param("withdrawId") Integer rechargeId, @Param("status") Integer status);
+    int updateStatus(@Param("withdrawId") Integer withdrawId, @Param("status") Integer status);
+
+    List<Withdraw> selectWaitingWithdraws();
+
+    List<Withdraw> selectProcessedWithdraws();
+
+    List<Withdraw> selectAbandonedWithdraws();
 }

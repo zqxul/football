@@ -125,7 +125,7 @@
 		    )
 	</insert>
 
-    <update id="update" parameterType="Withdraw">
+    <update id="updateSelective" parameterType="Withdraw">
         update t_withdraw
         set
         <if test="userId!=null">
@@ -148,9 +148,22 @@
         </if>
         WHERE withdraw_id = #{id}
     </update>
+
     <update id="updateStatus">
         UPDATE t_withdraw
         SET withdraw_status = #{status}
         WHERE withdraw_id = #{withdrawId}
     </update>
+
+    <select id="selectWaitingWithdraws" resultMap="withdrawResultMap">
+        SELECT <include refid="withdrawColumns"/> FROM t_withdraw WHERE withdraw_status=0 AND withdraw_is_active=1
+    </select>
+
+    <select id="selectProcessedWithdraws" resultMap="withdrawResultMap">
+        SELECT <include refid="withdrawColumns"/> FROM t_withdraw WHERE withdraw_status=1 <![CDATA[ AND DATE_ADD(CURDATE(),INTERVAL -3 HOUR) > withdraw_create_time ]]>
+    </select>
+
+    <select id="selectAbandonedWithdraws" resultMap="withdrawResultMap">
+        SELECT <include refid="withdrawColumns"/> FROM t_withdraw WHERE withdraw_is_active=0 <![CDATA[ AND DATE_ADD(CURDATE(),INTERVAL -3 HOUR) > withdraw_create_time ]]>
+    </select>
 </mapper>

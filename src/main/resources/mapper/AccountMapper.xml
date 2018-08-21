@@ -6,6 +6,7 @@
         <id column="account_id" property="id"/>
         <result column="account_amount" property="amount"/>
         <result column="account_available_amount" property="availableAmount"/>
+        <result column="account_freezed_amount" property="freezedAmount"/>
         <result column="account_create_time" property="createTime"/>
     </resultMap>
 
@@ -13,6 +14,7 @@
 	  account_id,
 	  account_amount,
 	  account_available_amount,
+	  account_freezed_amount,
 	  account_create_time
     </sql>
 
@@ -21,7 +23,7 @@
         <include refid="accountColumns"/>
         from t_account
         WHERE
-        account_id = #{id} for update
+        account_id = #{id}
     </select>
 
     <select id="selectByPrimaryKeyForUpdate" resultMap="accountResultMap" parameterType="java.lang.Integer">
@@ -29,7 +31,7 @@
         <include refid="accountColumns"/>
         from t_account
         WHERE
-        account_id = #{id}
+        account_id = #{id} for update
     </select>
 
     <select id="selectAll" resultMap="accountResultMap">
@@ -103,11 +105,28 @@
 		set
 		  account_amount = #{amount},
           account_available_amount = #{availableAmount},
+          account_freezed_amount = #{freezedAmount},
           account_create_time = #{createTime}
 		WHERE account_id = #{id}
 	</update>
 
-    <update id="updateAmount">
+    <update id="updateSelective" parameterType="Account">
+        update t_account
+        <set>
+            <if test="amount!=null">
+                account_amount = #{amount},
+            </if>
+            <if test="availableAmount!=null">
+                account_available_amount = #{availableAmount},
+            </if>
+            <if test="freezedAmount!=null">
+                account_freezed_amount = #{freezedAmount},
+            </if>
+        </set>
+        WHERE account_id = #{id}
+    </update>
+
+    <update id="updateAmount" parameterType="Account">
         UPDATE t_account
         SET account_amount = #{amount}
         WHERE account_id = #{accountId}

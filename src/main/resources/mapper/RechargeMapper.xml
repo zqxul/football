@@ -153,4 +153,16 @@
         SET recharge_status = #{status}
         WHERE recharge_id = #{rechargeId}
     </update>
+
+    <select id="selectWaitingRecharges" resultMap="rechargeResultMap">
+        SELECT * FROM t_recharge WHERE recharge_status=0 AND recharge_is_active=1
+    </select>
+
+    <select id="selectProcessedRecharges" resultMap="rechargeResultMap">
+        SELECT * FROM t_recharge WHERE recharge_status=1 <![CDATA[ AND DATE_ADD(CURDATE(),INTERVAL -3 HOUR) > recharge_create_time ]]>
+    </select>
+
+    <select id="selectAbandonedRecharges" resultMap="rechargeResultMap">
+        SELECT * FROM t_recharge WHERE recharge_is_active=0 <![CDATA[ AND DATE_ADD(CURDATE(),INTERVAL -3 HOUR) > recharge_create_time ]]>
+    </select>
 </mapper>

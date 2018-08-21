@@ -26,6 +26,12 @@ public class AccountService {
     @Autowired
     private UserAccountMapper userAccountMapper;
 
+    @Autowired
+    private RechargeMapper rechargeMapper;
+
+    @Autowired
+    private WithdrawMapper withdrawMapper;
+
     public Account createAccount() {
         Account account = new Account();
         account.setAmount(0);
@@ -46,6 +52,7 @@ public class AccountService {
         return accountMapper.selectByPrimaryKey(userAccount.getAccountId());
     }
 
+    @Transactional
     public boolean recharge(Integer userId, Integer rechargeAmount) {
         UserAccount userAccount = userAccountMapper.selectUserAccountByUserId(userId);
         Account account = accountMapper.selectByPrimaryKeyForUpdate(userAccount.getId());
@@ -57,11 +64,15 @@ public class AccountService {
         return false;
     }
 
+    @Transactional
     public boolean withdraw(Integer userId, Integer withdrawAmount) {
         UserAccount userAccount = userAccountMapper.selectUserAccountByUserId(userId);
         Account account = accountMapper.selectByPrimaryKeyForUpdate(userAccount.getId());
         Integer amount = account.getAmount() - withdrawAmount;
-        int result = accountMapper.updateAmount(account.getId(), amount);
+        if (amount < 0) {
+            return false;
+        }
+        int result = accountMapper.updateSelective(Account.builder().id(account.getId()).freezedAmount(0).build());
         if (result > 0) {
             return true;
         }

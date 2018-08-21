@@ -1,11 +1,14 @@
 package com.finance.lottery.controller;
 
+import com.finance.lottery.entity.Recharge;
 import com.finance.lottery.entity.StaticVisit;
+import com.finance.lottery.entity.Withdraw;
 import com.finance.lottery.entity.user.User;
 import com.finance.lottery.entity.zqmf.Recommend;
 import com.finance.lottery.mapper.StaticVisitMapper;
 import com.finance.lottery.result.FootballResult;
 import com.finance.lottery.result.ResponseEnum;
+import com.finance.lottery.service.AccountService;
 import com.finance.lottery.service.AdminService;
 import com.finance.lottery.service.RecommendService;
 import com.finance.lottery.service.UserService;
@@ -47,6 +50,9 @@ public class AdminController {
     @Autowired
     private RecommendService recommendService;
 
+    @Autowired
+    private AccountService accountService;
+
     @RequestMapping("")
     public ModelAndView admin(String username, String password) {
         ModelAndView mav = new ModelAndView("admin");
@@ -56,7 +62,6 @@ public class AdminController {
             mav.addObject("msg", "你不是管理员");
             return mav;
         }
-
         Map<String, String> todayVisitCountMap = adminService.getTodayVisitCount();
         mav.addObject("footballNewsVisitCount", todayVisitCountMap.get("footballNewsVisitCount"));
         mav.addObject("matchAnalysisVisitCount", todayVisitCountMap.get("matchAnalysisVisitCount"));
@@ -65,15 +70,57 @@ public class AdminController {
         return mav;
     }
 
-    @GetMapping("/withdraw")
+    @GetMapping("/list/withdraw")
     public ModelAndView withdraw() {
         ModelAndView mav = new ModelAndView("withdraw");
+        List<Withdraw> waitingWithdraws = adminService.getWaitingWithdraws();
+        List<Withdraw> processedWithdraws = adminService.getProcessedWithdraws();
+        List<Withdraw> abandonedWithdraws = adminService.getAbandonedWithdraws();
+        mav.addObject("waitingWithdraws", waitingWithdraws);
+        mav.addObject("processedWithdraws", processedWithdraws);
+        mav.addObject("abandonedWithdraws", abandonedWithdraws);
         return mav;
     }
 
-    @GetMapping("/recharge")
+    @GetMapping("/doWithdraw")
+    public FootballResult doWithdraw(Integer userId, Integer amount, Integer withdrawId) {
+        FootballResult result = new FootballResult();
+        if (!adminService.doWithdrawe(userId, amount, withdrawId)) {
+            result.setResult(ResponseEnum.FAILED);
+            return result;
+        }
+        result.setResult(ResponseEnum.SUCCESS);
+        return result;
+    }
+
+    @GetMapping("/doAbandon")
+    public FootballResult doAbandon(Integer userId, Integer amount, Integer withdrawId){
+        FootballResult result = new FootballResult();
+
+
+        return result;
+    }
+
+    @GetMapping("/doRecharge")
+    public FootballResult doRecharge(Integer userId, Integer amount, Integer rechargeId) {
+        FootballResult result = new FootballResult();
+        if (!adminService.doRecharge(userId, amount, rechargeId)) {
+            result.setResult(ResponseEnum.FAILED);
+            return result;
+        }
+        result.setResult(ResponseEnum.SUCCESS);
+        return result;
+    }
+
+    @GetMapping("/list/recharge")
     public ModelAndView recharge() {
         ModelAndView mav = new ModelAndView("recharge");
+        List<Recharge> waitingRecharges = adminService.getWaitingRecharges();
+        List<Recharge> processedRecharges = adminService.getProcessedRecharges();
+        List<Recharge> abandonedRecharges = adminService.getAbandonRecharges();
+        mav.addObject("waitingRecharges", waitingRecharges);
+        mav.addObject("processedRecharges", processedRecharges);
+        mav.addObject("abandonedRecharges", abandonedRecharges);
         return mav;
     }
 
@@ -82,8 +129,8 @@ public class AdminController {
         ModelAndView mav = new ModelAndView("review");
         List<ReviewRecommend> waitingRecommends = recommendService.getUnReviewedRecommend();
         List<ReviewRecommend> reviewedRecommends = recommendService.getReviewedRecommend();
-        mav.addObject("waitingRecommends",waitingRecommends);
-        mav.addObject("reviewedRecommends",reviewedRecommends);
+        mav.addObject("waitingRecommends", waitingRecommends);
+        mav.addObject("reviewedRecommends", reviewedRecommends);
         return mav;
     }
 
