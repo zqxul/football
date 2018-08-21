@@ -248,7 +248,7 @@
                     </#list>
                 </div>
             </div>
-            <div class="col-4 pl-2 py-2 pr-0 border">
+            <div class="col-12 col-md-4 pl-2 py-2 pr-0 border">
                 <div class="row m-0 justify-content-between">
                     <div class="col-6 p-0 border-bottom text-center"><span class="m-auto"><i class="fa fa-mortar-board">&nbsp;封神榜<sub
                             class="p-0 font-weight-bold"

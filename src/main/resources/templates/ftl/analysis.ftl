@@ -75,7 +75,7 @@
     <div id="match-items" class="p-2">
         <#list matchTeamInfos>
             <#items as matchTeamInfo>
-            <div class="col-4 p-2" style="float: left;">
+            <div class="p-2 col-12 col-md-6 col-lg-4 col-xl-3" style="float: left;">
                 <div class="card p-0">
                     <div id="card-head-${matchTeamInfo_index}" class="teamInfo card-header p-0 text-center"
                          style="height: 100px;font-size: 8px" aria-expanded="true">
