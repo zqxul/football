@@ -88,7 +88,7 @@ public class RecommendService {
 
         //设置里面支付过该推荐内容
         recommends.stream().forEach(recommend -> {
-            if (userId.intValue() == recommend.getUserId()) {
+            if (userId.intValue() == recommend.getUserId() || recommend.getPrice() == 0) {
                 recommend.setPayed(true);
             } else {
                 RecommendPay recommendPay = recommendPayMapper.selectOne(new RecommendPay(userId, recommend.getId()));
